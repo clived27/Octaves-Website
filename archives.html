@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Archives — Octaves, VNIT Nagpur</title>
+  <meta name="description" content="Relive past Octaves performances — explore events, genres, and watch live recordings from VNIT Nagpur's music club." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Page shell ── */
+    body { background: #09090b; }
+
+    .archives-wrapper {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 0;
+      min-height: calc(100vh - 64px);
+      margin-top: 64px; /* clear fixed header */
+    }
+
+    /* ══════════════════════════════
+       LEFT SIDEBAR
+    ══════════════════════════════ */
+    .arc-sidebar {
+      background: #0b0c10;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      position: sticky;
+      top: 64px;
+      max-height: calc(100vh - 64px);
+    }
+
+    .arc-sidebar-header {
+      padding: 1.6rem 1.4rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .arc-sidebar-eyebrow {
+      font-family: var(--ff-sans);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .arc-sidebar-title {
+      font-family: var(--ff-serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--clr-text);
+      font-style: italic;
+    }
+
+    /* Accordion events list */
+    .arc-events-list {
+      list-style: none;
+      padding: 0.6rem 0;
+      flex: 1;
+    }
+
+    /* ── Event (accordion header) ── */
+    .arc-event {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .arc-event-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.9rem 1.4rem;
+      text-align: left;
+      transition: background 0.2s;
+    }
+
+    .arc-event-btn:hover {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .arc-event-btn.open {
+      background: rgba(245,158,11,0.04);
+    }
+
+    .arc-event-name {
+      font-family: var(--ff-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.3;
+      transition: color 0.2s;
+    }
+
+    .arc-event-btn.open .arc-event-name,
+    .arc-event-btn:hover .arc-event-name {
+      color: #fff;
+    }
+
+    /* Chevron icon */
+    .arc-chevron {
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      color: rgba(255,255,255,0.3);
+      transition: transform 0.3s ease, color 0.2s;
+    }
+
+    .arc-event-btn.open .arc-chevron {
+      transform: rotate(180deg);
+      color: var(--clr-gold);
+    }
+
+    /* ── Performances sub-list ── */
+    .arc-performances {
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(0,0,0,0.25);
+    }
+
+    .arc-performances.open {
+      max-height: 600px;
+    }
+
+    .arc-perf-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.18rem;
+      padding: 0.75rem 1.4rem 0.75rem 1.6rem;
+      text-align: left;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .arc-perf-btn:hover {
+      background: rgba(255,255,255,0.03);
+      border-left-color: rgba(245,158,11,0.3);
+    }
+
+    .arc-perf-btn.active {
+      background: rgba(245,158,11,0.07);
+      border-left-color: var(--clr-gold);
+      box-shadow: inset 0 0 20px rgba(245,158,11,0.04);
+    }
+
+    .arc-perf-slot {
+      font-family: var(--ff-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.2s;
+    }
+
+    .arc-perf-btn:hover .arc-perf-slot,
+    .arc-perf-btn.active .arc-perf-slot {
+      color: #fff;
+    }
+
+    .arc-perf-genre {
+      font-family: var(--ff-sans);
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,158,11,0.5);
+      transition: color 0.2s;
+    }
+
+    .arc-perf-btn.active .arc-perf-genre {
+      color: var(--clr-gold);
+    }
+
+    /* Playing indicator dot */
+    .arc-perf-btn.active .arc-perf-slot::before {
+      content: '▶ ';
+      font-size: 0.55rem;
+      color: var(--clr-gold);
+      vertical-align: middle;
+      margin-right: 0.15rem;
+    }
+
+    /* ══════════════════════════════
+       RIGHT — MAIN PLAYER VIEW
+    ══════════════════════════════ */
+    .arc-main {
+      background: #09090b;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
+      gap: 1.5rem;
+    }
+
+    /* 16:9 video container */
+    .arc-video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 0 0 1px rgba(245,158,11,0.06),
+        0 32px 80px rgba(0,0,0,0.7);
+      background: #000;
+    }
+
+    .arc-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Placeholder state when no video is loaded */
+    .arc-video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: rgba(255,255,255,0.15);
+      font-family: var(--ff-sans);
+      font-size: 0.85rem;
+    }
+
+    .arc-video-placeholder svg {
+      opacity: 0.2;
+    }
+
+    /* Now playing info */
+    .arc-now-playing {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .arc-now-playing-event {
+      font-family: var(--ff-sans);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .arc-now-playing-slot {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .arc-genre-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.28rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(245,158,11,0.3);
+      background: rgba(245,158,11,0.08);
+      font-family: var(--ff-sans);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+    }
+
+    .arc-genre-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--clr-gold);
+      animation: arcPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes arcPulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.35; }
+    }
+
+    /* Empty state */
+    .arc-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      gap: 0.8rem;
+      color: rgba(255,255,255,0.15);
+      font-family: var(--ff-sans);
+      font-size: 0.9rem;
+      padding: 4rem;
+      text-align: center;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .archives-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+      }
+
+      .arc-sidebar {
+        position: static;
+        max-height: 320px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .arc-main {
+        padding: 1.2rem;
+      }
+    }
+
+    /* ── Page hero ── */
+    .arc-page-hero {
+      padding: clamp(5rem, 10vw, 8rem) 0 0;
+      background: #09090b;
+    }
+    .arc-page-hero .container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .arc-page-eyebrow {
+      font-family: var(--ff-sans); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase; color: var(--clr-gold);
+    }
+    .arc-page-title {
+      font-family: var(--ff-serif); font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 500; color: var(--clr-text); line-height: 1.05; letter-spacing: -0.01em;
+    }
+    .arc-page-title em { font-style: italic; color: var(--clr-gold-light); }
+    .arc-page-sub {
+      font-family: var(--ff-sans); font-size: 0.9rem;
+      color: var(--clr-text-muted); max-width: 52ch; line-height: 1.6;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--ff-sans); font-size: 0.78rem; font-weight: 500;
+      color: var(--clr-gold); text-decoration: none; letter-spacing: 0.06em;
+      opacity: 0.75; transition: opacity 0.2s, gap 0.25s; margin-bottom: 1.8rem;
+    }
+    .back-link:hover { opacity: 1; gap: 0.6rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Octaves Home">
+        <img src="octaves.jpg" alt="Octaves Logo" class="logo-img" />
+        <span class="nav-brand">OCTAVES</span>
+      </a>
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Page Hero -->
+    <section class="arc-page-hero">
+      <div class="container">
+        <p class="arc-page-eyebrow">Performance Archive</p>
+        <h1 class="arc-page-title">The <em>Archives</em></h1>
+        <p class="arc-page-sub">Browse past events, select a performance slot, and relive the moments that made Octaves what it is.</p>
+      </div>
+    </section>
+
+    <!-- Split-Screen Archives Layout -->
+    <div class="archives-wrapper">
+
+      <!-- LEFT: Folder sidebar -->
+      <aside class="arc-sidebar" id="arc-sidebar" aria-label="Event navigation">
+        <div class="arc-sidebar-header">
+          <p class="arc-sidebar-eyebrow">All Events</p>
+          <p class="arc-sidebar-title">The Vault</p>
+        </div>
+        <ul class="arc-events-list" id="arc-events-list" role="tree" aria-label="Archive events">
+          <!-- injected by JS -->
+        </ul>
+      </aside>
+
+      <!-- RIGHT: Video player -->
+      <div class="arc-main" id="arc-main">
+
+        <!-- 16:9 player -->
+        <div class="arc-video-wrap" id="arc-video-wrap">
+          <iframe
+            id="arc-iframe"
+            src=""
+            title="Octaves Performance"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- Now playing info -->
+        <div class="arc-now-playing" id="arc-now-playing">
+          <p class="arc-now-playing-event" id="arc-np-event">—</p>
+          <h2 class="arc-now-playing-slot" id="arc-np-slot">Select a performance</h2>
+          <div>
+            <span class="arc-genre-badge" id="arc-np-badge">
+              <span class="arc-genre-dot"></span>
+              <span id="arc-np-genre">—</span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="octaves.jpg" alt="Octaves Logo" class="footer-logo" />
+        <span class="footer-name">OCTAVES</span>
+      </div>
+      <p class="footer-tagline">Music Club · VNIT Nagpur</p>
+      <p class="footer-copy">&copy; 2025 Octaves, VNIT Nagpur. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Data -->
+  <script src="data/archivesData.js"></script>
+
+  <!-- Archives Logic -->
+  <script>
+  (function () {
+    var data     = window.ARCHIVES_DATA || ARCHIVES_DATA;
+    var listEl   = document.getElementById('arc-events-list');
+    var iframe   = document.getElementById('arc-iframe');
+    var npEvent  = document.getElementById('arc-np-event');
+    var npSlot   = document.getElementById('arc-np-slot');
+    var npBadge  = document.getElementById('arc-np-badge');
+    var npGenre  = document.getElementById('arc-np-genre');
+    var activeBtn = null;
+
+    /* ── Load a performance into the player ── */
+    function loadPerformance(eventName, perf, btn) {
+      /* Update iframe */
+      iframe.src = perf.youtubeUrl;
+
+      /* Update now-playing info */
+      npEvent.textContent = eventName;
+      npSlot.textContent  = perf.slotName;
+      
+      if (perf.genre && perf.genre.trim()) {
+        npGenre.textContent = perf.genre;
+        if (npBadge) npBadge.style.display = 'inline-flex';
+      } else {
+        if (npBadge) npBadge.style.display = 'none';
+      }
+
+      /* Update active state */
+      if (activeBtn) activeBtn.classList.remove('active');
+      activeBtn = btn;
+      btn.classList.add('active');
+    }
+
+    /* ── Build sidebar ── */
+    data.forEach(function (event, ei) {
+      var li = document.createElement('li');
+      li.setAttribute('role', 'treeitem');
+      li.className = 'arc-event';
+
+      /* Event accordion button */
+      var btn = document.createElement('button');
+      btn.className = 'arc-event-btn';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('id', 'event-btn-' + ei);
+      btn.innerHTML =
+        '<span class="arc-event-name">' + event.eventName + '</span>' +
+        '<svg class="arc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
+
+      /* Performances sub-list */
+      var ul = document.createElement('ul');
+      ul.className = 'arc-performances';
+      ul.setAttribute('role', 'group');
+      ul.setAttribute('aria-labelledby', 'event-btn-' + ei);
+
+      event.performances.forEach(function (perf, pi) {
+        var perfLi = document.createElement('li');
+        var perfBtn = document.createElement('button');
+        perfBtn.className = 'arc-perf-btn';
+        perfBtn.setAttribute('aria-label', perf.slotName + (perf.genre ? ' — ' + perf.genre : ''));
+        perfBtn.innerHTML =
+          '<span class="arc-perf-slot">' + perf.slotName + '</span>' +
+          (perf.genre && perf.genre.trim() ? '<span class="arc-perf-genre">' + perf.genre + '</span>' : '');
+
+        perfBtn.addEventListener('click', function () {
+          loadPerformance(event.eventName, perf, perfBtn);
+        });
+
+        perfLi.appendChild(perfBtn);
+        ul.appendChild(perfLi);
+      });
+
+      /* Accordion toggle */
+      btn.addEventListener('click', function () {
+        var isOpen = btn.classList.contains('open');
+
+        /* Close all other accordions */
+        document.querySelectorAll('.arc-event-btn.open').forEach(function (ob) {
+          ob.classList.remove('open');
+          ob.setAttribute('aria-expanded', 'false');
+          ob.nextElementSibling.classList.remove('open');
+        });
+
+        /* Toggle this one */
+        if (!isOpen) {
+          btn.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          ul.classList.add('open');
+        }
+      });
+
+      li.appendChild(btn);
+      li.appendChild(ul);
+      listEl.appendChild(li);
+    });
+
+    /* ── Auto-load first performance ── */
+    if (data.length > 0 && data[0].performances.length > 0) {
+      /* Open first accordion */
+      var firstEventBtn = listEl.querySelector('.arc-event-btn');
+      var firstPerfList = listEl.querySelector('.arc-performances');
+      firstEventBtn.classList.add('open');
+      firstEventBtn.setAttribute('aria-expanded', 'true');
+      firstPerfList.classList.add('open');
+
+      /* Load first perf */
+      var firstPerfBtn = firstPerfList.querySelector('.arc-perf-btn');
+      loadPerformance(data[0].eventName, data[0].performances[0], firstPerfBtn);
+    }
+  })();
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

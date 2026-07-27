@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Gig Vault — Octaves, VNIT Nagpur</title>
+  <meta name="description" content="Relive past Octaves performances — explore setlists, watch live recordings, and see who was on stage." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Domine:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero {
+      padding: clamp(5rem, 10vw, 8rem) 0 clamp(2.5rem, 5vw, 4rem);
+      background: #09090b;
+      border-bottom: 1px solid rgba(245,158,11,0.08);
+    }
+    .page-hero .container { display: flex; flex-direction: column; gap: 0.6rem; }
+    .page-hero-eyebrow {
+      font-family: var(--ff-sans); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase; color: var(--clr-gold);
+    }
+    .page-hero-title {
+      font-family: var(--ff-serif); font-size: clamp(2.6rem, 6vw, 4.5rem);
+      font-weight: 500; color: var(--clr-text); line-height: 1.05; letter-spacing: -0.01em;
+    }
+    .page-hero-title em { font-style: italic; color: var(--clr-gold-light); }
+    .page-hero-sub {
+      font-family: var(--ff-sans); font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+      color: var(--clr-text-muted); max-width: 52ch; line-height: 1.65; margin-top: 0.4rem;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--ff-sans); font-size: 0.78rem; font-weight: 500;
+      color: var(--clr-gold); text-decoration: none; letter-spacing: 0.06em;
+      opacity: 0.75; transition: opacity 0.2s, gap 0.25s; margin-bottom: 1.8rem;
+    }
+    .back-link:hover { opacity: 1; gap: 0.6rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Octaves Home">
+        <img src="octaves.jpg" alt="Octaves Logo" class="logo-img" />
+        <span class="nav-brand">OCTAVES</span>
+      </a>
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="page-hero-eyebrow">Past Performances · Archive</p>
+        <h1 class="page-hero-title">The <em>Gig Vault</em></h1>
+        <p class="page-hero-sub">Relive every performance — explore setlists, see who was on stage, and watch live recordings from our biggest nights.</p>
+      </div>
+    </section>
+
+    <!-- Gig Vault Section -->
+    <section class="gig-vault section" id="gig-vault" aria-labelledby="gig-vault-heading">
+      <div class="container">
+        <div class="section-label">Past Performances</div>
+        <h2 id="gig-vault-heading" class="section-title">The <em>Gig Vault</em></h2>
+        <p class="section-subtitle">Explore past performances, setlists, and stage lineups.</p>
+
+        <!-- Event meta bar -->
+        <div class="gig-event-bar">
+          <span class="gig-recorded-badge">&#9679; RECORDED</span>
+          <div>
+            <h3 class="gig-event-title" id="gig-event-title">Aarohi 2026</h3>
+            <p class="gig-event-date" id="gig-event-date">February 2026 &middot; VNIT Nagpur</p>
+          </div>
+        </div>
+
+        <!-- Split layout -->
+        <div class="gig-layout">
+
+          <!-- Left: video + on-stage -->
+          <div class="gig-left">
+            <div class="gig-video-container">
+              <div class="gig-video-aspect">
+                <iframe
+                  id="gig-iframe"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="Octaves Live Performance"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen>
+                </iframe>
+              </div>
+            </div>
+
+            <!-- On Stage -->
+            <div class="gig-onstage">
+              <p class="gig-onstage-label">&#127897; On Stage</p>
+              <div class="gig-onstage-pills" id="gig-onstage-pills">
+                <!-- injected by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: setlist -->
+          <div class="gig-right">
+            <div class="gig-setlist-panel">
+              <p class="gig-setlist-header">Setlist</p>
+              <ul class="gig-setlist" id="gig-setlist" role="list">
+                <!-- injected by JS -->
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="octaves.jpg" alt="Octaves Logo" class="footer-logo" />
+        <span class="footer-name">OCTAVES</span>
+      </div>
+      <p class="footer-tagline">Music Club · VNIT Nagpur</p>
+      <p class="footer-copy">&copy; 2025 Octaves, VNIT Nagpur. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Legacy — Octaves, VNIT Nagpur</title>
+  <meta name="description" content="The story and rhythm of Octaves — VNIT Nagpur's oldest and hottest music club." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Domine:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .page-hero {
+      padding: clamp(5rem, 10vw, 8rem) 0 clamp(2.5rem, 5vw, 4rem);
+      background: #09090b;
+      border-bottom: 1px solid rgba(245,158,11,0.08);
+    }
+    .page-hero .container { display: flex; flex-direction: column; gap: 0.6rem; }
+    .page-hero-eyebrow {
+      font-family: var(--ff-sans); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase; color: var(--clr-gold);
+    }
+    .page-hero-title {
+      font-family: var(--ff-serif); font-size: clamp(2.6rem, 6vw, 4.5rem);
+      font-weight: 500; color: var(--clr-text); line-height: 1.05; letter-spacing: -0.01em;
+    }
+    .page-hero-title em { font-style: italic; color: var(--clr-gold-light); }
+    .page-hero-sub {
+      font-family: var(--ff-sans); font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+      color: var(--clr-text-muted); max-width: 52ch; line-height: 1.65; margin-top: 0.4rem;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--ff-sans); font-size: 0.78rem; font-weight: 500;
+      color: var(--clr-gold); text-decoration: none; letter-spacing: 0.06em;
+      opacity: 0.75; transition: opacity 0.2s, gap 0.25s; margin-bottom: 1.8rem;
+    }
+    .back-link:hover { opacity: 1; gap: 0.6rem; }
+
+    /* Legacy timeline */
+    .legacy-timeline {
+      padding-block: clamp(3rem, 6vw, 5rem);
+      background: #0b0c10;
+    }
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 5rem;
+      margin-top: 3rem;
+      position: relative;
+    }
+    .timeline-grid::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(245,158,11,0.2), transparent);
+      transform: translateX(-50%);
+    }
+    .timeline-item { display: flex; flex-direction: column; gap: 0.5rem; }
+    .timeline-year {
+      font-family: var(--ff-serif); font-size: 2.2rem; font-weight: 300;
+      color: rgba(245,158,11,0.3); letter-spacing: -0.02em; line-height: 1;
+    }
+    .timeline-title {
+      font-family: var(--ff-serif); font-size: 1.25rem; font-weight: 500;
+      color: var(--clr-text); letter-spacing: 0.01em;
+    }
+    .timeline-desc {
+      font-family: var(--ff-sans); font-size: 0.85rem; color: var(--clr-text-muted);
+      line-height: 1.7; max-width: 38ch;
+    }
+    @media (max-width: 700px) {
+      .timeline-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .timeline-grid::before { display: none; }
+    }
+
+    /* Values strip */
+    .values-strip {
+      padding-block: clamp(3rem, 6vw, 5rem);
+      background: #09090b;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .value-card {
+      padding: 1.8rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.02);
+    }
+    .value-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
+    .value-title {
+      font-family: var(--ff-serif); font-size: 1.1rem; font-weight: 500;
+      color: var(--clr-text); margin-bottom: 0.4rem;
+    }
+    .value-desc {
+      font-family: var(--ff-sans); font-size: 0.8rem;
+      color: var(--clr-text-muted); line-height: 1.65;
+    }
+    @media (max-width: 700px) {
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Octaves Home">
+        <img src="octaves.jpg" alt="Octaves Logo" class="logo-img" />
+        <span class="nav-brand">OCTAVES</span>
+      </a>
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="page-hero-eyebrow">Est. · VNIT Nagpur</p>
+        <h1 class="page-hero-title">Our <em>Legacy</em></h1>
+        <p class="page-hero-sub">The story and rhythm of VNIT's oldest and most celebrated music club — from its very first note to today.</p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section" id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="section-label">About Us</div>
+        <div class="about-grid">
+          <div>
+            <h2 id="about-heading" class="section-title">Where <em>Music</em><br />Finds a Home</h2>
+          </div>
+          <div class="about-text">
+            <p class="body-text">
+              Founded within the walls of Visvesvaraya National Institute of Technology, Nagpur,
+              Octaves has grown into one of the most celebrated music clubs in the institute's
+              history. From classical ragas to contemporary compositions, we celebrate every genre.
+            </p>
+            <p class="body-text">
+              Our members perform at inter-collegiate festivals, national competitions, and intimate
+              campus concerts that have become cherished traditions across academic years.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="legacy-timeline">
+      <div class="container">
+        <div class="section-label">Our Journey</div>
+        <h2 class="section-title">Milestones in <em>Music</em></h2>
+        <div class="timeline-grid">
+          <div class="timeline-item">
+            <span class="timeline-year">Est.</span>
+            <h3 class="timeline-title">The First Note</h3>
+            <p class="timeline-desc">Octaves was founded by a small group of music enthusiasts at VNIT who believed the campus deserved a stage for every voice and every instrument.</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">Aarohi</span>
+            <h3 class="timeline-title">The Annual Showcase</h3>
+            <p class="timeline-desc">Aarohi became the flagship annual concert — a night where the campus holds its breath and Octaves delivers something unforgettable every single year.</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">Fests</span>
+            <h3 class="timeline-title">Inter-College Stages</h3>
+            <p class="timeline-desc">Octaves began representing VNIT at inter-collegiate music festivals across the country, bringing back medals and memories in equal measure.</p>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-year">Today</span>
+            <h3 class="timeline-title">Still Playing</h3>
+            <p class="timeline-desc">With a 2025–26 council of 8 talented musicians, Octaves continues to grow — louder, bolder, and more musically diverse than ever.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values-strip">
+      <div class="container">
+        <div class="section-label">What We Stand For</div>
+        <h2 class="section-title">Our <em>Ethos</em></h2>
+        <div class="values-grid">
+          <div class="value-card">
+            <span class="value-icon">🎵</span>
+            <h3 class="value-title">Musical Diversity</h3>
+            <p class="value-desc">From Hindustani classical to indie rock, every genre has a home in Octaves. We believe music transcends boundaries.</p>
+          </div>
+          <div class="value-card">
+            <span class="value-icon">🎤</span>
+            <h3 class="value-title">Student-Led</h3>
+            <p class="value-desc">Every performance, every decision — driven entirely by students who pour their passion into every note they play.</p>
+          </div>
+          <div class="value-card">
+            <span class="value-icon">🏆</span>
+            <h3 class="value-title">Excellence</h3>
+            <p class="value-desc">We hold ourselves to the highest standard. Not for trophies, but because the music — and the audience — deserves nothing less.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="octaves.jpg" alt="Octaves Logo" class="footer-logo" />
+        <span class="footer-name">OCTAVES</span>
+      </div>
+      <p class="footer-tagline">Music Club · VNIT Nagpur</p>
+      <p class="footer-copy">&copy; 2025 Octaves, VNIT Nagpur. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

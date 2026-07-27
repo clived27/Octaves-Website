@@ -7,7 +7,7 @@
   <meta name="description" content="Octaves is the official music club of VNIT Nagpur — VNIT's hottest club. Explore our council and musical journey." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Domine:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -37,9 +37,54 @@
         <p class="hero-eyebrow">VNIT Nagpur · Est. Music Club</p>
         <h1 class="hero-title">Welcome to<br /><em>Octaves.</em></h1>
         <p class="hero-tagline" id="hero-tagline" aria-label="VNIT's Hottest Club"></p>
-        <div class="hero-actions">
-          <a href="#council" class="btn btn-primary">Meet the Council</a>
-          <a href="#about" class="btn btn-ghost">Our Story</a>
+      </div>
+    </section>
+
+    <!-- ─── Explore Navigation Hub ─── -->
+    <section class="explore-hub" id="explore" aria-label="Explore Octaves">
+      <div class="container">
+        <p class="explore-label">Explore</p>
+        <div class="explore-grid">
+
+          <!-- Card 1: Behind the Sound -->
+          <a href="roster.html" class="explore-card" id="explore-roster" aria-label="Behind the Sound — Meet the musicians">
+            <div class="explore-card-bg" style="background-image: url('images/card_roster.jpg');"></div>
+            <div class="explore-card-vignette"></div>
+            <div class="explore-card-body">
+              <h3 class="explore-card-title">Behind the Sound</h3>
+              <p class="explore-card-sub">Meet the musicians, artists, and council members who drive Octaves.</p>
+              <span class="explore-card-arrow" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- Card 2: About Octaves VNIT -->
+          <a href="legacy.html" class="explore-card" id="explore-legacy" aria-label="About Octaves VNIT — The story of Octaves">
+            <div class="explore-card-bg" style="background-image: url('images/card_legacy.jpg');"></div>
+            <div class="explore-card-vignette"></div>
+            <div class="explore-card-body">
+              <h3 class="explore-card-title">About Octaves VNIT</h3>
+              <p class="explore-card-sub">Discover our club's history and the major events that define our rhythm.</p>
+              <span class="explore-card-arrow" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+
+          <!-- Card 3: The Archives -->
+          <a href="archives.html" class="explore-card" id="explore-vault" aria-label="The Archives — Past performances">
+            <div class="explore-card-bg" style="background-image: url('images/card_gigvault.jpg');"></div>
+            <div class="explore-card-vignette"></div>
+            <div class="explore-card-body">
+              <h3 class="explore-card-title">The Archives</h3>
+              <p class="explore-card-sub">Relive past performances, explore setlists, and watch live recordings.</p>
+              <span class="explore-card-arrow" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+          </a>
+
         </div>
       </div>
     </section>
@@ -65,221 +110,8 @@
       </div>
     </section>
 
-    <!-- ─── Council Section ─── -->
-    <section class="council section" id="council" aria-labelledby="council-heading">
-      <div class="container">
-        <div class="section-label">Leadership</div>
-        <h2 id="council-heading" class="section-title">The <em>Council</em></h2>
-        <p class="section-subtitle">
-          The voices and minds steering Octaves through every note and milestone.
-        </p>
 
-        <!-- President — featured solo row -->
-        <div class="council-president-row">
-          <article class="member-card member-card--president" id="member-president"
-            data-member-id="suhana"
-            data-name="Suhana Tembhurkar"
-            data-role="President"
-            data-year="4th Year"
-            data-instrument="Vocalist">
-            <div class="card-glow-bg" aria-hidden="true"></div>
-            <div class="member-avatar-wrap">
-              <div class="avatar-ring"></div>
-              <div class="avatar-placeholder">
-                <span class="avatar-initial">S</span>
-              </div>
-              <div class="instrument-badge">🎤</div>
-            </div>
-            <div class="member-info">
-              <span class="member-year-tag">4th Year</span>
-              <h4 class="member-name">Suhana Tembhurkar</h4>
-              <p class="member-role">President</p>
-              <p class="member-instrument">Vocalist</p>
-              <a href="https://www.instagram.com/_miss_suhana19_" target="_blank" rel="noopener noreferrer" class="member-insta" id="insta-president">
-                <span class="insta-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-                @_miss_suhana19_
-              </a>
-            </div>
-          </article>
-        </div>
 
-        <!-- Core Members Row -->
-        <div class="council-grid council-grid--core">
-
-          <article class="member-card" id="member-vp"
-            data-member-id="shreyansh"
-            data-name="Shreyansh Mohanty"
-            data-role="Vice President"
-            data-year="3rd Year"
-            data-instrument="Keyboardist">
-            <div class="card-glow-bg" aria-hidden="true"></div>
-            <div class="member-avatar-wrap">
-              <div class="avatar-ring"></div>
-              <div class="avatar-placeholder"><span class="avatar-initial">S</span></div>
-              <div class="instrument-badge">🎹</div>
-            </div>
-            <div class="member-info">
-              <span class="member-year-tag">3rd Year</span>
-              <h4 class="member-name">Shreyansh Mohanty</h4>
-              <p class="member-role">Vice President</p>
-              <p class="member-instrument">Keyboardist</p>
-              <a href="https://www.instagram.com/_shreyanshmohanty_" target="_blank" rel="noopener noreferrer" class="member-insta" id="insta-vp">
-                <span class="insta-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-                @_shreyanshmohanty_
-              </a>
-            </div>
-          </article>
-
-          <article class="member-card" id="member-treasurer"
-            data-member-id="prajjwal"
-            data-name="Prajjwal V. Harave"
-            data-role="Treasurer"
-            data-year="4th Year"
-            data-instrument="Guitarist">
-            <div class="card-glow-bg" aria-hidden="true"></div>
-            <div class="member-avatar-wrap">
-              <div class="avatar-ring"></div>
-              <div class="avatar-placeholder"><span class="avatar-initial">P</span></div>
-              <div class="instrument-badge">🎸</div>
-            </div>
-            <div class="member-info">
-              <span class="member-year-tag">4th Year</span>
-              <h4 class="member-name">Prajjwal V. Harave</h4>
-              <p class="member-role">Treasurer</p>
-              <p class="member-instrument">Guitarist</p>
-              <a href="https://www.instagram.com/__prajj.wal___" target="_blank" rel="noopener noreferrer" class="member-insta" id="insta-treasurer">
-                <span class="insta-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-                @__prajj.wal___
-              </a>
-            </div>
-          </article>
-
-          <article class="member-card" id="member-media"
-            data-member-id="samriddhi"
-            data-name="Samriddhi Debbrama"
-            data-role="Media Head"
-            data-year="4th Year"
-            data-instrument="Vocalist">
-            <div class="card-glow-bg" aria-hidden="true"></div>
-            <div class="member-avatar-wrap">
-              <div class="avatar-ring"></div>
-              <div class="avatar-placeholder"><span class="avatar-initial">S</span></div>
-              <div class="instrument-badge">🎤</div>
-            </div>
-            <div class="member-info">
-              <span class="member-year-tag">4th Year</span>
-              <h4 class="member-name">Samriddhi Debbrama</h4>
-              <p class="member-role">Media Head</p>
-              <p class="member-instrument">Vocalist</p>
-              <a href="https://www.instagram.com/samriddhidebbarma" target="_blank" rel="noopener noreferrer" class="member-insta" id="insta-media">
-                <span class="insta-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-                @samriddhidebbarma
-              </a>
-            </div>
-          </article>
-
-          <article class="member-card" id="member-tech"
-            data-member-id="pratham"
-            data-name="Pratham Sharma"
-            data-role="Technical Head"
-            data-year="3rd Year"
-            data-instrument="Guitarist">
-            <div class="card-glow-bg" aria-hidden="true"></div>
-            <div class="member-avatar-wrap">
-              <div class="avatar-ring"></div>
-              <div class="avatar-placeholder"><span class="avatar-initial">P</span></div>
-              <div class="instrument-badge">🎸</div>
-            </div>
-            <div class="member-info">
-              <span class="member-year-tag">3rd Year</span>
-              <h4 class="member-name">Pratham Sharma</h4>
-              <p class="member-role">Technical Head</p>
-              <p class="member-instrument">Guitarist</p>
-              <a href="https://www.instagram.com/prxthxm11" target="_blank" rel="noopener noreferrer" class="member-insta" id="insta-tech">
-                <span class="insta-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-                @prxthxm11
-              </a>
-            </div>
-          </article>
-
-        </div>
-
-        <!-- Representatives Row -->
-        <div class="council-grid council-grid--reps">
-
-          <article class="member-card member-card--rep" id="member-pg-rep"
-            data-member-id="moksh"
-            data-name="Moksh Sharma"
-            data-role="PG Representative"
-            data-year="2nd Year (PG)"
-            data-instrument="">
-            <div class="card-glow-bg" aria-hidden="true"></div>
-            <div class="member-avatar-wrap">
-              <div class="avatar-ring"></div>
-              <div class="avatar-placeholder"><span class="avatar-initial">M</span></div>
-            </div>
-            <div class="member-info">
-              <span class="member-year-tag">2nd Year (PG)</span>
-              <h4 class="member-name">Moksh Sharma</h4>
-              <p class="member-role">PG Representative</p>
-              <a href="https://www.instagram.com/mok_sh_arma" target="_blank" rel="noopener noreferrer" class="member-insta" id="insta-pg">
-                <span class="insta-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-                @mok_sh_arma
-              </a>
-            </div>
-          </article>
-
-          <article class="member-card member-card--rep" id="member-2yr-boys"
-            data-member-id="harikrishna"
-            data-name="Harikrishna Nair"
-            data-role="Representative (Boys)"
-            data-year="2nd Year"
-            data-instrument="Keyboardist">
-            <div class="card-glow-bg" aria-hidden="true"></div>
-            <div class="member-avatar-wrap">
-              <div class="avatar-ring"></div>
-              <div class="avatar-placeholder"><span class="avatar-initial">H</span></div>
-              <div class="instrument-badge">🎹</div>
-            </div>
-            <div class="member-info">
-              <span class="member-year-tag">2nd Year</span>
-              <h4 class="member-name">Harikrishna Nair</h4>
-              <p class="member-role">Representative (Boys)</p>
-              <p class="member-instrument">Keyboardist</p>
-              <a href="https://www.instagram.com/harikrishna_nair07" target="_blank" rel="noopener noreferrer" class="member-insta" id="insta-2yr-boys">
-                <span class="insta-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-                @harikrishna_nair07
-              </a>
-            </div>
-          </article>
-
-          <article class="member-card member-card--rep" id="member-2yr-girls"
-            data-member-id="aarushi"
-            data-name="Aarushi Deoghare"
-            data-role="Representative (Girls)"
-            data-year="2nd Year"
-            data-instrument="Vocalist">
-            <div class="card-glow-bg" aria-hidden="true"></div>
-            <div class="member-avatar-wrap">
-              <div class="avatar-ring"></div>
-              <div class="avatar-placeholder"><span class="avatar-initial">A</span></div>
-              <div class="instrument-badge">🎤</div>
-            </div>
-            <div class="member-info">
-              <span class="member-year-tag">2nd Year</span>
-              <h4 class="member-name">Aarushi Deoghare</h4>
-              <p class="member-role">Representative (Girls)</p>
-              <p class="member-instrument">Vocalist</p>
-              <a href="https://www.instagram.com/otaku4252025" target="_blank" rel="noopener noreferrer" class="member-insta" id="insta-2yr-girls">
-                <span class="insta-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></span>
-                @otaku4252025
-              </a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
 
     <!-- ─── Contact Section ─── -->
     <section class="contact section" id="contact" aria-labelledby="contact-heading">
