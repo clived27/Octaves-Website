@@ -8,12 +8,12 @@ var ARCHIVES_DATA = [
       {
         slotName: "Mechanical",
         genre: "",
-        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=0&rel=0&modestbranding=1"
+        youtubeUrl: "https://www.youtube.com/embed/nS4j0xnw4OU"
       },
       {
         slotName: "Electrical",
         genre: "",
-        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=90&rel=0&modestbranding=1"
+        youtubeUrl: "https://www.youtube.com/embed/cChhfhFUvUo"
       },
       {
         slotName: "Metallurgy and Materials",
@@ -23,27 +23,27 @@ var ARCHIVES_DATA = [
       {
         slotName: "Architecture",
         genre: "",
-        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=200&rel=0&modestbranding=1"
+        youtubeUrl: "https://www.youtube.com/embed/79KUqKB7JG8"
       },
       {
         slotName: "Computer Science",
         genre: "",
-        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=200&rel=0&modestbranding=1"
+        youtubeUrl: "https://www.youtube.com/embed/kgpgeYEfQr4"
       },
       {
         slotName: "Chemical Mining",
         genre: "",
-        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=200&rel=0&modestbranding=1"
+        youtubeUrl: "https://www.youtube.com/embed/VfFfCtsp52M"
       },
       {
         slotName: "Electronics and Communication",
         genre: "",
-        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=200&rel=0&modestbranding=1"
+        youtubeUrl: "https://www.youtube.com/embed/cChhfhFUvUo"
       },
       {
         slotName: "Civil",
         genre: "",
-        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=200&rel=0&modestbranding=1"
+        youtubeUrl: "https://www.youtube.com/embed/dIAe4_JSA3I"
       }
     ]
   },

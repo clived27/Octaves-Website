@@ -471,10 +471,21 @@
     var npGenre  = document.getElementById('arc-np-genre');
     var activeBtn = null;
 
+    /* Helper: format any YouTube URL into an embed URL */
+    function toEmbedUrl(url) {
+      if (!url) return '';
+      if (url.indexOf('youtube.com/embed/') !== -1) return url;
+      var match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|v\/|embed\/))([a-zA-Z0-9_-]{11})/);
+      if (match && match[1]) {
+        return 'https://www.youtube.com/embed/' + match[1];
+      }
+      return url;
+    }
+
     /* ── Load a performance into the player ── */
     function loadPerformance(eventName, perf, btn) {
       /* Update iframe */
-      iframe.src = perf.youtubeUrl;
+      iframe.src = toEmbedUrl(perf.youtubeUrl);
 
       /* Update now-playing info */
       npEvent.textContent = eventName;
