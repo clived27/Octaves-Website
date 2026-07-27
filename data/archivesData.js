@@ -38,12 +38,67 @@ var ARCHIVES_DATA = [
       {
         slotName: "Electronics and Communication",
         genre: "",
-        youtubeUrl: "https://www.youtube.com/embed/cChhfhFUvUo"
+        youtubeUrl: "https://www.youtube.com/embed/jtXJI_z2lw8"
       },
       {
         slotName: "Civil",
         genre: "",
         youtubeUrl: "https://www.youtube.com/embed/dIAe4_JSA3I"
+      }
+    ]
+  },
+  {
+    eventName: "Freshers 2025",
+    performances: [
+      {
+        slotName: "Semi Classical",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/jxlSQ8W4lCs"
+      },
+      {
+        slotName: "Rock",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/mNOF7nHvzF8"
+      },
+      {
+        slotName: "Soft Bollywood",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/ZkIiEW4uJYc"
+      }
+    ]
+  },
+  {
+    eventName: "Campus Jam 2025",
+    performances: [
+      {
+        slotName: "Chill Corner",
+        genre: "Lo-Fi / Jazz",
+        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=540&rel=0&modestbranding=1"
+      },
+      {
+        slotName: "Pop Hour",
+        genre: "Pop",
+        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=640&rel=0&modestbranding=1"
+      },
+      {
+        slotName: "Grand Finale",
+        genre: "Medley",
+        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=780&rel=0&modestbranding=1"
+      }
+    ]
+  },
+  {
+    eventName: "Aarohi 2024",
+    performances: [
+      {
+        slotName: "Sunrise Set",
+        genre: "Sufi",
+        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=900&rel=0&modestbranding=1"
+      },
+      {
+        slotName: "Night Stage",
+        genre: "EDM Fusion",
+        youtubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?start=1020&rel=0&modestbranding=1"
       }
     ]
   }
