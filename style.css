@@ -359,7 +359,7 @@ ul  { list-style: none; }
 
 /* Tagline — Playfair Display italic, luxury gold, clean glow */
 .hero-tagline {
-  font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: clamp(1.1rem, 2.6vw, 1.6rem);
   font-weight: 400;
   font-style: italic;
