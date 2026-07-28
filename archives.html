@@ -562,18 +562,15 @@
       listEl.appendChild(li);
     });
 
-    /* ── Auto-load first performance ── */
+    /* ── Auto-load first performance into player (sidebar stays collapsed) ── */
     if (data.length > 0 && data[0].performances.length > 0) {
-      /* Open first accordion */
-      var firstEventBtn = listEl.querySelector('.arc-event-btn');
       var firstPerfList = listEl.querySelector('.arc-performances');
-      firstEventBtn.classList.add('open');
-      firstEventBtn.setAttribute('aria-expanded', 'true');
-      firstPerfList.classList.add('open');
-
-      /* Load first perf */
-      var firstPerfBtn = firstPerfList.querySelector('.arc-perf-btn');
-      loadPerformance(data[0].eventName, data[0].performances[0], firstPerfBtn);
+      if (firstPerfList) {
+        var firstPerfBtn = firstPerfList.querySelector('.arc-perf-btn');
+        if (firstPerfBtn) {
+          loadPerformance(data[0].eventName, data[0].performances[0], firstPerfBtn);
+        }
+      }
     }
   })();
   </script>
