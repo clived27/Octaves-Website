@@ -144,6 +144,11 @@ var ARCHIVES_DATA = [
         slotName: "Abhi Abhi and Saiyaan",
         genre: "",
         youtubeUrl: "https://www.youtube.com/embed/-VVXdxbCwOU"
+      },
+      {
+        slotName: "Qawwali",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/de2dnAKSZFA"
       }
     ]
   }
