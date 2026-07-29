@@ -127,7 +127,7 @@ var ARCHIVES_DATA = [
       },
       {
         slotName: "Legends Never Die",
-        genre: "Best Euphoria Slot",
+        genre: "",
         youtubeUrl: "https://www.youtube.com/embed/viLfwAuGHiM"
       },
       {
