@@ -1643,3 +1643,317 @@ ul  { list-style: none; }
     max-height: 300px;
   }
 }
+
+
+/* ════════════════════════════════════════════════════════════
+   SCROLL-SNAP SPLIT SECTIONS
+   Four full-screen sections: Archives, Gallery, Members, Merch
+════════════════════════════════════════════════════════════ */
+
+/* ── Wrapper: establishes the snap scroll container ── */
+.snap-sections-wrapper {
+  /* Scroll snapping is handled per-section via scroll-snap-align
+     on the page's natural scroll, not a sub-container —
+     this keeps the nav and rest of page usable */
+  position: relative;
+}
+
+/* ── Each 100vh section ── */
+.snap-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  /* image: 38%, text: 62% */
+  grid-template-columns: 38% 62%;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+/* Reversed layout: image on right, text on left */
+.snap-section--reverse {
+  grid-template-columns: 62% 38%;
+}
+
+.snap-section--reverse .snap-image-panel {
+  order: 2;
+}
+.snap-section--reverse .snap-text-panel {
+  order: 1;
+}
+
+/* ── Left Panel: Background Image ── */
+.snap-image-panel {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: visible; /* let the curve clip-path bleed out */
+  /* Convex curve on the right edge — clips the image into a curved shape
+     that "bulges" into the text panel */
+  clip-path: ellipse(110% 55% at 10% 50%);
+  transition: clip-path 0.6s var(--ease-out);
+  z-index: 1;
+}
+
+/* Reverse: curve goes the other way */
+.snap-section--reverse .snap-image-panel {
+  clip-path: ellipse(110% 55% at 90% 50%);
+}
+
+/* Subtle dark overlay on image so text doesn't fight it */
+.snap-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 10, 8, 0.1) 0%,
+    rgba(10, 10, 8, 0.55) 100%
+  );
+}
+
+.snap-section--reverse .snap-image-overlay {
+  background: linear-gradient(
+    to left,
+    rgba(10, 10, 8, 0.1) 0%,
+    rgba(10, 10, 8, 0.55) 100%
+  );
+}
+
+/* ── Right Panel: Dark Text Side ── */
+.snap-text-panel {
+  position: relative;
+  background: var(--clr-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 5rem);
+  z-index: 2;
+  /* Subtle warm glow bleeding in from image side */
+  box-shadow: inset 6px 0 48px rgba(201, 169, 110, 0.04);
+}
+
+.snap-section--reverse .snap-text-panel {
+  box-shadow: inset -6px 0 48px rgba(201, 169, 110, 0.04);
+}
+
+/* ── Text Content ── */
+.snap-text-inner {
+  max-width: 520px;
+  /* Initial state — animated in by JS when section snaps into view */
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.72s var(--ease-out),
+    transform 0.72s var(--ease-out);
+}
+
+/* Class added by JS when section is in view */
+.snap-text-inner.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.snap-eyebrow {
+  font-family: var(--ff-sans);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.snap-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--clr-gold);
+  flex-shrink: 0;
+}
+
+.snap-heading {
+  font-family: var(--ff-serif);
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--clr-text);
+  margin-bottom: 1.5rem;
+  /* Staggered delay for sequential feel */
+  transition-delay: 0.08s;
+}
+
+.snap-desc {
+  font-family: var(--ff-sans);
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--clr-text-muted);
+  max-width: 46ch;
+  margin-bottom: 2.5rem;
+  transition-delay: 0.16s;
+}
+
+/* ── CTA Button ── */
+.snap-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  border: 1px solid var(--clr-gold);
+  color: var(--clr-gold-light);
+  font-family: var(--ff-sans);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    color 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out),
+    transform 0.35s var(--ease-out);
+  transition-delay: 0.24s;
+}
+
+/* Gold fill sweep on hover */
+.snap-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--clr-gold);
+  transform: translateX(-105%);
+  transition: transform 0.4s var(--ease-out);
+  z-index: 0;
+}
+
+.snap-cta span,
+.snap-cta svg {
+  position: relative;
+  z-index: 1;
+}
+
+.snap-cta:hover::before {
+  transform: translateX(0);
+}
+
+.snap-cta:hover {
+  color: var(--clr-bg);
+  box-shadow: 0 8px 28px var(--clr-gold-dim);
+  transform: translateY(-2px);
+}
+
+.snap-cta svg {
+  transition: transform 0.3s var(--ease-out);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.snap-cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* ── Section divider line on image panel (decorative) ── */
+.snap-section::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 38%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--clr-border-mid), transparent);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.snap-section--reverse::after {
+  left: auto;
+  right: 38%;
+}
+
+/* ── Scroll-snap: scoped to the 4-section wrapper only ──
+   Using proximity so the user can still scroll past freely.
+   The wrapper itself becomes the scroll container. ── */
+.snap-sections-wrapper {
+  /* Keep position: relative from above, add snap container */
+  scroll-snap-type: y proximity;
+  /* Note: snap container must have a defined height/overflow
+     to scroll independently — but here we use the page scroll
+     with snap-align on children, which works in modern browsers
+     when the root also has scroll-snap-type set to proximity. */
+}
+
+html {
+  /* proximity = only snaps when close to a snap point;
+     user can scroll right past them to reach content below */
+  scroll-snap-type: y proximity;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .snap-section,
+  .snap-section--reverse {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45vh 55vh;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .snap-image-panel {
+    clip-path: ellipse(110% 110% at 50% 10%);
+    height: 100%;
+  }
+
+  .snap-section--reverse .snap-image-panel {
+    clip-path: ellipse(110% 110% at 50% 10%);
+    order: 1;
+  }
+
+  .snap-section--reverse .snap-text-panel {
+    order: 2;
+  }
+
+  .snap-section::after {
+    display: none;
+  }
+
+  .snap-text-inner {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .snap-eyebrow {
+    justify-content: center;
+  }
+
+  .snap-eyebrow::before {
+    display: none;
+  }
+
+  .snap-desc {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    /* Softer snap on small screens */
+    scroll-snap-type: y proximity;
+  }
+
+  .snap-heading {
+    font-size: clamp(2.8rem, 10vw, 4rem);
+  }
+}

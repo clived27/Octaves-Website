@@ -40,56 +40,84 @@
       </div>
     </section>
 
-    <!-- ─── Explore Navigation Hub ─── -->
-    <section class="explore-hub" id="explore" aria-label="Explore Octaves">
-      <div class="container">
-        <p class="explore-label">Explore</p>
-        <div class="explore-grid">
+    <!-- ─── Scroll-Snap Feature Sections ─── -->
+    <div class="snap-sections-wrapper" id="snap-sections" aria-label="Feature sections">
 
-          <!-- Card 1: The Archives -->
-          <a href="archives.html" class="explore-card" id="explore-vault" aria-label="The Archives — Past performances">
-            <div class="explore-card-bg" style="background-image: url('images/card_gigvault.jpg');"></div>
-            <div class="explore-card-vignette"></div>
-            <div class="explore-card-body">
-              <h3 class="explore-card-title">The Archives</h3>
-              <p class="explore-card-sub">Experience past performances and watch live recordings.</p>
-              <span class="explore-card-arrow" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </span>
-            </div>
-          </a>
-
-
-          <!-- Card 2: Behind the Sound -->
-          <a href="roster.html" class="explore-card" id="explore-roster" aria-label="Behind the Sound — Meet the musicians">
-            <div class="explore-card-bg" style="background-image: url('images/card_roster.jpg');"></div>
-            <div class="explore-card-vignette"></div>
-            <div class="explore-card-body">
-              <h3 class="explore-card-title">Behind the Sound</h3>
-              <p class="explore-card-sub">Meet the member musicians and council members who drive Octaves.</p>
-              <span class="explore-card-arrow" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </span>
-            </div>
-          </a>
-
-          <!-- Card 3: About Octaves VNIT -->
-          <a href="legacy.html" class="explore-card" id="explore-legacy" aria-label="About Octaves VNIT — The story of Octaves">
-            <div class="explore-card-bg" style="background-image: url('images/card_legacy.jpg');"></div>
-            <div class="explore-card-vignette"></div>
-            <div class="explore-card-body">
-              <h3 class="explore-card-title">About Octaves VNIT</h3>
-              <p class="explore-card-sub">Discover our club's history and the major events that define our rhythm.</p>
-              <span class="explore-card-arrow" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </span>
-            </div>
-          </a>
-
-          
+      <!-- Section 1: Archives -->
+      <section class="snap-section" id="snap-archives" aria-labelledby="snap-archives-heading">
+        <div class="snap-image-panel" style="background-image: url('images/card_gigvault.jpg');" aria-hidden="true">
+          <div class="snap-image-overlay"></div>
         </div>
-      </div>
-    </section>
+        <div class="snap-text-panel">
+          <div class="snap-text-inner">
+            <p class="snap-eyebrow">Revisit the Moments</p>
+            <h2 class="snap-heading" id="snap-archives-heading">Archives</h2>
+            <p class="snap-desc">Every riff, every raga, every roar of the crowd — preserved. Dive into our complete library of past performances, live recordings, and highlight reels from every stage we've graced.</p>
+            <a href="archives.html" class="snap-cta" id="snap-cta-archives">
+              Explore Archives
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Gallery -->
+      <section class="snap-section snap-section--reverse" id="snap-gallery" aria-labelledby="snap-gallery-heading">
+        <div class="snap-image-panel" style="background-image: url('images/card_gallery.jpg');" aria-hidden="true">
+          <div class="snap-image-overlay"></div>
+        </div>
+        <div class="snap-text-panel">
+          <div class="snap-text-inner">
+            <p class="snap-eyebrow">Frames & Feelings</p>
+            <h2 class="snap-heading" id="snap-gallery-heading">Gallery</h2>
+            <p class="snap-desc">A visual chronicle of Octaves — behind-the-scenes rehearsals, stage setups, candid moments, and the faces behind the music. Every frame tells a story worth a thousand notes.</p>
+            <a href="#" class="snap-cta" id="snap-cta-gallery">
+              Explore Gallery
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Members -->
+      <section class="snap-section" id="snap-members" aria-labelledby="snap-members-heading">
+        <div class="snap-image-panel" style="background-image: url('images/card_roster.jpg');" aria-hidden="true">
+          <div class="snap-image-overlay"></div>
+        </div>
+        <div class="snap-text-panel">
+          <div class="snap-text-inner">
+            <p class="snap-eyebrow">The People Behind the Sound</p>
+            <h2 class="snap-heading" id="snap-members-heading">Members</h2>
+            <p class="snap-desc">Meet the musicians, vocalists, beatmakers, and council leaders who give Octaves its heartbeat. From classical maestros to bedroom producers — all united by one obsession.</p>
+            <a href="roster.html" class="snap-cta" id="snap-cta-members">
+              Explore Members
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Merch -->
+      <section class="snap-section snap-section--reverse" id="snap-merch" aria-labelledby="snap-merch-heading">
+        <div class="snap-image-panel" style="background-image: url('images/card_merch.jpg');" aria-hidden="true">
+          <div class="snap-image-overlay"></div>
+        </div>
+        <div class="snap-text-panel">
+          <div class="snap-text-inner">
+            <p class="snap-eyebrow">Wear the Music</p>
+            <h2 class="snap-heading" id="snap-merch-heading">Merch</h2>
+            <p class="snap-desc">Carry a piece of Octaves with you. Our limited-edition merchandise — designed by the club, for the community — lets you rep the culture wherever the music takes you.</p>
+            <a href="merch.html" class="snap-cta" id="snap-cta-merch">
+              Explore Merch
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+
 
     <!-- ─── About Section ─── -->
     <section class="about section" id="about" aria-labelledby="about-heading">

@@ -252,3 +252,38 @@ var GIG_VAULT_DATA = [
   setActive(0);
 })();
 
+/* ════════════════════════════════════════
+   Scroll-Snap Sections: Reveal animation
+   Fires .is-visible on text when section
+   enters viewport; resets on exit so
+   re-entering re-triggers the animation.
+════════════════════════════════════════ */
+(function () {
+  var sections = document.querySelectorAll('.snap-section');
+  if (!sections.length) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var inner = entry.target.querySelector('.snap-text-inner');
+      if (!inner) return;
+
+      if (entry.isIntersecting) {
+        /* Small rAF delay so the snap animation has started */
+        requestAnimationFrame(function () {
+          setTimeout(function () {
+            inner.classList.add('is-visible');
+          }, 80);
+        });
+      } else {
+        /* Reset so re-entry re-animates */
+        inner.classList.remove('is-visible');
+      }
+    });
+  }, {
+    threshold: 0.42 /* Fire when 42% of section is visible */
+  });
+
+  sections.forEach(function (section) {
+    observer.observe(section);
+  });
+})();
