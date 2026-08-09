@@ -253,7 +253,7 @@
 
             <!-- Top Bar: Logo + Club Name -->
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;">
-              <img src="octaves.jpg" alt="Octaves Logo" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,169,110,0.3);object-fit:cover;flex-shrink:0;" />
+              <img src="Octaves White N.png" alt="Octaves Logo" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,169,110,0.3);object-fit:cover;flex-shrink:0;background:#111;" />
               <div>
                 <div style="font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.22em;color:#f0ece4;line-height:1;">OCTAVES</div>
                 <div style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:400;letter-spacing:0.28em;color:rgba(240,236,228,0.45);margin-top:2px;">THE MUSIC CLUB</div>
@@ -349,7 +349,7 @@
               </button>
 
               <!-- Prev -->
-              <button onclick="pcPrev()" aria-label="Previous member" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.75);padding:6px;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">
+              <button onclick="pcPrev()" id="pc-btn-prev" aria-label="Previous member" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.75);padding:6px;border-radius:50%;transition:color 0.2s,transform 0.2s;" onmouseover="this.style.color='#fff';this.style.transform='scale(1.12)'" onmouseout="this.style.color='rgba(255,255,255,0.75)';this.style.transform='scale(1)'">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
               </button>
 
@@ -369,14 +369,14 @@
               </button>
 
               <!-- Next -->
-              <button onclick="pcNext()" aria-label="Next member" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.75);padding:6px;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">
+              <button onclick="pcNext()" id="pc-btn-next" aria-label="Next member" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.75);padding:6px;border-radius:50%;transition:color 0.2s,transform 0.2s;" onmouseover="this.style.color='#fff';this.style.transform='scale(1.12)'" onmouseout="this.style.color='rgba(255,255,255,0.75)';this.style.transform='scale(1)'">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
               </button>
 
-              <!-- Repeat -->
-              <button onclick="pcRepeat()" aria-label="Repeat" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.45);padding:6px;transition:color 0.2s;" onmouseover="this.style.color='#6ab04c'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-              </button>
+              <!-- Instagram -->
+              <a id="pc-instagram-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.45);padding:6px;display:inline-flex;align-items:center;justify-content:center;transition:color 0.2s;text-decoration:none;" onmouseover="this.style.color='#c9a96e'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+              </a>
 
             </div><!-- /controls -->
 
@@ -395,22 +395,24 @@
 
       /* ── Member Data ── */
       var members = [
-        { name: 'Suhana Tembhurkar', post: 'President',              role: 'Vocalist',    photo: 'photos/suhana/profpic.jpg',      initial: 'S' },
-        { name: 'Shreyansh Mohanty', post: 'Vice President',         role: 'Keyboardist', photo: 'photos/shreyansh/profpic.jpg',   initial: 'S' },
-        { name: 'Prajjwal V. Harave',post: 'Treasurer',              role: 'Guitarist',   photo: 'photos/prajjwal/profpic.jpg',    initial: 'P' },
-        { name: 'Samriddhi Debbrama',post: 'Media Head',             role: 'Vocalist',    photo: 'photos/samriddhi/profpic.jpg',   initial: 'S' },
-        { name: 'Pratham Sharma',    post: 'Technical Head',         role: 'Guitarist',   photo: 'photos/pratham/profpic.jpg',     initial: 'P' },
-        { name: 'Moksh Sharma',      post: 'PG Representative',      role: 'Musician',    photo: 'photos/moksh/profpic.jpg',       initial: 'M' },
-        { name: 'Harikrishna Nair',  post: 'Representative (Boys)',  role: 'Keyboardist', photo: 'photos/harikrishna/profpic.jpeg', initial: 'H' },
-        { name: 'Aarushi Deoghare',  post: 'Representative (Girls)', role: 'Vocalist',    photo: 'photos/aarushi/profpic.jpg',     initial: 'A' }
+        { name: 'Suhana Tembhurkar', post: 'President',                       role: 'Vocalist',    photo: 'photos/suhana/profpic.jpg',       initial: 'S', instagram: 'https://www.instagram.com/_miss_suhana19_/' },
+        { name: 'Shreyansh Mohanty', post: 'Vice President',                  role: 'Keyboardist', photo: 'photos/shreyansh/profpic.jpg',    initial: 'S', instagram: 'https://www.instagram.com/_shreyanshmohanty_/' },
+        { name: 'Prajjwal V. Harave',post: 'Treasurer',                       role: 'Guitarist',   photo: 'photos/prajjwal/profpic.jpg',     initial: 'P', instagram: 'https://www.instagram.com/__prajj.wal___/' },
+        { name: 'Samriddhi Debbrama',post: 'Media Head',                      role: 'Vocalist',    photo: 'photos/samriddhi/profpic.jpg',    initial: 'S', instagram: 'https://www.instagram.com/samriddhidebbarma/' },
+        { name: 'Pratham Sharma',    post: 'Technical Head',                  role: 'Guitarist',   photo: 'photos/pratham/profpic.jpg',      initial: 'P', instagram: 'https://www.instagram.com/prxthxm11/' },
+        { name: 'Moksh Sharma',      post: 'PG Representative',               role: 'Musician',    photo: 'photos/moksh/profpic.jpg',        initial: 'M', instagram: 'https://www.instagram.com/mok_sh_arma/' },
+        { name: 'Harikrishna Nair',  post: '2nd Year Representative (Boys)',  role: 'Keyboardist', photo: 'photos/harikrishna/profpic.jpeg', initial: 'H', instagram: 'https://www.instagram.com/harikrishna_nair07/' },
+        { name: 'Aarushi Deoghare',  post: '2nd Year Representative (Girls)', role: 'Vocalist',    photo: 'photos/aarushi/profpic.jpg',      initial: 'A', instagram: 'https://www.instagram.com/otaku4252025/' }
       ];
 
-      var DURATION  = 6000; /* 6 seconds per member */
-      var idx       = 0;
-      var isPlaying = true;
-      var startTime = null;   /* timestamp when current slide started (or resumed) */
-      var elapsed   = 0;      /* ms elapsed before any pause */
-      var rafId     = null;
+      var DURATION    = 6000; /* 6 seconds per member */
+      var idx         = 0;
+      var isPlaying   = false; /* starts paused — IntersectionObserver kicks it off */
+      var startTime   = null;  /* timestamp when current slide started (or resumed) */
+      var elapsed     = 0;     /* ms elapsed before any pause */
+      var rafId       = null;
+      var hasStarted  = false; /* true once card entered viewport for first time */
+      var elInstaLink = document.getElementById('pc-instagram-link');
 
       /* DOM refs */
       var elName    = document.getElementById('pc-name');
@@ -482,6 +484,11 @@
 
           buildWaveform();
           buildDots();
+
+          /* Update Instagram link */
+          if (elInstaLink) {
+            elInstaLink.href = m.instagram || 'https://www.instagram.com/octaves_vnit';
+          }
 
           if (animate) {
             elName.style.opacity = '1'; elPost.style.opacity = '1'; elRole.style.opacity = '1';
@@ -563,7 +570,29 @@
       /* ── Init ── */
       buildWaveform();
       load(members[0], false);
-      startAnim();
+
+      /* ── IntersectionObserver: start timer only when card is visible ── */
+      var playerCard = document.getElementById('player-card');
+      if ('IntersectionObserver' in window && playerCard) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && !hasStarted) {
+              hasStarted = true;
+              isPlaying  = true;
+              /* Show pause icon since we just started playing */
+              iconPause.style.display = '';
+              iconPlay.style.display  = 'none';
+              startAnim();
+              io.disconnect(); /* fire only once */
+            }
+          });
+        }, { threshold: 0.45 }); /* card must be at least 45% visible */
+        io.observe(playerCard);
+      } else {
+        /* Fallback for browsers without IntersectionObserver */
+        isPlaying = true;
+        startAnim();
+      }
 
     })();
     </script>
