@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octaves Council & Musicians Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0c10;
+            color: #f0f4f9;
+        }
+        .font-serif-title {
+            font-family: 'Instrument Serif', serif;
+        }
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(20, 22, 30, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 12px 30px -10px rgba(245, 158, 11, 0.15);
+        }
+        /* Sound wave animation for audio preview */
+        @keyframes wave-bounce {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
+        }
+        .wave-bar {
+            width: 3px;
+            background-color: #f59e0b;
+            border-radius: 99px;
+            animation: wave-bounce 0.8s infinite ease-in-out;
+        }
+        .wave-bar:nth-child(1) { animation-delay: 0.0s; }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.1s; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0c10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #272a38;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-[#0b0c10] text-gray-100 min-h-screen pb-20 selection:bg-amber-500 selection:text-black">
+
+    <header class="border-b border-white/10 bg-black/40 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full border border-amber-500/40 flex items-center justify-center bg-black/60 text-amber-400 font-bold tracking-widest text-lg">
+                    O#
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wider text-white">OCTAVES</h1>
+                    <p class="text-[10px] text-amber-400 tracking-widest uppercase font-semibold">VNIT Music Club Directory</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-4 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                    Active Roster: <span id="activeCount">0</span> Musicians
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 pt-10">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6 border-b border-white/10 pb-8">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold uppercase tracking-widest mb-3">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    Meet The Artists
+                </div>
+                <h2 class="text-4xl md:text-6xl font-serif-title tracking-tight text-white">
+                    The Minds & <span class="italic text-amber-400">Musicians.</span>
+                </h2>
+                <p class="text-sm text-gray-400 max-w-xl mt-2">
+                    Explore the talent behind Octaves. Click on any member to hear their audio preview, view their rig setup, and check their past gig history.
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-80">
+                <span class="material-icons absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-lg">search</span>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search by name, instrument, or influence..." 
+                    class="w-full bg-zinc-900/80 border border-white/15 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-all shadow-inner"
+                >
+            </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="space-y-4 mb-10">
+            <!-- Instrument Filter Chips -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="instrumentFilters">
+                <!-- Dynamically rendered by JS -->
+            </div>
+
+            <!-- Secondary Filters: Batch & Role -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-2 text-xs">
+                <div class="flex items-center gap-3">
+                    <span class="text-gray-400 font-medium uppercase tracking-wider text-[11px]">Filter Batch:</span>
+                    <select id="batchSelect" class="bg-zinc-900 border border-white/15 rounded-lg px-3 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-amber-500 cursor-pointer">
+                        <option value="All">All Batches</option>
+                        <option value="Final Year">Final Year (Seniors)</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="Freshmen">Freshmen</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center gap-2 text-gray-400 text-[11px]">
+                    <span class="material-icons text-amber-400 text-sm">volume_up</span>
+                    <span>Click <strong>"Audio Snippet"</strong> to hear live browser synthesis previews</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="membersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Cards rendered dynamically -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-20 border border-dashed border-white/10 rounded-2xl bg-zinc-900/30">
+            <span class="material-icons text-5xl text-gray-600 mb-2">music_off</span>
+            <h3 class="text-lg font-bold text-gray-300">No Musicians Found</h3>
+            <p class="text-sm text-gray-500 max-w-sm mx-auto mt-1">Try adjusting your search terms or clearing the active instrument filters.</p>
+            <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-semibold tracking-wider uppercase hover:bg-amber-500/30 transition-all">
+                Reset All Filters
+            </button>
+        </div>
+
+    </main>
+
+    <div id="memberModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="relative w-full max-w-2xl bg-[#14161f] border border-white/15 rounded-2xl p-6 sm:p-8 shadow-2xl scale-95 transition-transform duration-300 transform" id="modalContainer">
+            
+            <button id="closeModalBtn" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-300 hover:text-white transition-all">
+                <span class="material-icons text-lg">close</span>
+            </button>
+
+            <div id="modalContent">
+                <!-- Dynamically filled by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Council & Musician Data
+        const MEMBERS = [
+            {
+                id: 1,
+                name: "Aarav Sharma",
+                role: "Club President",
+                instrument: "Lead Guitar",
+                category: "Guitar",
+                batch: "Final Year",
+                photo: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop",
+                influences: ["Polyphia", "Pink Floyd", "Guns N' Roses"],
+                gear: ["Fender Player Stratocaster", "Boss Katana 50 MKII", "Ibanez TS9 Tube Screamer"],
+                gigs: [
+                    { song: "Hotel California", event: "Acoustic Night 2025" },
+                    { song: "Comfortably Numb", event: "Spring Fest 2025" }
+                ],
+                bio: "Overseeing Octaves lead guitar section and sound design. Passionate about melodic solos, tone crafting, and high-energy live arrangements.",
+                audioTone: "guitar"
+            },
+            {
+                id: 2,
+                name: "Ananya Deshmukh",
+                role: "Vice President",
+                instrument: "Lead Vocals",
+                category: "Vocals",
+                batch: "Final Year",
+                photo: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600&auto=format&fit=crop",
+                influences: ["Paramore", "Adele", "A.R. Rahman"],
+                gear: ["Shure SM58 Dynamic Mic", "TC Helicon Vocal Processor"],
+                gigs: [
+                    { song: "Misery Business", event: "Orientation Gig 2025" },
+                    { song: "Rolling in the Deep", event: "Valentine Rock 2026" }
+                ],
+                bio: "Vocal arranger and stage performer with a 3-octave vocal range. Specializes in pop-rock belting and acoustic harmonies.",
+                audioTone: "vocals"
+            },
+            {
+                id: 3,
+                name: "Rohan Verma",
+                role: "Rhythm & Bass Lead",
+                instrument: "Bass Guitar",
+                category: "Bass",
+                batch: "3rd Year",
+                photo: "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?q=80&w=600&auto=format&fit=crop",
+                influences: ["Red Hot Chili Peppers", "Tool", "Muse"],
+                gear: ["Ibanez SR300E 4-String Bass", "Hartke HD50 Combo", "Darkglass Alpha Omicron"],
+                gigs: [
+                    { song: "Hysteria", event: "Rock Night 2025" },
+                    { song: "Can't Stop", event: "Orientation 2025" }
+                ],
+                bio: "Laying down the low-end groove for Octaves. Loves slapping basslines, heavy distortion pedals, and tight tempo locking.",
+                audioTone: "bass"
+            },
+            {
+                id: 4,
+                name: "Devansh Joshi",
+                role: "Percussion Captain",
+                instrument: "Drums",
+                category: "Drums",
+                batch: "3rd Year",
+                photo: "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=600&auto=format&fit=crop",
+                influences: ["Foo Fighters", "Dream Theater", "Led Zeppelin"],
+                gear: ["Pearl Export Drum Kit", "Sabian AAX Cymbals", "Vic Firth 5B Sticks"],
+                gigs: [
+                    { song: "Everlong", event: "Valentine Rock 2026" },
+                    { song: "Rosanna", event: "Jazz & Fusion Night" }
+                ],
+                bio: "The backbone of Octaves rhythm section. Known for heavy rimshots, double-bass speed runs, and metronomic precision.",
+                audioTone: "drums"
+            },
+            {
+                id: 5,
+                name: "Kavya Kulkarni",
+                role: "Arrangements Lead",
+                instrument: "Keyboards & Synth",
+                category: "Keys",
+                batch: "2nd Year",
+                photo: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=600&auto=format&fit=crop",
+                influences: ["Snarky Puppy", "Yanni", "Chopin"],
+                gear: ["Roland XPS-30 Synthesizer", "Focusrite Scarlett Solo", "MainStage 3"],
+                gigs: [
+                    { song: "Lingus", event: "Fusion Night 2025" }
+                ],
+                bio: "Keyboards and sound synth specialist. Loves designing complex ambient pads, brass synth stabs, and classical piano solos.",
+                audioTone: "keys"
+            },
+            {
+                id: 6,
+                name: "Siddharth Nair",
+                role: "Sound Engineer",
+                instrument: "Production / DAW",
+                category: "Production",
+                batch: "Final Year",
+                photo: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop",
+                influences: ["Finneas", "Steven Wilson", "Rick Rubin"],
+                gear: ["Behringer X32 Digital Console", "Logic Pro X", "Sennheiser HD600 Monitors"],
+                gigs: [
+                    { song: "Full Festival Sound Mix", event: "Spring Fest 2025" }
+                ],
+                bio: "Mastermind behind Octaves stage audio isolation, stemming, live mixer desk setup, and multitrack concert recordings.",
+                audioTone: "production"
+            }
+        ];
+
+        const CATEGORIES = ["All", "Vocals", "Guitar", "Bass", "Drums", "Keys", "Production"];
+
+        let activeCategory = "All";
+        let activeBatch = "All";
+        let searchQuery = "";
+        let currentlyPlayingId = null;
+
+        // Web Audio Synthesizer (No external MP3 dependencies required!)
+        let audioCtx = null;
+
+        function playSynthesizedSnippet(memberId, toneType) {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (currentlyPlayingId === memberId) {
+                stopAudioSnippet();
+                return;
+            }
+
+            stopAudioSnippet();
+            currentlyPlayingId = memberId;
+            updateAudioWaveUI();
+
+            const now = audioCtx.currentTime;
+
+            if (toneType === 'guitar') {
+                // Guitar arpeggio riff
+                [220, 277.18, 329.63, 440, 329.63, 277.18].forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.2);
+                    gain.gain.setValueAtTime(0.2, now + idx * 0.2);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.2 + 0.3);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.2);
+                    osc.stop(now + idx * 0.2 + 0.35);
+                });
+            } else if (toneType === 'bass') {
+                // Slap bass groove
+                [55, 55, 110, 82.4, 55].forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.25);
+                    gain.gain.setValueAtTime(0.4, now + idx * 0.25);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.25 + 0.2);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + idx * 0.25);
+                    osc.stop(now + idx * 0.25 + 0.22);
+                });
+            } else if (toneType === 'drums') {
+                // Drumbeat rhythm pulse
+                for (let i = 0; i < 4; i++) {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.frequency.setValueAtTime(120, now + i * 0.3);
+                    osc.frequency.exponentialRampToValueAtTime(30, now + i * 0.3 + 0.15);
+                    gain.gain.setValueAtTime(0.5, now + i * 0.3);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.3 + 0.18);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + i * 0.3);
+                    osc.stop(now + i * 0.3 + 0.2);
+                }
+            } else {
+                // Warm vocal / synth chord pad
+                [261.63, 329.63, 392.00, 523.25].forEach(freq => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, now);
+                    gain.gain.setValueAtTime(0.05, now);
+                    gain.gain.linearRampToValueAtTime(0.15, now + 0.5);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 1.8);
+                });
+            }
+
+            setTimeout(() => {
+                if (currentlyPlayingId === memberId) {
+                    stopAudioSnippet();
+                }
+            }, 1800);
+        }
+
+        function stopAudioSnippet() {
+            currentlyPlayingId = null;
+            updateAudioWaveUI();
+        }
+
+        function updateAudioWaveUI() {
+            MEMBERS.forEach(m => {
+                const waveEl = document.getElementById(`wave-${m.id}`);
+                const btnText = document.getElementById(`btn-text-${m.id}`);
+                if (waveEl && btnText) {
+                    if (m.id === currentlyPlayingId) {
+                        waveEl.classList.remove('hidden');
+                        waveEl.classList.add('flex');
+                        btnText.textContent = "Playing...";
+                    } else {
+                        waveEl.classList.add('hidden');
+                        waveEl.classList.remove('flex');
+                        btnText.textContent = "Audio Snippet";
+                    }
+                }
+            });
+        }
+
+        function renderCategoryChips() {
+            const container = document.getElementById('instrumentFilters');
+            container.innerHTML = CATEGORIES.map(cat => `
+                <button 
+                    onclick="setCategory('${cat}')"
+                    class="px-4 py-2 rounded-xl text-xs font-semibold tracking-wider uppercase whitespace-nowrap transition-all border ${
+                        activeCategory === cat 
+                        ? 'bg-amber-500 text-black border-amber-400 font-bold shadow-lg shadow-amber-500/20' 
+                        : 'bg-zinc-900/80 border-white/10 text-gray-400 hover:text-white hover:bg-zinc-800'
+                    }"
+                >
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function setCategory(cat) {
+            activeCategory = cat;
+            renderCategoryChips();
+            renderMembers();
+        }
+
+        function filterMembers() {
+            return MEMBERS.filter(m => {
+                const matchesCat = activeCategory === "All" || m.category === activeCategory;
+                const matchesBatch = activeBatch === "All" || m.batch === activeBatch;
+                const matchesSearch = searchQuery === "" || 
+                    m.name.toLowerCase().includes(searchQuery) ||
+                    m.instrument.toLowerCase().includes(searchQuery) ||
+                    m.role.toLowerCase().includes(searchQuery) ||
+                    m.influences.some(i => i.toLowerCase().includes(searchQuery));
+                
+                return matchesCat && matchesBatch && matchesSearch;
+            });
+        }
+
+        function renderMembers() {
+            const grid = document.getElementById('membersGrid');
+            const emptyState = document.getElementById('emptyState');
+            const activeCount = document.getElementById('activeCount');
+            
+            const filtered = filterMembers();
+            activeCount.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = filtered.map(m => `
+                <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <!-- Image Container with Overlay -->
+                        <div class="relative h-64 overflow-hidden bg-zinc-900">
+                            <img 
+                                src="${m.photo}" 
+                                alt="${m.name}" 
+                                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                onerror="this.src='https://placehold.co/400x500/18181b/f59e0b?text=${encodeURIComponent(m.name)}'"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#14161f] via-transparent to-black/30"></div>
+                            
+                            <!-- Batch Badge -->
+                            <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-semibold text-gray-300 uppercase tracking-widest">
+                                ${m.batch}
+                            </div>
+
+                            <!-- Role Tag -->
+                            <div class="absolute bottom-3 left-3 right-3">
+                                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block">
+                                    ${m.role}
+                                </span>
+                                <h3 class="text-xl font-bold text-white tracking-wide leading-tight">
+                                    ${m.name}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-4 space-y-3">
+                            <div class="flex items-center gap-2 text-xs text-gray-300">
+                                <span class="material-icons text-amber-400 text-sm">music_note</span>
+                                <span>${m.instrument}</span>
+                            </div>
+
+                            <!-- Influences -->
+                            <div class="flex flex-wrap gap-1">
+                                ${m.influences.map(inf => `
+                                    <span class="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-[10px] text-gray-400">
+                                        ${inf}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Actions -->
+                    <div class="p-4 pt-0 space-y-2 border-t border-white/5 mt-3">
+                        <div class="flex items-center gap-2">
+                            <!-- Audio Preview Button -->
+                            <button 
+                                onclick="playSynthesizedSnippet(${m.id}, '${m.audioTone}')"
+                                class="flex-1 py-2 px-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-semibold tracking-wider flex items-center justify-center gap-2 transition-all"
+                            >
+                                <div id="wave-${m.id}" class="hidden items-end gap-1 h-3">
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                    <div class="wave-bar"></div>
+                                </div>
+                                <span id="btn-text-${m.id}">Audio Snippet</span>
+                            </button>
+
+                            <!-- Rig / Details Modal Button -->
+                            <button 
+                                onclick="openMemberModal(${m.id})"
+                                class="p-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-gray-300 hover:text-white transition-all"
+                                title="View Rig & Bio"
+                            >
+                                <span class="material-icons text-sm">tune</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openMemberModal(id) {
+            const member = MEMBERS.find(m => m.id === id);
+            if (!member) return;
+
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/3">
+                        <img 
+                            src="${member.photo}" 
+                            alt="${member.name}" 
+                            class="w-full h-56 md:h-full object-cover rounded-xl border border-white/10"
+                        >
+                    </div>
+                    <div class="w-full md:w-2/3 space-y-4">
+                        <div>
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">${member.role} • ${member.batch}</span>
+                            <h2 class="text-2xl font-serif-title text-white tracking-wide">${member.name}</h2>
+                            <p class="text-xs text-gray-400">${member.instrument}</p>
+                        </div>
+
+                        <p class="text-xs text-gray-300 leading-relaxed bg-zinc-900/60 p-3 rounded-xl border border-white/5">
+                            "${member.bio}"
+                        </p>
+
+                        <!-- Equipment / Rig List -->
+                        <div>
+                            <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <span class="material-icons text-sm">settings_input_component</span>
+                                The Rig & Equipment
+                            </h4>
+                            <ul class="space-y-1 text-xs text-gray-300">
+                                ${member.gear.map(g => `
+                                    <li class="flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                        ${g}
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <!-- Past Gig History -->
+                        <div>
+                            <h4 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+                                <span class="material-icons text-sm">event</span>
+                                Featured Performances
+                            </h4>
+                            <div class="space-y-1">
+                                ${member.gigs.map(gig => `
+                                    <div class="flex items-center justify-between p-2 rounded-lg bg-white/5 text-xs">
+                                        <span class="text-white font-medium">"${gig.song}"</span>
+                                        <span class="text-gray-400 text-[10px] uppercase">${gig.event}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById('memberModal');
+            const container = document.getElementById('modalContainer');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            container.classList.remove('scale-95');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('memberModal');
+            const container = document.getElementById('modalContainer');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            container.classList.add('scale-95');
+        }
+
+        function resetFilters() {
+            activeCategory = "All";
+            activeBatch = "All";
+            searchQuery = "";
+            document.getElementById('searchInput').value = "";
+            document.getElementById('batchSelect').value = "All";
+            renderCategoryChips();
+            renderMembers();
+        }
+
+        // Event Listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase();
+            renderMembers();
+        });
+
+        document.getElementById('batchSelect').addEventListener('change', (e) => {
+            activeBatch = e.target.value;
+            renderMembers();
+        });
+
+        document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+        document.getElementById('memberModal').addEventListener('click', (e) => {
+            if (e.target.id === 'memberModal') closeModal();
+        });
+
+        // Initialize Page
+        renderCategoryChips();
+        renderMembers();
+    </script>
+</body>
+</html>

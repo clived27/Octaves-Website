@@ -253,7 +253,7 @@
 
             <!-- Top Bar: Logo + Club Name -->
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:26px;">
-              <img src="Octaves White N.png" alt="Octaves Logo" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,169,110,0.3);object-fit:cover;flex-shrink:0;background:#111;" />
+              <img src="Octaves%20White%20N.png" alt="Octaves Logo" style="width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,169,110,0.4);object-fit:contain;padding:4px;flex-shrink:0;background:#0a0a08;" onerror="this.src='octaves.jpg';this.style.objectFit='cover';this.style.padding='0';" />
               <div>
                 <div style="font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.22em;color:#f0ece4;line-height:1;">OCTAVES</div>
                 <div style="font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:400;letter-spacing:0.28em;color:rgba(240,236,228,0.45);margin-top:2px;">THE MUSIC CLUB</div>
@@ -467,20 +467,31 @@
           elPost.textContent    = m.post;
           elRole.textContent    = '\u201c' + m.role + '\u201d';
 
-          /* Photo */
+          /* Photo — try multiple extensions so profpic always loads */
           elPhoto.innerHTML = '';
-          var img = new Image();
-          img.onload = function () {
-            img.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:14px;';
-            elPhoto.appendChild(img);
-          };
-          img.onerror = function () {
-            var sp = document.createElement('span');
-            sp.style.cssText = 'font-family:\'Cormorant Garamond\',serif;font-size:3.5rem;font-weight:500;color:rgba(201,169,110,0.5);';
-            sp.textContent = m.initial;
-            elPhoto.appendChild(sp);
-          };
-          img.src = m.photo;
+          var basePath = m.photo.substring(0, m.photo.lastIndexOf('.'));
+          var exts = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'webp'];
+          var extIdx = 0;
+
+          function tryNextPhoto() {
+            if (extIdx >= exts.length) {
+              var sp = document.createElement('span');
+              sp.style.cssText = 'font-family:\'Cormorant Garamond\',serif;font-size:3.5rem;font-weight:500;color:rgba(201,169,110,0.5);';
+              sp.textContent = m.initial;
+              elPhoto.appendChild(sp);
+              return;
+            }
+            var testImg = new Image();
+            var currentSrc = extIdx === 0 ? m.photo : (basePath + '.' + exts[extIdx]);
+            extIdx++;
+            testImg.onload = function () {
+              testImg.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:14px;';
+              elPhoto.appendChild(testImg);
+            };
+            testImg.onerror = tryNextPhoto;
+            testImg.src = currentSrc;
+          }
+          tryNextPhoto();
 
           buildWaveform();
           buildDots();
