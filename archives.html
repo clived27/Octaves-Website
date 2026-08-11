@@ -385,15 +385,7 @@
 
   <main>
 
-    <!-- Page Hero -->
-    <section class="arc-page-hero">
-      <div class="container">
-        <p class="arc-page-eyebrow">Performance Archive</p>
-        <h1 class="arc-page-title">The <em>Archives</em></h1>
-        <p class="arc-page-sub">Browse past events, select a performance slot, and relive the moments that made Octaves what it is.</p>
-      </div>
-    </section>
-
+   
     <!-- Split-Screen Archives Layout -->
     <div class="archives-wrapper">
 
@@ -562,14 +554,28 @@
       listEl.appendChild(li);
     });
 
-    /* ── Auto-load first performance into player (sidebar stays collapsed) ── */
+    /* ── Auto-load: open Euphoria 2026 accordion and select Legends Never Die ── */
     if (data.length > 0 && data[0].performances.length > 0) {
+      var firstEventBtn = listEl.querySelector('.arc-event-btn');
       var firstPerfList = listEl.querySelector('.arc-performances');
+
+      /* Open the accordion */
+      if (firstEventBtn) {
+        firstEventBtn.classList.add('open');
+        firstEventBtn.setAttribute('aria-expanded', 'true');
+      }
       if (firstPerfList) {
-        var firstPerfBtn = firstPerfList.querySelector('.arc-perf-btn');
-        if (firstPerfBtn) {
-          loadPerformance(data[0].eventName, data[0].performances[0], firstPerfBtn);
-        }
+        firstPerfList.classList.add('open');
+      }
+
+      /* Select Legends Never Die (index 11 in Euphoria 2026) */
+      var perfBtns = firstPerfList ? firstPerfList.querySelectorAll('.arc-perf-btn') : [];
+      var legendsIndex = 0;
+      var targetBtn  = perfBtns[legendsIndex] || perfBtns[0];
+      var targetPerf = data[0].performances[legendsIndex] || data[0].performances[0];
+      if (targetBtn) {
+        loadPerformance(data[0].eventName, targetPerf, targetBtn);
+        setTimeout(function () { targetBtn.scrollIntoView({ block: 'nearest' }); }, 80);
       }
     }
   })();
