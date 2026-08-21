@@ -151,5 +151,25 @@ var ARCHIVES_DATA = [
         youtubeUrl: "https://www.youtube.com/embed/ZkIiEW4uJYc"
       }
     ]
+  },
+  {
+    eventName: "Cultnite 25",
+    performances: [
+      {
+        slotName: "Die with a Smile",
+        genre: "",
+        youtubeUrl: "https://youtu.be/d0TsxEQJr-4"
+      },
+      {
+        slotName: "Koi Mil Gaya X Jiya Jiya",
+        genre: "",
+        youtubeUrl: "https://youtu.be/aVinaheHqoo"
+      },
+      {
+        slotName: "Zamana Lage",
+        genre: "",
+        youtubeUrl: "https://youtu.be/ozqV3y1LF1k"
+      }
+    ]
   }
 ];
