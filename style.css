@@ -416,6 +416,15 @@ ul  { list-style: none; }
   background: var(--clr-bg-2);
   border-top: 1px solid var(--clr-border);
   border-bottom: 1px solid var(--clr-border);
+  text-align: center;
+}
+
+.about .section-label {
+  justify-content: center;
+}
+
+.about .section-label::before {
+  display: none;
 }
 
 .about-grid {
@@ -423,6 +432,7 @@ ul  { list-style: none; }
   grid-template-columns: 1fr;
   gap: var(--sp-xl);
   max-width: 720px;
+  margin-inline: auto;
 }
 
 /* ════════════════════════════════════════════
