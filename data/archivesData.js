@@ -133,6 +133,61 @@ var ARCHIVES_DATA = [
     ]
   },
   {
+    eventName: "Cultnite 2026",
+    performances: [
+      {
+        slotName: "Ae Dil Hia Mushkil",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/iToM3ZRFltQ"
+      },
+      {
+        slotName: "Har Kisi Ko",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/GBlGPdaespk"
+      },
+      {
+        slotName: "Allah Duhai Hai",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/7Fq-DT8LkkY"
+      },
+      {
+        slotName: "Hey Rama",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/JWu7JQZOwJc"
+      }
+    ]
+  },
+  {
+    eventName: "Goonj-e-Azadi (Independance Day) 2026",
+    performances: [
+      {
+        slotName: "Opening Slot",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/aLOxww6rbVw"
+      },
+      {
+        slotName: "Emotional Slot",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/vzwUFJUKnOo"
+      },
+      {
+        slotName: "Rock Slot",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/YBBILcjUZxY"
+      },
+      {
+        slotName: "Patriotic Slot",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/qFMmwQEhfFI"
+      },
+      {
+        slotName: "Victory Slot",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/6MQYLmyhALI"
+      }
+    ]
+  },
+  {
     eventName: "Freshers 2025",
     performances: [
       {
@@ -158,17 +213,17 @@ var ARCHIVES_DATA = [
       {
         slotName: "Die with a Smile",
         genre: "",
-        youtubeUrl: "https://youtu.be/d0TsxEQJr-4"
+        youtubeUrl: "https://www.youtube.com/embed/d0TsxEQJr-4"
       },
       {
         slotName: "Koi Mil Gaya X Jiya Jiya",
         genre: "",
-        youtubeUrl: "https://youtu.be/aVinaheHqoo"
+        youtubeUrl: "https://www.youtube.com/embed/aVinaheHqoo"
       },
       {
         slotName: "Zamana Lage",
         genre: "",
-        youtubeUrl: "https://youtu.be/ozqV3y1LF1k"
+        youtubeUrl: "https://www.youtube.com/embed/ozqV3y1LF1k"
       }
     ]
   },
@@ -178,17 +233,22 @@ var ARCHIVES_DATA = [
       {
         slotName: "Chunar",
         genre: "",
-        youtubeUrl: "https://youtu.be/mXMG-gkw260"
+        youtubeUrl: "https://www.youtube.com/embed/mXMG-gkw260"
       },
       {
         slotName: "Dhano Dhano",
         genre: "",
-        youtubeUrl: "https://youtu.be/q3VyY8lHqP8"
+        youtubeUrl: "https://www.youtube.com/embed/q3VyY8lHqP8"
       },
       {
         slotName: "Jai Ho",
         genre: "",
-        youtubeUrl: "https://youtu.be/SaRWDQZ559o"
+        youtubeUrl: "https://www.youtube.com/embed/SaRWDQZ559o"
+      },
+      {
+        slotName: "Maa Tujhe Salam",
+        genre: "",
+        youtubeUrl: "https://www.youtube.com/embed/QfxWlqSNMWE"
       }
     ]
   }
