@@ -1,0 +1,491 @@
+/* ─────────────────────────────────────────────
+   Octaves Audition Form — Styles
+   Design: Clean, accessible, minimal.
+   No gradients, no glow, no floating effects.
+───────────────────────────────────────────── */
+
+:root {
+  --clr-bg:        #0a0a08;
+  --clr-bg-2:      #111109;
+  --clr-surface:   #161613;
+  --clr-border:    rgba(201, 169, 110, 0.20);
+  --clr-border-mid: rgba(201, 169, 110, 0.35);
+  --clr-gold:      #c9a96e;
+  --clr-gold-light: #e8d5a3;
+  --clr-text:      #f0ebe0;
+  --clr-text-muted: #9e9a8e;
+  --clr-text-faint: #5c5950;
+  --clr-error:     #c0392b;
+  --ff-serif:      'Cormorant Garamond', Georgia, serif;
+  --ff-sans:       'Inter', system-ui, sans-serif;
+  --fs-xs:         0.72rem;
+  --fs-sm:         0.84rem;
+  --fs-base:       1rem;
+  --fs-lg:         1.1rem;
+  --radius:        3px;
+  --sp-xs:         0.5rem;
+  --sp-sm:         1rem;
+  --sp-md:         1.5rem;
+  --sp-lg:         2.5rem;
+}
+
+/* ── Page Shell ── */
+.af-page {
+  min-height: 100vh;
+  background: var(--clr-bg);
+  font-family: var(--ff-sans);
+  color: var(--clr-text);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--sp-lg) var(--sp-sm);
+}
+
+/* ── Card ── */
+.af-card {
+  width: 100%;
+  max-width: 740px;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: var(--sp-lg) clamp(1.25rem, 5vw, 2.5rem);
+}
+
+/* ── Header ── */
+.af-header {
+  margin-bottom: var(--sp-lg);
+  padding-bottom: var(--sp-md);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.af-eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  margin-bottom: 0.5rem;
+}
+
+.af-title {
+  font-family: var(--ff-serif);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--clr-text);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.af-title em {
+  font-style: italic;
+  color: var(--clr-gold-light);
+}
+
+/* ── Step indicator ── */
+.af-step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--sp-md);
+  font-size: var(--fs-xs);
+  color: var(--clr-text-faint);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.af-step-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--clr-border-mid);
+  background: transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.af-step-dot.active {
+  background: var(--clr-gold);
+  border-color: var(--clr-gold);
+}
+
+/* ── Form grid ── */
+.af-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-md) var(--sp-md);
+}
+
+.af-grid .af-field--full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 560px) {
+  .af-grid {
+    grid-template-columns: 1fr;
+  }
+  .af-grid .af-field--full {
+    grid-column: 1;
+  }
+}
+
+/* ── Field ── */
+.af-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.af-label {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.af-label .af-required {
+  color: var(--clr-gold);
+  margin-left: 2px;
+}
+
+/* ── Inputs / Selects / Textareas ── */
+.af-input,
+.af-select,
+.af-textarea {
+  font-family: inherit;
+  font-size: var(--fs-base);
+  color: var(--clr-text);
+  background: var(--clr-bg-2);
+  border: 1px solid var(--clr-border-mid);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.18s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.af-input:focus,
+.af-select:focus,
+.af-textarea:focus {
+  border-color: var(--clr-gold);
+}
+
+.af-input.is-invalid,
+.af-select.is-invalid,
+.af-textarea.is-invalid {
+  border-color: #c0392b !important;
+}
+
+.af-input::placeholder,
+.af-textarea::placeholder {
+  color: var(--clr-text-faint);
+}
+
+.af-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239e9a8e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.25rem;
+  cursor: pointer;
+}
+
+.af-select option {
+  background: var(--clr-surface);
+  color: var(--clr-text);
+}
+
+.af-textarea {
+  min-height: 90px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* ── Checkbox group ── */
+.af-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.1rem;
+}
+
+.af-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.af-checkbox-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--clr-border-mid);
+  border-radius: 2px;
+  background: var(--clr-bg-2);
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+.af-checkbox-row input[type="checkbox"]:checked {
+  background: var(--clr-gold);
+  border-color: var(--clr-gold);
+}
+
+.af-checkbox-row input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  border: 1.5px solid #0a0a08;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.af-checkbox-label {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+}
+
+.af-checkbox-row:hover .af-checkbox-label {
+  color: var(--clr-text);
+}
+
+/* ── Yes / No radio group ── */
+.af-yesno {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.af-yesno-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.af-yesno-label input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--clr-border-mid);
+  border-radius: 50%;
+  background: var(--clr-bg-2);
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+.af-yesno-label input[type="radio"]:checked {
+  border-color: var(--clr-gold);
+}
+
+.af-yesno-label input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--clr-gold);
+}
+
+.af-yesno-text {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  transition: color 0.15s;
+}
+
+.af-yesno-label:hover .af-yesno-text {
+  color: var(--clr-text);
+}
+
+/* ── Divider ── */
+.af-divider {
+  border: none;
+  border-top: 1px solid var(--clr-border);
+  margin: var(--sp-md) 0;
+}
+
+/* ── Buttons ── */
+.af-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-sm);
+  margin-top: var(--sp-md);
+}
+
+.af-btn {
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: 1px solid var(--clr-border-mid);
+  padding: 0.65rem 1.6rem;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  background: transparent;
+  color: var(--clr-text-muted);
+}
+
+.af-btn:hover {
+  border-color: var(--clr-gold);
+  color: var(--clr-gold);
+}
+
+.af-btn--primary {
+  background: var(--clr-gold);
+  border-color: var(--clr-gold);
+  color: #0a0a08;
+}
+
+.af-btn--primary:hover {
+  background: var(--clr-gold-light);
+  border-color: var(--clr-gold-light);
+  color: #0a0a08;
+}
+
+.af-btn--back {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-left: 0;
+  border: none;
+  font-size: var(--fs-sm);
+  color: var(--clr-text-faint);
+  background: transparent;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+}
+
+.af-btn--back:hover {
+  color: var(--clr-gold);
+  border: none;
+}
+
+/* ── Step 2 header ── */
+.af-step2-heading {
+  font-family: var(--ff-serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 300;
+  color: var(--clr-text-muted);
+  margin: 0 0 var(--sp-md) 0;
+  line-height: 1.4;
+}
+
+.af-step2-heading strong {
+  color: var(--clr-text);
+  font-weight: 400;
+}
+
+/* ── Tabs ── */
+.af-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.af-tab-list {
+  display: flex;
+  border-bottom: 1px solid var(--clr-border);
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.af-tab-list::-webkit-scrollbar {
+  display: none;
+}
+
+.af-tab-btn {
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--clr-text-faint);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.65rem 1.15rem;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom: -1px;
+  transition: color 0.18s, border-color 0.18s;
+}
+
+.af-tab-btn:hover {
+  color: var(--clr-text-muted);
+}
+
+.af-tab-btn.active {
+  color: var(--clr-gold);
+  border-bottom-color: var(--clr-gold);
+}
+
+.af-tab-panel {
+  padding: var(--sp-md) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+}
+
+/* ── Success state ── */
+.af-success {
+  text-align: center;
+  padding: var(--sp-lg) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+.af-success-icon {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--clr-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-gold);
+  font-size: 1.2rem;
+}
+
+.af-success-title {
+  font-family: var(--ff-serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--clr-text);
+}
+
+.af-success-sub {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  max-width: 36ch;
+  line-height: 1.7;
+}
+
+/* ── Hint text ── */
+.af-hint {
+  font-size: var(--fs-xs);
+  color: var(--clr-text-faint);
+  margin-top: 0.2rem;
+  line-height: 1.5;
+}

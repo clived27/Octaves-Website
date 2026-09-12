@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audition Registration — Octaves VNIT</title>
+  <meta name="description" content="Register for Octaves Music Club auditions at VNIT Nagpur." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ─── Audition page: scoped styles ─── */
+
+    .aud-page {
+      min-height: 100vh;
+      background: var(--clr-bg);
+      padding-top: 5rem;
+      padding-bottom: 4rem;
+    }
+
+    .aud-wrap {
+      width: 100%;
+      max-width: 760px;
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 5vw, 2.5rem);
+    }
+
+    /* ── Section label strip ── */
+    .aud-eyebrow {
+      font-family: var(--ff-sans);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .aud-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--clr-text);
+      margin: 0 0 0.25rem;
+      line-height: 1.1;
+    }
+
+    .aud-title em {
+      font-style: italic;
+      color: var(--clr-gold-light);
+    }
+
+    .aud-subtitle {
+      font-size: 0.9rem;
+      color: var(--clr-text-faint);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Step indicator ── */
+    .aud-steps {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-text-faint);
+    }
+
+    .aud-step-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .aud-step-dot.active {
+      background: var(--clr-gold);
+      border-color: var(--clr-gold);
+    }
+
+    /* ── Card ── */
+    .aud-card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: 3px;
+      padding: 2.25rem clamp(1.25rem, 5vw, 2.5rem);
+    }
+
+    /* ── Form grid ── */
+    .aud-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 1.5rem;
+    }
+
+    .aud-grid .full { grid-column: 1 / -1; }
+
+    @media (max-width: 560px) {
+      .aud-grid { grid-template-columns: 1fr; }
+      .aud-grid .full { grid-column: 1; }
+    }
+
+    /* ── Field ── */
+    .aud-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .aud-label {
+      font-family: var(--ff-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--clr-text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .aud-req { color: var(--clr-gold); margin-left: 2px; }
+
+    /* ── Controls ── */
+    .aud-input,
+    .aud-select,
+    .aud-textarea {
+      font-family: var(--ff-sans);
+      font-size: 0.97rem;
+      color: var(--clr-text);
+      background: var(--clr-bg-2);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      border-radius: 2px;
+      padding: 0.6rem 0.75rem;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.18s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .aud-input:focus,
+    .aud-select:focus,
+    .aud-textarea:focus {
+      border-color: var(--clr-gold);
+    }
+
+    .aud-input::placeholder,
+    .aud-textarea::placeholder {
+      color: var(--clr-text-faint);
+    }
+
+    .aud-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239e9a8e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2.25rem;
+      cursor: pointer;
+    }
+
+    .aud-select option {
+      background: var(--clr-surface);
+      color: var(--clr-text);
+    }
+
+    .aud-textarea {
+      min-height: 88px;
+      resize: vertical;
+      line-height: 1.65;
+    }
+
+    /* ── Checkboxes ── */
+    .aud-check-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.45rem 1rem;
+      margin-top: 0.35rem;
+    }
+
+    @media (max-width: 480px) {
+      .aud-check-group { grid-template-columns: 1fr; }
+    }
+
+    .aud-check-row {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .aud-check-row input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      border-radius: 2px;
+      background: var(--clr-bg-2);
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color 0.18s, background 0.18s;
+    }
+
+    .aud-check-row input[type="checkbox"]:checked {
+      background: var(--clr-gold);
+      border-color: var(--clr-gold);
+    }
+
+    .aud-check-row input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 4px;
+      width: 4px;
+      height: 7px;
+      border: 1.5px solid #0a0a08;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .aud-check-label {
+      font-size: 0.82rem;
+      color: var(--clr-text-muted);
+      transition: color 0.15s;
+    }
+
+    .aud-check-row:hover .aud-check-label { color: var(--clr-text); }
+
+    /* ── Hint ── */
+    .aud-hint {
+      font-size: 0.7rem;
+      color: var(--clr-text-faint);
+      margin-top: 0.2rem;
+      line-height: 1.5;
+    }
+
+    /* ── Divider ── */
+    .aud-hr {
+      border: none;
+      border-top: 1px solid var(--clr-border);
+      margin: 1.75rem 0;
+    }
+
+    /* ── Validation error styles ── */
+    .aud-input.is-invalid,
+    .aud-select.is-invalid,
+    .aud-textarea.is-invalid {
+      border-color: #c0392b !important;
+    }
+
+    .aud-check-group.is-invalid {
+      border: 1px solid rgba(192, 57, 43, 0.6);
+      border-radius: 2px;
+      padding: 0.5rem;
+    }
+
+    .aud-error-msg {
+      font-size: 0.8rem;
+      color: #e74c3c;
+      margin-bottom: 1rem;
+      padding: 0.6rem 0.85rem;
+      border: 1px solid rgba(231, 76, 60, 0.35);
+      background: rgba(231, 76, 60, 0.08);
+      border-radius: 2px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .aud-error-msg.visible {
+      display: block;
+    }
+
+    /* ── Action row ── */
+    .aud-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .aud-btn {
+      font-family: var(--ff-sans);
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      padding: 0.65rem 1.5rem;
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s, color 0.18s;
+      background: transparent;
+      color: var(--clr-text-muted);
+    }
+
+    .aud-btn:hover {
+      border-color: var(--clr-gold);
+      color: var(--clr-gold);
+    }
+
+    .aud-btn-primary {
+      background: var(--clr-gold);
+      border-color: var(--clr-gold);
+      color: #0a0a08;
+    }
+
+    .aud-btn-primary:hover {
+      background: var(--clr-gold-light);
+      border-color: var(--clr-gold-light);
+      color: #0a0a08;
+    }
+
+    .aud-btn-back {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: transparent;
+      border: none;
+      color: var(--clr-text-faint);
+      font-size: 0.8rem;
+      font-family: var(--ff-sans);
+      cursor: pointer;
+      margin-right: auto;
+      padding: 0;
+      letter-spacing: 0.04em;
+      transition: color 0.18s;
+    }
+
+    .aud-btn-back:hover { color: var(--clr-gold); }
+
+    /* ── Step 2 heading ── */
+    .aud-s2-heading {
+      font-family: var(--ff-serif);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 300;
+      color: var(--clr-text-muted);
+      margin: 0 0 1.5rem;
+      line-height: 1.5;
+    }
+
+    .aud-s2-heading strong {
+      color: var(--clr-text);
+      font-weight: 400;
+    }
+
+    /* ── Tabs ── */
+    .aud-tab-list {
+      display: flex;
+      border-bottom: 1px solid var(--clr-border);
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      margin-bottom: 0;
+    }
+
+    .aud-tab-list::-webkit-scrollbar { display: none; }
+
+    .aud-tab-btn {
+      font-family: var(--ff-sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--clr-text-faint);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.7rem 1.1rem;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-bottom: -1px;
+      transition: color 0.18s, border-color 0.18s;
+    }
+
+    .aud-tab-btn:hover { color: var(--clr-text-muted); }
+
+    .aud-tab-btn.active {
+      color: var(--clr-gold);
+      border-bottom-color: var(--clr-gold);
+    }
+
+    .aud-tab-panel {
+      padding: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .aud-tab-panel[hidden] { display: none; }
+
+    /* ── Yes / No radio group ── */
+    .aud-yesno {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 0.25rem;
+    }
+
+    .aud-yesno-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .aud-yesno-label input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      border-radius: 50%;
+      background: var(--clr-bg-2);
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color 0.18s, background 0.18s;
+    }
+
+    .aud-yesno-label input[type="radio"]:checked {
+      border-color: var(--clr-gold);
+    }
+
+    .aud-yesno-label input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--clr-gold);
+    }
+
+    .aud-yesno-text {
+      font-size: 0.82rem;
+      color: var(--clr-text-muted);
+      transition: color 0.15s;
+    }
+
+    .aud-yesno-label:hover .aud-yesno-text { color: var(--clr-text); }
+
+    /* ── Success ── */
+    .aud-success {
+      text-align: center;
+      padding: 3rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .aud-success-icon {
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--clr-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--clr-gold);
+      font-size: 1.1rem;
+    }
+
+    .aud-success-title {
+      font-family: var(--ff-serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--clr-text);
+      margin: 0;
+    }
+
+    .aud-success-sub {
+      font-size: 0.88rem;
+      color: var(--clr-text-muted);
+      max-width: 38ch;
+      line-height: 1.7;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Navigation ─── -->
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav-container">
+      <div class="nav-spacer"></div>
+      <a href="index.html" class="nav-logo" aria-label="Back to Octaves Home">
+        <img src="octaves.jpg" alt="Octaves Logo" class="logo-img" />
+        <span class="nav-brand">OCTAVES</span>
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-register-btn" style="border-color: rgba(201,169,110,0.35); color: var(--clr-text-muted); font-size: 0.75rem;">← Home</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ─── Page ─── -->
+  <div class="aud-page">
+    <div class="aud-wrap">
+
+      <!-- Header -->
+      <p class="aud-eyebrow">VNIT Nagpur · Octaves Music Club</p>
+      <h1 class="aud-title">Audition <em>Registration</em></h1>
+      <p class="aud-subtitle">Join VNIT's most celebrated music club. Fill out your details below.</p>
+
+      <!-- Step indicator -->
+      <div class="aud-steps" id="aud-step-indicator">
+        <span class="aud-step-dot active" id="dot-1"></span>
+        <span class="aud-step-dot" id="dot-2"></span>
+        <span id="aud-step-label">Step 1 of 2 — Basic Information</span>
+      </div>
+
+      <!-- Card -->
+      <div class="aud-card">
+
+        <!-- ════════ STEP 1 ════════ -->
+        <div id="step-1">
+          <div class="aud-grid">
+
+            <div class="aud-field">
+              <label class="aud-label" for="fullName">Full Name <span class="aud-req">*</span></label>
+              <input class="aud-input" id="fullName" name="fullName" type="text" required />
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="enrollment">Enrollment Number <span class="aud-req">*</span></label>
+              <input class="aud-input" id="enrollment" name="enrollment" type="text" required />
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="department">Branch / Department <span class="aud-req">*</span></label>
+              <select class="aud-select" id="department" name="department" required>
+                <option value="" disabled selected>Select Branch</option>
+                <option>Computer Science</option>
+                <option>Electronics and Communication</option>
+                <option>Mechanical</option>
+                <option>Civil</option>
+                <option>Electrical</option>
+                <option>Chemical</option>
+                <option>Architecture</option>
+                <option>Metallurgy</option>
+                <option>Mining</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="contact">Contact Number (WhatsApp) <span class="aud-req">*</span></label>
+              <input class="aud-input" id="contact" name="contact" type="tel" required />
+            </div>
+
+            <div class="aud-field full">
+              <label class="aud-label" for="email">Email ID <span class="aud-req">*</span></label>
+              <input class="aud-input" id="email" name="email" type="email" required />
+            </div>
+
+            <div class="aud-field full">
+              <label class="aud-label">Select your skillset <span class="aud-req">*</span></label>
+              <p class="aud-hint">Select all that apply.</p>
+              <div class="aud-check-group" id="skillset-group">
+                <label class="aud-check-row"><input type="checkbox" name="skill" value="Vocalist" /><span class="aud-check-label">Vocalist</span></label>
+                <label class="aud-check-row"><input type="checkbox" name="skill" value="Instrumentalist" /><span class="aud-check-label">Instrumentalist</span></label>
+                <label class="aud-check-row"><input type="checkbox" name="skill" value="Lyricists" /><span class="aud-check-label">Lyricists</span></label>
+                <label class="aud-check-row"><input type="checkbox" name="skill" value="Music Producer" /><span class="aud-check-label">Music Producer</span></label>
+                <label class="aud-check-row"><input type="checkbox" name="skill" value="Graphic Designer" /><span class="aud-check-label">Graphic Designer</span></label>
+                <label class="aud-check-row"><input type="checkbox" name="skill" value="Photographer/Videographer" /><span class="aud-check-label">Photographer / Videographer</span></label>
+                <label class="aud-check-row"><input type="checkbox" name="skill" value="Photo/Video Editors" /><span class="aud-check-label">Photo / Video Editors</span></label>
+              </div>
+            </div>
+
+          </div><!-- /aud-grid -->
+
+          <hr class="aud-hr" />
+
+          <div id="step1-error" class="aud-error-msg" role="alert"></div>
+
+          <div class="aud-actions">
+            <button class="aud-btn aud-btn-primary" id="btn-next">Next — Skill Details →</button>
+          </div>
+        </div><!-- /step-1 -->
+
+
+        <!-- ════════ STEP 2 ════════ -->
+        <div id="step-2" hidden>
+
+          <button class="aud-btn-back" id="btn-back">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+            </svg>
+            Back
+          </button>
+
+          <p class="aud-s2-heading">
+            <strong>Choose the appropriate section</strong> and fill out the details.
+            (Optional, but highly recommended)
+          </p>
+
+          <!-- Tab list -->
+          <div class="aud-tab-list" role="tablist">
+            <button class="aud-tab-btn active" role="tab" aria-selected="true"  aria-controls="tab-vocalists"    id="tbtn-0">Vocalists</button>
+            <button class="aud-tab-btn"        role="tab" aria-selected="false" aria-controls="tab-instruments"  id="tbtn-1">Instrumentalists</button>
+            <button class="aud-tab-btn"        role="tab" aria-selected="false" aria-controls="tab-prod"         id="tbtn-2">Production &amp; Media</button>
+          </div>
+
+          <!-- Tab: Vocalists -->
+          <div class="aud-tab-panel" id="tab-vocalists" role="tabpanel" aria-labelledby="tbtn-0">
+
+            <div class="aud-field">
+              <label class="aud-label" for="vocalGenre">Which genre of music do you prefer?</label>
+              <input class="aud-input" id="vocalGenre" type="text" />
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="vocalLanguages">What are the languages you can sing in?</label>
+              <input class="aud-input" id="vocalLanguages" type="text" />
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="vocalOriginal">Do you have any original (vocal) compositions?</label>
+              <textarea class="aud-textarea" id="vocalOriginal"></textarea>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label">Are you currently taking any classes for vocals, or do you have any prior experience of musical training?</label>
+              <div class="aud-yesno">
+                <label class="aud-yesno-label">
+                  <input type="radio" name="vocalTraining" value="Yes" />
+                  <span class="aud-yesno-text">Yes</span>
+                </label>
+                <label class="aud-yesno-label">
+                  <input type="radio" name="vocalTraining" value="No" />
+                  <span class="aud-yesno-text">No</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="vocalStage">Do you have any previous experience of performing on stage in front of a large audience?</label>
+              <textarea class="aud-textarea" id="vocalStage"></textarea>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="vocalAchievements">List out your music (Vocals) related achievements</label>
+              <textarea class="aud-textarea" id="vocalAchievements"></textarea>
+            </div>
+
+          </div>
+
+          <!-- Tab: Instrumentalists -->
+          <div class="aud-tab-panel" id="tab-instruments" role="tabpanel" aria-labelledby="tbtn-1" hidden>
+
+            <div class="aud-field">
+              <label class="aud-label" for="instruments">Which instrument(s) do you play?</label>
+              <input class="aud-input" id="instruments" type="text" />
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="instrOriginal">Do you have any original instrumental compositions?</label>
+              <textarea class="aud-textarea" id="instrOriginal"></textarea>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label">Are you currently taking any classes for your instrument, or do you have any prior experience of musical training?</label>
+              <div class="aud-yesno">
+                <label class="aud-yesno-label">
+                  <input type="radio" name="instrTraining" value="Yes" />
+                  <span class="aud-yesno-text">Yes</span>
+                </label>
+                <label class="aud-yesno-label">
+                  <input type="radio" name="instrTraining" value="No" />
+                  <span class="aud-yesno-text">No</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="instrStage">Do you have any previous experience of performing in front of a large audience?</label>
+              <textarea class="aud-textarea" id="instrStage"></textarea>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="instrAchievements">List out your music related achievements</label>
+              <textarea class="aud-textarea" id="instrAchievements"></textarea>
+            </div>
+
+          </div>
+
+          <!-- Tab: Production & Media -->
+          <div class="aud-tab-panel" id="tab-prod" role="tabpanel" aria-labelledby="tbtn-2" hidden>
+            <p class="aud-hint" style="margin-bottom: 0.15rem;">Covers: Graphic Designers, Photographers/Videographers, Photo/Video Editors, Music Producers.</p>
+
+            <div class="aud-field">
+              <label class="aud-label" for="prodTools">Mention which tools / software / platforms you are well oriented with</label>
+              <textarea class="aud-textarea" id="prodTools"></textarea>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="prodExperience">Mention your past experience in this domain</label>
+              <textarea class="aud-textarea" id="prodExperience"></textarea>
+            </div>
+
+            <div class="aud-field">
+              <label class="aud-label" for="prodAchievements">List out your videography / music production / video related achievements</label>
+              <textarea class="aud-textarea" id="prodAchievements"></textarea>
+            </div>
+
+          </div>
+
+          <hr class="aud-hr" />
+
+          <div id="step2-error" class="aud-error-msg" role="alert"></div>
+
+          <div class="aud-actions">
+            <button class="aud-btn aud-btn-primary" id="btn-submit">Submit Registration ✓</button>
+          </div>
+        </div><!-- /step-2 -->
+
+
+        <!-- ════════ SUCCESS ════════ -->
+        <div id="step-success" hidden>
+          <div class="aud-success">
+            <div class="aud-success-icon">✓</div>
+            <p class="aud-eyebrow" style="margin:0">Registered</p>
+            <h2 class="aud-success-title">You're on the list.</h2>
+            <p class="aud-success-sub">
+              Thanks for registering for Octaves auditions. We'll reach out on WhatsApp / Email with further details. Keep making music.
+            </p>
+          </div>
+        </div><!-- /step-success -->
+
+      </div><!-- /aud-card -->
+    </div><!-- /aud-wrap -->
+  </div><!-- /aud-page -->
+
+  <!-- Firebase SDK (ESM) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCy8MuJtZLiJSf8AE2Dail5p_HavOPTUJY",
+      authDomain: "octaves-vnit.firebaseapp.com",
+      projectId: "octaves-vnit",
+      storageBucket: "octaves-vnit.firebasestorage.app",
+      messagingSenderId: "879947887267",
+      appId: "1:879947887267:web:805b50e6374835ab3e0516",
+      measurementId: "G-N79GH6V3PX"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    /* ── Step navigation ── */
+    const step1       = document.getElementById('step-1');
+    const step2       = document.getElementById('step-2');
+    const stepSuccess = document.getElementById('step-success');
+    const dot1        = document.getElementById('dot-1');
+    const dot2        = document.getElementById('dot-2');
+    const stepLabel   = document.getElementById('aud-step-label');
+
+    function showStep(n) {
+      step1.hidden       = n !== 1;
+      step2.hidden       = n !== 2;
+      stepSuccess.hidden = n !== 3;
+      dot1.classList.toggle('active', n >= 1);
+      dot2.classList.toggle('active', n >= 2);
+      document.getElementById('aud-step-indicator').hidden = n === 3;
+      stepLabel.textContent = n === 1
+        ? 'Step 1 of 2 — Basic Information'
+        : 'Step 2 of 2 — Skill Details';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ── Step 1 Validation ── */
+    function validateStep1() {
+      let isValid = true;
+      let firstInvalid = null;
+
+      const fullName = document.getElementById('fullName');
+      const enrollment = document.getElementById('enrollment');
+      const department = document.getElementById('department');
+      const contact = document.getElementById('contact');
+      const email = document.getElementById('email');
+      const skillsetGroup = document.getElementById('skillset-group');
+      const skills = document.querySelectorAll('input[name="skill"]:checked');
+      const errorBox = document.getElementById('step1-error');
+
+      // Reset error states
+      [fullName, enrollment, department, contact, email].forEach(el => {
+        if (el) el.classList.remove('is-invalid');
+      });
+      if (skillsetGroup) skillsetGroup.classList.remove('is-invalid');
+      errorBox.classList.remove('visible');
+      errorBox.innerHTML = '';
+
+      const missing = [];
+
+      if (!fullName.value.trim()) {
+        fullName.classList.add('is-invalid');
+        isValid = false;
+        if (!firstInvalid) firstInvalid = fullName;
+        missing.push('Full Name');
+      }
+
+      if (!enrollment.value.trim()) {
+        enrollment.classList.add('is-invalid');
+        isValid = false;
+        if (!firstInvalid) firstInvalid = enrollment;
+        missing.push('Enrollment Number');
+      }
+
+      if (!department.value || department.value === '') {
+        department.classList.add('is-invalid');
+        isValid = false;
+        if (!firstInvalid) firstInvalid = department;
+        missing.push('Branch / Department');
+      }
+
+      if (!contact.value.trim()) {
+        contact.classList.add('is-invalid');
+        isValid = false;
+        if (!firstInvalid) firstInvalid = contact;
+        missing.push('Contact Number');
+      }
+
+      const emailVal = email.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailVal || !emailRegex.test(emailVal)) {
+        email.classList.add('is-invalid');
+        isValid = false;
+        if (!firstInvalid) firstInvalid = email;
+        missing.push('Valid Email ID');
+      }
+
+      if (skills.length === 0) {
+        if (skillsetGroup) skillsetGroup.classList.add('is-invalid');
+        isValid = false;
+        if (!firstInvalid) firstInvalid = skillsetGroup;
+        missing.push('Skillset (choose at least one)');
+      }
+
+      if (!isValid) {
+        errorBox.innerHTML = `<strong>Please fill in all compulsory fields marked with * before proceeding:</strong><br>• ${missing.join('<br>• ')}`;
+        errorBox.classList.add('visible');
+        if (firstInvalid && firstInvalid.focus) {
+          firstInvalid.focus();
+        }
+      }
+
+      return isValid;
+    }
+
+    // Clear validation error on input change
+    ['fullName', 'enrollment', 'contact', 'email'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', () => {
+          el.classList.remove('is-invalid');
+          document.getElementById('step1-error').classList.remove('visible');
+        });
+      }
+    });
+
+    const deptEl = document.getElementById('department');
+    if (deptEl) {
+      deptEl.addEventListener('change', () => {
+        deptEl.classList.remove('is-invalid');
+        document.getElementById('step1-error').classList.remove('visible');
+      });
+    }
+
+    document.querySelectorAll('input[name="skill"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const sg = document.getElementById('skillset-group');
+        if (sg) sg.classList.remove('is-invalid');
+        document.getElementById('step1-error').classList.remove('visible');
+      });
+    });
+
+    // Step 1 -> Step 2
+    document.getElementById('btn-next').addEventListener('click', function () {
+      if (validateStep1()) {
+        showStep(2);
+      }
+    });
+
+    // Step 2 -> Step 1
+    document.getElementById('btn-back').addEventListener('click', function () {
+      showStep(1);
+    });
+
+    // Step 2 Submit to Firebase
+    const btnSubmit = document.getElementById('btn-submit');
+    const step2Error = document.getElementById('step2-error');
+
+    btnSubmit.addEventListener('click', async function () {
+      step2Error.classList.remove('visible');
+      step2Error.textContent = '';
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = 'Submitting…';
+
+      try {
+        const enrollmentVal = document.getElementById('enrollment').value.trim();
+        const formData = {
+          fullName: document.getElementById('fullName').value.trim(),
+          enrollment: enrollmentVal,
+          department: document.getElementById('department').value.trim(),
+          contact: document.getElementById('contact').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          skills: Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(cb => cb.value),
+          vocalGenre: document.getElementById('vocalGenre')?.value?.trim() || '',
+          vocalLanguages: document.getElementById('vocalLanguages')?.value?.trim() || '',
+          vocalOriginal: document.getElementById('vocalOriginal')?.value?.trim() || '',
+          vocalTraining: document.querySelector('input[name="vocalTraining"]:checked')?.value || '',
+          vocalStage: document.getElementById('vocalStage')?.value?.trim() || '',
+          vocalAchievements: document.getElementById('vocalAchievements')?.value?.trim() || '',
+          instruments: document.getElementById('instruments')?.value?.trim() || '',
+          instrOriginal: document.getElementById('instrOriginal')?.value?.trim() || '',
+          instrTraining: document.querySelector('input[name="instrTraining"]:checked')?.value || '',
+          instrStage: document.getElementById('instrStage')?.value?.trim() || '',
+          instrAchievements: document.getElementById('instrAchievements')?.value?.trim() || '',
+          prodTools: document.getElementById('prodTools')?.value?.trim() || '',
+          prodExperience: document.getElementById('prodExperience')?.value?.trim() || '',
+          prodAchievements: document.getElementById('prodAchievements')?.value?.trim() || '',
+          createdAt: serverTimestamp()
+        };
+
+        const docRef = doc(db, 'octaves_auditions_2026', enrollmentVal);
+        await setDoc(docRef, formData);
+        showStep(3);
+      } catch (err) {
+        console.error('Firebase submission error:', err);
+        step2Error.textContent = 'Submission failed. Please check your internet connection and try again.';
+        step2Error.classList.add('visible');
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'Submit Registration ✓';
+      }
+    });
+
+    /* ── Tab switching ── */
+    const tabBtns   = document.querySelectorAll('.aud-tab-btn');
+    const tabPanels = document.querySelectorAll('.aud-tab-panel');
+
+    tabBtns.forEach(function (btn, idx) {
+      btn.addEventListener('click', function () {
+        tabBtns.forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        tabPanels.forEach(function (p) { p.hidden = true; });
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        tabPanels[idx].hidden = false;
+      });
+    });
+  </script>
+
+</body>
+</html>

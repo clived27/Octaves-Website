@@ -15,12 +15,39 @@
   <!-- ─── Navigation ─── -->
   <header class="site-header" id="site-header">
     <nav class="nav-container">
+      <div class="nav-spacer"></div>
       <a href="#home" class="nav-logo" aria-label="Octaves Home">
         <img src="octaves.jpg" alt="Octaves Logo" class="logo-img" />
         <span class="nav-brand">OCTAVES</span>
       </a>
+      <div class="nav-actions">
+        <a href="audition.html" class="nav-register-btn">Register</a>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
+          <span class="ham-bar"></span>
+          <span class="ham-bar"></span>
+          <span class="ham-bar"></span>
+        </button>
+      </div>
     </nav>
   </header>
+
+  <!-- ─── Slide-in Drawer ─── -->
+  <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
+  <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
+    <div class="drawer-header">
+      <span class="drawer-brand">OCTAVES</span>
+      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="archives.html" class="drawer-link">Archives</a>
+      <a href="roster.html"   class="drawer-link">Members</a>
+      <a href="merch.html"    class="drawer-link">Merch</a>
+      <a href="gallery.html"  class="drawer-link">Gallery</a>
+    </nav>
+    <div class="drawer-footer">
+      <a href="audition.html" class="drawer-register-btn">Register Now →</a>
+    </div>
+  </aside>
 
   <main>
 
