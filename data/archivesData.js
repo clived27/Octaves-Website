@@ -171,5 +171,25 @@ var ARCHIVES_DATA = [
         youtubeUrl: "https://youtu.be/ozqV3y1LF1k"
       }
     ]
+  },
+  {
+    eventName: "Republic Day 2026",
+    performances: [
+      {
+        slotName: "Chunar",
+        genre: "",
+        youtubeUrl: "https://youtu.be/mXMG-gkw260"
+      },
+      {
+        slotName: "Dhano Dhano",
+        genre: "",
+        youtubeUrl: "https://youtu.be/q3VyY8lHqP8"
+      },
+      {
+        slotName: "Jai Ho",
+        genre: "",
+        youtubeUrl: "https://youtu.be/SaRWDQZ559o"
+      }
+    ]
   }
 ];
