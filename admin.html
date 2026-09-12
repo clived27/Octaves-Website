@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Octaves VNIT</title>
+  <meta name="description" content="Octaves VNIT Auditions 2026 Admin Portal" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Login view ── */
+    .adm-login-page {
+      min-height: 100vh;
+      background: var(--clr-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      font-family: var(--ff-sans);
+    }
+
+    .adm-login-card {
+      width: 100%;
+      max-width: 380px;
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: 3px;
+      padding: 2.5rem 2rem;
+    }
+
+    .adm-login-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .adm-login-title {
+      font-family: var(--ff-serif);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--clr-text);
+      margin: 0 0 2rem;
+      line-height: 1.1;
+    }
+
+    .adm-login-title em {
+      font-style: italic;
+      color: var(--clr-gold-light);
+    }
+
+    .adm-login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .adm-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .adm-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--clr-text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .adm-input {
+      font-family: var(--ff-sans);
+      font-size: 0.95rem;
+      color: var(--clr-text);
+      background: var(--clr-bg-2);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      border-radius: 2px;
+      padding: 0.6rem 0.75rem;
+      outline: none;
+      transition: border-color 0.18s;
+    }
+
+    .adm-input:focus { border-color: var(--clr-gold); }
+
+    .adm-login-error {
+      font-size: 0.78rem;
+      color: #e74c3c;
+      margin: -0.25rem 0 0;
+    }
+
+    .adm-login-btn {
+      font-family: var(--ff-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--clr-gold);
+      color: #0a0a08;
+      border: 1px solid var(--clr-gold);
+      border-radius: 2px;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      transition: background 0.18s;
+      margin-top: 0.5rem;
+    }
+
+    .adm-login-btn:hover { background: var(--clr-gold-light); border-color: var(--clr-gold-light); }
+
+    /* ── Dashboard view ── */
+    .adm-page {
+      min-height: 100vh;
+      background: var(--clr-bg);
+      font-family: var(--ff-sans);
+      color: var(--clr-text);
+      padding: 5rem clamp(1rem, 5vw, 3rem) 4rem;
+    }
+
+    .adm-topbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--clr-border);
+    }
+
+    .adm-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      margin-bottom: 0.35rem;
+    }
+
+    .adm-heading {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--clr-text);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .adm-heading em { font-style: italic; color: var(--clr-gold-light); }
+
+    .adm-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .adm-count {
+      font-size: 0.78rem;
+      color: var(--clr-text-faint);
+      letter-spacing: 0.04em;
+    }
+
+    .adm-btn {
+      font-family: var(--ff-sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      padding: 0.55rem 1.1rem;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      white-space: nowrap;
+    }
+
+    .adm-btn-outline {
+      background: transparent;
+      border: 1px solid rgba(201, 169, 110, 0.28);
+      color: var(--clr-text-muted);
+    }
+
+    .adm-btn-outline:hover { border-color: var(--clr-gold); color: var(--clr-gold); }
+
+    .adm-btn-gold {
+      background: var(--clr-gold);
+      border: 1px solid var(--clr-gold);
+      color: #0a0a08;
+    }
+
+    .adm-btn-gold:hover { background: var(--clr-gold-light); border-color: var(--clr-gold-light); }
+
+    /* ── Loading / Empty ── */
+    .adm-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30vh;
+      font-size: 0.85rem;
+      color: var(--clr-text-faint);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .adm-empty {
+      padding: 3rem 1rem;
+      text-align: center;
+      color: var(--clr-text-faint);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Table ── */
+    .adm-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--clr-border);
+      border-radius: 3px;
+    }
+
+    .adm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    .adm-table thead {
+      background: var(--clr-surface);
+      border-bottom: 1px solid rgba(201, 169, 110, 0.28);
+    }
+
+    .adm-table th {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      white-space: nowrap;
+    }
+
+    .adm-table tbody tr {
+      border-bottom: 1px solid var(--clr-border);
+      transition: background 0.14s;
+    }
+
+    .adm-table tbody tr:last-child { border-bottom: none; }
+    .adm-table tbody tr:hover { background: #1e1e1a; }
+
+    .adm-table td {
+      padding: 0.85rem 1rem;
+      color: var(--clr-text-muted);
+      vertical-align: top;
+      max-width: 220px;
+    }
+
+    .adm-table td.adm-td-name {
+      color: var(--clr-text);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .adm-table td.adm-td-enroll {
+      color: var(--clr-text-faint);
+      font-size: 0.78rem;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Skills tags ── */
+    .adm-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .adm-skill-tag {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      background: rgba(201, 169, 110, 0.08);
+      border: 1px solid rgba(201, 169, 110, 0.2);
+      border-radius: 2px;
+      padding: 0.2rem 0.5rem;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Login Screen ─── -->
+  <div id="login-view" class="adm-login-page">
+    <div class="adm-login-card">
+      <p class="adm-login-eyebrow">Octaves VNIT · Admin</p>
+      <h1 class="adm-login-title">Portal <em>Access</em></h1>
+      <form class="adm-login-form" id="login-form">
+        <div class="adm-field">
+          <label class="adm-label" for="adminId">Admin ID</label>
+          <input class="adm-input" id="adminId" type="text" autocomplete="username" required />
+        </div>
+        <div class="adm-field">
+          <label class="adm-label" for="adminPw">Password</label>
+          <input class="adm-input" id="adminPw" type="password" autocomplete="current-password" required />
+        </div>
+        <p class="adm-login-error" id="login-error" style="display: none;">⚠ Invalid credentials. Please try again.</p>
+        <button class="adm-login-btn" type="submit">Sign In →</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── Dashboard Screen ─── -->
+  <div id="dashboard-view" style="display: none;">
+    <!-- Navigation -->
+    <header class="site-header scrolled" id="site-header">
+      <nav class="nav-container">
+        <div class="nav-spacer"></div>
+        <a href="index.html" class="nav-logo" aria-label="Back to Octaves Home">
+          <img src="octaves.jpg" alt="Octaves Logo" class="logo-img" />
+          <span class="nav-brand">OCTAVES</span>
+        </a>
+        <div class="nav-actions">
+          <button class="adm-btn adm-btn-outline" id="btn-signout" style="font-size: 0.72rem;">Sign Out</button>
+        </div>
+      </nav>
+    </header>
+
+    <div class="adm-page">
+      <div class="adm-topbar">
+        <div class="adm-topbar-left">
+          <p class="adm-eyebrow">Octaves VNIT · Admin Dashboard</p>
+          <h1 class="adm-heading">Audition <em>Registrations</em></h1>
+        </div>
+        <div class="adm-topbar-right">
+          <span class="adm-count" id="reg-count">Loading…</span>
+          <button class="adm-btn adm-btn-gold" id="btn-csv" disabled>↓ Download CSV</button>
+        </div>
+      </div>
+
+      <div id="table-container">
+        <div class="adm-loading">Fetching registrations…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCy8MuJtZLiJSf8AE2Dail5p_HavOPTUJY",
+      authDomain: "octaves-vnit.firebaseapp.com",
+      projectId: "octaves-vnit",
+      storageBucket: "octaves-vnit.firebasestorage.app",
+      messagingSenderId: "879947887267",
+      appId: "1:879947887267:web:805b50e6374835ab3e0516",
+      measurementId: "G-N79GH6V3PX"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const ADMIN_ID = 'octaves_admin';
+    const ADMIN_PW = 'octaves@2026';
+
+    const loginView = document.getElementById('login-view');
+    const dashboardView = document.getElementById('dashboard-view');
+    const loginForm = document.getElementById('login-form');
+    const loginError = document.getElementById('login-error');
+    const btnSignOut = document.getElementById('btn-signout');
+    const btnCsv = document.getElementById('btn-csv');
+    const regCount = document.getElementById('reg-count');
+    const tableContainer = document.getElementById('table-container');
+
+    let registrations = [];
+    let unsubscribe = null;
+
+    // Login logic
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('adminId').value.trim();
+      const pw = document.getElementById('adminPw').value.trim();
+
+      if (id === ADMIN_ID && pw === ADMIN_PW) {
+        loginError.style.display = 'none';
+        loginView.style.display = 'none';
+        dashboardView.style.display = 'block';
+        startRealtimeListener();
+      } else {
+        loginError.style.display = 'block';
+      }
+    });
+
+    // Sign out logic
+    btnSignOut.addEventListener('click', () => {
+      if (unsubscribe) unsubscribe();
+      registrations = [];
+      dashboardView.style.display = 'none';
+      loginView.style.display = 'flex';
+      document.getElementById('adminId').value = '';
+      document.getElementById('adminPw').value = '';
+    });
+
+    // CSV export
+    btnCsv.addEventListener('click', () => {
+      if (registrations.length === 0) return;
+      downloadCSV(registrations);
+    });
+
+    function downloadCSV(rows) {
+      const headers = [
+        'Name', 'Enrollment', 'Branch/Department', 'Contact', 'Email', 'Skills',
+        'Vocal Genre', 'Vocal Languages', 'Vocal Original Compositions',
+        'Vocal Training', 'Vocal Stage Experience', 'Vocal Achievements',
+        'Instruments', 'Instr. Original Compositions', 'Instr. Training',
+        'Instr. Stage Experience', 'Instr. Achievements',
+        'Prod. Tools', 'Prod. Experience', 'Prod. Achievements',
+        'Submitted At'
+      ];
+
+      const escape = (val) => `"${String(val ?? '').replace(/"/g, '""')}"`;
+
+      const dataRows = rows.map((r) => [
+        r.fullName,
+        r.enrollment,
+        r.department,
+        r.contact,
+        r.email,
+        Array.isArray(r.skills) ? r.skills.join('; ') : '',
+        r.vocalGenre,
+        r.vocalLanguages,
+        r.vocalOriginal,
+        r.vocalTraining,
+        r.vocalStage,
+        r.vocalAchievements,
+        r.instruments,
+        r.instrOriginal,
+        r.instrTraining,
+        r.instrStage,
+        r.instrAchievements,
+        r.prodTools,
+        r.prodExperience,
+        r.prodAchievements,
+        r.createdAt?.toDate ? r.createdAt.toDate().toLocaleString('en-IN') : ''
+      ].map(escape).join(','));
+
+      const csv = [headers.map(escape).join(','), ...dataRows].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'octaves_auditions_2026.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Realtime Listener
+    function startRealtimeListener() {
+      tableContainer.innerHTML = '<div class="adm-loading">Fetching registrations…</div>';
+      const q = query(
+        collection(db, 'octaves_auditions_2026'),
+        orderBy('createdAt', 'desc')
+      );
+
+      unsubscribe = onSnapshot(q, (snapshot) => {
+        registrations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        regCount.textContent = `${registrations.length} ${registrations.length === 1 ? 'entry' : 'entries'}`;
+        btnCsv.disabled = registrations.length === 0;
+
+        if (registrations.length === 0) {
+          tableContainer.innerHTML = '<div class="adm-empty">No registrations yet.</div>';
+          return;
+        }
+
+        renderTable(registrations);
+      }, (err) => {
+        console.error('Firestore error:', err);
+        tableContainer.innerHTML = '<div class="adm-empty" style="color: #e74c3c;">Failed to load data. Please check connection.</div>';
+      });
+    }
+
+    function renderTable(rows) {
+      let html = `
+        <div class="adm-table-wrap">
+          <table class="adm-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Enrollment</th>
+                <th>Branch</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Skills</th>
+                <th>Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+
+      rows.forEach((r, idx) => {
+        const skillsHtml = Array.isArray(r.skills) && r.skills.length > 0
+          ? `<div class="adm-skills">${r.skills.map(s => `<span class="adm-skill-tag">${s}</span>`).join('')}</div>`
+          : '<span style="color: var(--clr-text-faint);">—</span>';
+
+        const submittedDate = r.createdAt?.toDate
+          ? r.createdAt.toDate().toLocaleString('en-IN', {
+              day: '2-digit', month: 'short', year: 'numeric',
+              hour: '2-digit', minute: '2-digit'
+            })
+          : '—';
+
+        html += `
+          <tr>
+            <td style="color: var(--clr-text-faint); font-size: 0.75rem;">${rows.length - idx}</td>
+            <td class="adm-td-name">${r.fullName || '—'}</td>
+            <td class="adm-td-enroll">${r.enrollment || '—'}</td>
+            <td>${r.department || '—'}</td>
+            <td>${r.contact || '—'}</td>
+            <td style="font-size: 0.78rem;">${r.email || '—'}</td>
+            <td>${skillsHtml}</td>
+            <td style="font-size: 0.75rem; white-space: nowrap; color: var(--clr-text-faint);">${submittedDate}</td>
+          </tr>
+        `;
+      });
+
+      html += `
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      tableContainer.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
