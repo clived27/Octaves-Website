@@ -462,26 +462,61 @@
     // Realtime Listener
     function startRealtimeListener() {
       tableContainer.innerHTML = '<div class="adm-loading">Fetching registrations…</div>';
-      const q = query(
-        collection(db, 'octaves_auditions_2026'),
-        orderBy('createdAt', 'desc')
-      );
 
-      unsubscribe = onSnapshot(q, (snapshot) => {
-        registrations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        regCount.textContent = `${registrations.length} ${registrations.length === 1 ? 'entry' : 'entries'}`;
-        btnCsv.disabled = registrations.length === 0;
+      // Try ordered query first; fall back to unordered if index missing
+      function subscribe(ordered) {
+        const q = ordered
+          ? query(collection(db, 'octaves_auditions_2026'), orderBy('createdAt', 'desc'))
+          : query(collection(db, 'octaves_auditions_2026'));
 
-        if (registrations.length === 0) {
-          tableContainer.innerHTML = '<div class="adm-empty">No registrations yet.</div>';
-          return;
-        }
+        unsubscribe = onSnapshot(q, (snapshot) => {
+          registrations = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-        renderTable(registrations);
-      }, (err) => {
-        console.error('Firestore error:', err);
-        tableContainer.innerHTML = '<div class="adm-empty" style="color: #e74c3c;">Failed to load data. Please check connection.</div>';
-      });
+          // Sort client-side if we had to fall back
+          if (!ordered) {
+            registrations.sort((a, b) => {
+              const ta = a.createdAt?.toDate?.()?.getTime?.() || 0;
+              const tb = b.createdAt?.toDate?.()?.getTime?.() || 0;
+              return tb - ta;
+            });
+          }
+
+          regCount.textContent = `${registrations.length} ${registrations.length === 1 ? 'entry' : 'entries'}`;
+          btnCsv.disabled = registrations.length === 0;
+
+          if (registrations.length === 0) {
+            tableContainer.innerHTML = '<div class="adm-empty">No registrations yet.</div>';
+            return;
+          }
+
+          renderTable(registrations);
+        }, (err) => {
+          console.error('Firestore error:', err.code, err.message);
+
+          if (ordered && err.code === 'failed-precondition') {
+            // Missing Firestore index — retry without orderBy
+            console.warn('Missing index, retrying without orderBy...');
+            if (unsubscribe) unsubscribe();
+            subscribe(false);
+            return;
+          }
+
+          let hint = '';
+          if (err.code === 'permission-denied') {
+            hint = '<br><br><strong>Fix:</strong> Your Firestore Security Rules are blocking reads.<br>Go to <a href="https://console.firebase.google.com/project/octaves-vnit/firestore/rules" target="_blank" style="color:#c9a96e">Firebase Console → Firestore → Rules</a> and update them to allow reads.';
+          } else if (err.code === 'unavailable') {
+            hint = '<br><br>Firestore is temporarily unavailable. Please try refreshing.';
+          }
+
+          tableContainer.innerHTML = `<div class="adm-empty" style="color:#e74c3c; line-height:1.6;">
+            ⚠ Firebase error: <code style="background:rgba(255,255,255,0.07); padding:2px 6px; border-radius:2px;">${err.code}</code>
+            <br><small style="color:var(--clr-text-faint)">${err.message}</small>
+            ${hint}
+          </div>`;
+        });
+      }
+
+      subscribe(true);
     }
 
     function renderTable(rows) {
