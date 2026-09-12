@@ -2193,3 +2193,99 @@ html {
     font-size: clamp(2.8rem, 10vw, 4rem);
   }
 }
+
+/* ── ON AIR Neon Sign & Marquee (inspired by on air.jpg) ── */
+.on-air-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 2.2rem;
+  border: 3.5px solid #ff1e2e;
+  border-radius: 9999px;
+  background: radial-gradient(ellipse at center, rgba(35, 2, 6, 0.95) 0%, rgba(8, 0, 2, 0.98) 100%);
+  box-shadow:
+    0 0 14px rgba(255, 30, 46, 0.9),
+    0 0 32px rgba(255, 30, 46, 0.65),
+    0 0 60px rgba(255, 30, 46, 0.4),
+    inset 0 0 16px rgba(255, 30, 46, 0.55);
+  animation: neonFlicker 3s ease-in-out infinite alternate;
+}
+
+.on-air-text {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  color: #ff3344;
+  text-transform: uppercase;
+  margin-left: 0.28em;
+  text-shadow:
+    0 0 8px #ff1e2e,
+    0 0 22px #ff1e2e,
+    0 0 40px rgba(255, 30, 46, 0.9),
+    0 0 60px rgba(255, 30, 46, 0.6);
+}
+
+@keyframes neonFlicker {
+  0%, 100% {
+    box-shadow:
+      0 0 14px rgba(255, 30, 46, 0.9),
+      0 0 32px rgba(255, 30, 46, 0.65),
+      0 0 60px rgba(255, 30, 46, 0.4),
+      inset 0 0 16px rgba(255, 30, 46, 0.55);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 0 18px rgba(255, 30, 46, 1),
+      0 0 45px rgba(255, 30, 46, 0.85),
+      0 0 75px rgba(255, 30, 46, 0.55),
+      inset 0 0 22px rgba(255, 30, 46, 0.7);
+    filter: brightness(1.15);
+  }
+}
+
+.merch-marquee-strip {
+  width: 100%;
+  overflow: hidden;
+  padding: 0.65rem 0;
+  border-top: 1px solid rgba(255, 30, 46, 0.35);
+  border-bottom: 1px solid rgba(255, 30, 46, 0.35);
+  background: rgba(255, 20, 40, 0.04);
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+.merch-marquee-track {
+  display: inline-flex;
+  gap: 2rem;
+  white-space: nowrap;
+  animation: marqueeRun 16s linear infinite;
+}
+
+.merch-marquee-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #ff3b4b;
+  text-shadow: 0 0 10px rgba(255, 40, 60, 0.75);
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.merch-marquee-item::after {
+  content: '✦';
+  font-size: 0.6rem;
+  color: #ff6b7b;
+  opacity: 0.8;
+}
+
+@keyframes marqueeRun {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+

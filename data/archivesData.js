@@ -136,7 +136,7 @@ var ARCHIVES_DATA = [
     eventName: "Cultnite 2026",
     performances: [
       {
-        slotName: "Ae Dil Hia Mushkil",
+        slotName: "Ae Dil Hai Mushkil",
         genre: "",
         youtubeUrl: "https://www.youtube.com/embed/iToM3ZRFltQ"
       },
@@ -208,7 +208,7 @@ var ARCHIVES_DATA = [
     ]
   },
   {
-    eventName: "Cultnite 25",
+    eventName: "Cultnite 2025",
     performances: [
       {
         slotName: "Die with a Smile",
