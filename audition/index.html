@@ -35,10 +35,72 @@
       background: #07060f;
     }
 
+    /* ─── Top Bar: Psychedelic Purple Theme Transition ─── */
+    .site-header {
+      background: rgba(7, 6, 15, 0.85) !important;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.3) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      box-shadow: 0 4px 30px rgba(147, 51, 234, 0.15);
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(7, 6, 15, 0.94) !important;
+      border-bottom-color: rgba(168, 85, 247, 0.38) !important;
+      box-shadow: 0 6px 35px rgba(147, 51, 234, 0.22);
+    }
+
+    .site-header .logo-img {
+      border: 1.5px solid rgba(168, 85, 247, 0.55);
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .site-header .nav-logo:hover .logo-img {
+      border-color: var(--psy-purple-light);
+      box-shadow: 0 0 18px rgba(168, 85, 247, 0.6);
+    }
+
+    .site-header .nav-brand {
+      color: #f5f3ff;
+      letter-spacing: 0.2em;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .site-header .nav-logo:hover .nav-brand {
+      color: #ffffff;
+      text-shadow: 0 0 14px rgba(192, 132, 252, 0.6);
+    }
+
+    .site-header .nav-register-btn {
+      font-family: var(--ff-sans);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--psy-lavender) !important;
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.2) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
+      border: 1px solid rgba(168, 85, 247, 0.5) !important;
+      border-radius: 4px;
+      padding: 0.45rem 1.15rem;
+      text-decoration: none;
+      box-shadow: 0 0 14px rgba(168, 85, 247, 0.25);
+      transition: all 0.25s ease;
+    }
+
+    .site-header .nav-register-btn:hover {
+      background: linear-gradient(135deg, #9333ea 0%, #3b82f6 100%) !important;
+      border-color: #c084fc !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.55), 0 0 35px rgba(59, 130, 246, 0.35);
+      transform: translateY(-1px);
+    }
+
     .aud-page {
       min-height: 100vh;
       background: #07060f;
-      padding-top: 5rem;
+      padding-top: clamp(6.5rem, 11vw, 8.5rem);
       padding-bottom: 5rem;
       position: relative;
       overflow: hidden;
@@ -104,8 +166,8 @@
       z-index: 1;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s;
-      transform: scale(1.03);
+      transition: opacity 0.75s ease-in-out, transform 0.75s ease-in-out, visibility 0.75s;
+      transform: scale(1.02);
       overflow: hidden;
     }
 
@@ -115,19 +177,19 @@
       transform: scale(1);
     }
 
-    /* Step 1: Half vinyl on left */
+    /* Step 1: Half vinyl on left (subtle opacity, black & white with purple tint) */
     .bg-vinyl-wrap {
       position: absolute;
       left: 0;
       top: 50%;
-      transform: translateY(-50%) translateX(-48%);
-      width: clamp(480px, 45vw, 680px);
-      height: clamp(480px, 45vw, 680px);
+      transform: translateY(-50%) translateX(-50%);
+      width: clamp(520px, 46vw, 720px);
+      height: clamp(520px, 46vw, 720px);
       border-radius: 50%;
       overflow: hidden;
-      opacity: 0.22; /* 10-30% opacity */
-      box-shadow: 0 0 50px rgba(168, 85, 247, 0.3);
-      animation: vinylSpin 35s linear infinite;
+      opacity: 0.17; /* turned down */
+      box-shadow: 0 0 60px rgba(168, 85, 247, 0.4);
+      animation: vinylSpin 40s linear infinite;
     }
 
     .bg-vinyl-img {
@@ -135,7 +197,8 @@
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
-      filter: contrast(1.1) brightness(0.9) saturate(1.2);
+      display: block;
+      filter: grayscale(90%) sepia(20%) hue-rotate(245deg) saturate(180%) contrast(1.15) brightness(1.05);
     }
 
     @keyframes vinylSpin {
@@ -148,20 +211,21 @@
       position: absolute;
       right: 0;
       top: 0;
-      width: clamp(320px, 38vw, 540px);
+      width: clamp(340px, 42vw, 600px);
       height: 100%;
       overflow: hidden;
-      opacity: 0.20; /* 10-30% opacity */
-      mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, transparent 100%);
+      opacity: 0.16; /* turned down */
+      mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 60%, transparent 100%);
     }
 
     .bg-drm3-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center right;
-      filter: contrast(1.15) brightness(0.85) hue-rotate(250deg) saturate(1.3);
+      object-position: center;
+      display: block;
+      filter: grayscale(90%) sepia(20%) hue-rotate(245deg) saturate(180%) contrast(1.15) brightness(1.05);
     }
 
     /* Step 2: gt3 on left */
@@ -169,20 +233,21 @@
       position: absolute;
       left: 0;
       top: 0;
-      width: clamp(320px, 40vw, 560px);
+      width: clamp(340px, 42vw, 600px);
       height: 100%;
       overflow: hidden;
-      opacity: 0.22; /* 10-30% opacity */
-      mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, transparent 100%);
+      opacity: 0.17; /* turned down */
+      mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 60%, transparent 100%);
     }
 
     .bg-gt3-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center left;
-      filter: contrast(1.15) brightness(0.9) hue-rotate(260deg) saturate(1.4);
+      object-position: center;
+      display: block;
+      filter: grayscale(90%) sepia(20%) hue-rotate(245deg) saturate(180%) contrast(1.15) brightness(1.05);
     }
 
     /* Step 2: sax on right */
@@ -190,20 +255,21 @@
       position: absolute;
       right: 0;
       top: 0;
-      width: clamp(320px, 38vw, 520px);
+      width: clamp(340px, 40vw, 560px);
       height: 100%;
       overflow: hidden;
-      opacity: 0.20; /* 10-30% opacity */
-      mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, transparent 100%);
+      opacity: 0.16; /* turned down */
+      mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 60%, transparent 100%);
     }
 
     .bg-sax-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center right;
-      filter: contrast(1.2) brightness(0.85) hue-rotate(240deg) saturate(1.3);
+      object-position: center;
+      display: block;
+      filter: grayscale(90%) sepia(20%) hue-rotate(245deg) saturate(180%) contrast(1.15) brightness(1.05);
     }
 
     .aud-wrap {
@@ -215,14 +281,18 @@
       z-index: 2;
     }
 
+    .aud-header {
+      margin-bottom: 2.2rem;
+    }
+
     .aud-title {
       font-family: var(--ff-serif);
-      font-size: clamp(2rem, 5.8vw, 3.2rem);
+      font-size: clamp(2.3rem, 6vw, 3.4rem);
       font-weight: 300;
       color: #fff;
-      margin: 0 0 0.5rem;
-      line-height: 1.12;
-      letter-spacing: -0.01em;
+      margin: 0 0 0.75rem;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
     }
 
     .aud-title em {
@@ -737,28 +807,30 @@
     <!-- Background Layer Step 1: Vinyl (Left Half, 10-30% opacity) + drm3 (Right Side) -->
     <div class="aud-bg-layer aud-bg-step1 active" id="aud-bg-step1" aria-hidden="true">
       <div class="bg-vinyl-wrap">
-        <img src="Assets%20and%20elements/vinyl.jpg" onerror="this.src='Assets and elements/vinyl.jpg'" alt="" class="bg-vinyl-img" />
+        <img src="images/vinyl.jpg" onerror="this.src='Assets and elements/vinyl.jpg'" alt="" class="bg-vinyl-img" />
       </div>
       <div class="bg-drm3-wrap">
-        <img src="Assets%20and%20elements/drm3.jpg" onerror="this.src='Assets and elements/drm3.jpg'" alt="" class="bg-drm3-img" />
+        <img src="images/drm3.jpg" onerror="this.src='Assets and elements/drm3.jpg'" alt="" class="bg-drm3-img" />
       </div>
     </div>
 
     <!-- Background Layer Step 2: gt3 (Left Side) + sax (Right Side) -->
     <div class="aud-bg-layer aud-bg-step2" id="aud-bg-step2" aria-hidden="true">
       <div class="bg-gt3-wrap">
-        <img src="Assets%20and%20elements/gt3.jpg" onerror="this.src='Assets and elements/gt3.jpg'" alt="" class="bg-gt3-img" />
+        <img src="images/gt3.jpg" onerror="this.src='Assets and elements/gt3.jpg'" alt="" class="bg-gt3-img" />
       </div>
       <div class="bg-sax-wrap">
-        <img src="Assets%20and%20elements/sax.jpg" onerror="this.src='Assets and elements/sax.jpg'" alt="" class="bg-sax-img" />
+        <img src="images/sax.jpg" onerror="this.src='Assets and elements/sax.jpg'" alt="" class="bg-sax-img" />
       </div>
     </div>
 
     <div class="aud-wrap">
 
       <!-- Header -->
-      <h1 class="aud-title">Audition <em>Registration</em></h1>
-      <p class="aud-subtitle">Your stage awaits. Audition for Octaves, VNIT’s most celebrated music club. Fill out the details below to register.</p>
+      <div class="aud-header">
+        <h1 class="aud-title">Audition <em>Registration</em></h1>
+        <p class="aud-subtitle">Your stage awaits. Audition for Octaves, VNIT’s most celebrated music club. Fill out the details below to register.</p>
+      </div>
 
       <!-- Step indicator -->
       <div class="aud-steps" id="aud-step-indicator">
