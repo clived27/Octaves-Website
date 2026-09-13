@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -109,33 +109,80 @@
     }
 
     .gallery-grid {
-      columns: 8;
-      column-gap: 3px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 6px;
       opacity: 0;
       animation: fadeUp 1s 0.35s cubic-bezier(.16,1,.3,1) forwards;
     }
 
-    @media (max-width: 1400px) { .gallery-grid { columns: 7; } }
-    @media (max-width: 1100px) { .gallery-grid { columns: 6; } }
-    @media (max-width: 850px)  { .gallery-grid { columns: 5; } }
-    @media (max-width: 650px)  { .gallery-grid { columns: 4; } }
-    @media (max-width: 420px)  { .gallery-grid { columns: 3; } }
-
     /* ── Each photo tile ── */
     .gallery-item {
-      break-inside: avoid;
-      margin-bottom: 4px;
+      grid-column: span 3;
       position: relative;
       overflow: hidden;
       cursor: pointer;
       display: block;
       background: rgba(255,255,255,0.03);
+      aspect-ratio: 4 / 3;
+      border-radius: 2px;
+    }
+
+    /* Row 1: 6 columns (items 1-6) */
+    .gallery-item:nth-child(19n + 1),
+    .gallery-item:nth-child(19n + 2),
+    .gallery-item:nth-child(19n + 3),
+    .gallery-item:nth-child(19n + 4),
+    .gallery-item:nth-child(19n + 5),
+    .gallery-item:nth-child(19n + 6) {
+      grid-column: span 2;
+    }
+
+    /* Row 2: 4 columns (items 7-10) */
+    .gallery-item:nth-child(19n + 7),
+    .gallery-item:nth-child(19n + 8),
+    .gallery-item:nth-child(19n + 9),
+    .gallery-item:nth-child(19n + 10) {
+      grid-column: span 3;
+    }
+
+    /* Row 3: 3 columns (items 11-13) */
+    .gallery-item:nth-child(19n + 11),
+    .gallery-item:nth-child(19n + 12),
+    .gallery-item:nth-child(19n + 13) {
+      grid-column: span 4;
+    }
+
+    /* Row 4: 6 columns (items 14-19) */
+    .gallery-item:nth-child(19n + 14),
+    .gallery-item:nth-child(19n + 15),
+    .gallery-item:nth-child(19n + 16),
+    .gallery-item:nth-child(19n + 17),
+    .gallery-item:nth-child(19n + 18),
+    .gallery-item:nth-child(19n + 19) {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+      .gallery-item { grid-column: span 2 !important; }
+      .gallery-item:nth-child(5n + 4),
+      .gallery-item:nth-child(5n + 5) { grid-column: span 3 !important; }
+    }
+
+    @media (max-width: 500px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item { grid-column: span 1 !important; }
     }
 
     .gallery-item img {
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: cover;
       object-position: center;
       transition: transform 0.5s cubic-bezier(.16,1,.3,1), filter 0.35s;
@@ -284,31 +331,34 @@
   <main class="gallery-collage" id="gallery-main">
     <div class="gallery-grid" id="gallery-grid">
 
-      <!-- GALLERY-ITEMS-START (auto-generated — run update-gallery.ps1 to refresh) -->
-      <div class="gallery-item"><img src="pictures for use/DSC00894.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC00929.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC01048.JPG" alt="Octaves" loading="lazy" /></div>
+            <!-- GALLERY-ITEMS-START (auto-generated â€” run update-gallery.ps1 to refresh) -->
+      <div class="gallery-item"><img src="pictures for use/IMG_4385.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC01154.JPG" alt="Octaves" loading="lazy" /></div>
       <div class="gallery-item"><img src="pictures for use/DSC01080.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/20260824_194920.jpg" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/20260824_194504.jpg" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC00894.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/20260829_191732.jpg" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC01048.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/20260829_192217.jpg" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC01228.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC01227.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC01310.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/IMG_4317.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/IMG_4252.JPG" alt="Octaves" loading="lazy" /></div>
       <div class="gallery-item"><img src="pictures for use/DSC01149.JPG" alt="Octaves" loading="lazy" /></div>
       <div class="gallery-item"><img src="pictures for use/DSC01151.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC01154.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC01185.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC01221.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC01227.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC01228.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC01239.JPG" alt="Octaves" loading="lazy" /></div>
       <div class="gallery-item"><img src="pictures for use/DSC01253.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/DSC01310.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/20260829_190833.jpg" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/20260829_191727.jpg" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/20260829_191732.jpg" alt="Octaves" loading="lazy" /></div>
       <div class="gallery-item"><img src="pictures for use/20260829_192206.jpg" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/20260829_192217.jpg" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/IMG_4252.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/IMG_4317.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/20260829_190833.jpg" alt="Octaves" loading="lazy" /></div>
       <div class="gallery-item"><img src="pictures for use/IMG_4382.JPG" alt="Octaves" loading="lazy" /></div>
-      <div class="gallery-item"><img src="pictures for use/IMG_4385.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC01221.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC01185.JPG" alt="Octaves" loading="lazy" /></div>
       <div class="gallery-item"><img src="pictures for use/IMG_7167.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/card_gallery.jpg" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC01239.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/DSC00929.JPG" alt="Octaves" loading="lazy" /></div>
+      <div class="gallery-item"><img src="pictures for use/20260829_191727.jpg" alt="Octaves" loading="lazy" /></div>
       <!-- GALLERY-ITEMS-END -->
 
     </div>
