@@ -234,7 +234,7 @@
   <!-- ─── Members Hero Video ─── -->
   <section class="hero" id="members-hero" aria-label="Members hero">
     <!-- Background image -->
-    <img class="hero-video" src="Assets and elements/stage.jpg" alt="Members hero backdrop" aria-hidden="true" />
+    <img class="hero-video" src="backdrop hero/hero_clip_01-08.PNG" alt="Members hero backdrop" aria-hidden="true" />
 
     <!-- Dark overlay — slightly heavier than homepage for clean text legibility -->
     <div class="hero-video-overlay" style="background:
@@ -713,7 +713,7 @@
           cursor: pointer;
           text-align: left;
           /* bright surface with cyan-gold border */
-          background: linear-gradient(135deg, rgba(20,24,28,0.92) 0%, rgba(12,28,30,0.88) 100%);
+          background: linear-gradient(135deg, rgba(45,55,65,0.95) 0%, rgba(25,45,50,0.92) 100%);
           border: 1px solid rgba(0, 210, 220, 0.35);
           box-shadow:
             0 3px 18px rgba(0,0,0,0.4),
@@ -740,7 +740,7 @@
         .mbhub-card:hover,
         .mbhub-card:focus-visible {
           border-color: rgba(0, 230, 240, 0.75);
-          background: linear-gradient(135deg, rgba(0,40,48,0.95) 0%, rgba(10,32,38,0.92) 100%);
+          background: linear-gradient(135deg, rgba(15,70,80,0.95) 0%, rgba(20,55,65,0.92) 100%);
           box-shadow:
             0 10px 36px rgba(0,0,0,0.55),
             0 0 0 1px rgba(0,210,220,0.2) inset,
@@ -923,6 +923,86 @@
             padding: 0.6rem 1.2rem 0.6rem 0.85rem;
           }
         }
+
+        /* ── Alumni block ── */
+        .mbhub-alumni-wrap {
+          max-width: 1100px;
+          margin: var(--sp-xl) auto 0;
+          padding: 0 var(--sp-md);
+        }
+        .mbhub-alumni-header {
+          display: flex;
+          align-items: center;
+          gap: 1.2rem;
+          margin-bottom: 0.6rem;
+        }
+        .mbhub-alumni-rule {
+          flex: 1;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(0,210,220,0.25), transparent);
+        }
+        .mbhub-alumni-badge {
+          font-family: var(--ff-sans);
+          font-size: 0.65rem;
+          font-weight: 700;
+          letter-spacing: 0.28em;
+          text-transform: uppercase;
+          color: rgba(0,210,220,0.9);
+          padding: 0.3rem 0.9rem;
+          border: 1px solid rgba(0,210,220,0.3);
+          border-radius: 99px;
+          white-space: nowrap;
+        }
+        .mbhub-alumni-desc {
+          text-align: center;
+          font-family: var(--ff-sans);
+          font-size: var(--fs-sm);
+          color: var(--clr-text-faint);
+          margin-bottom: var(--sp-md);
+          font-style: italic;
+        }
+        .mbhub-alumni-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          gap: 1rem;
+        }
+        .mbhub-alum-card {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+          padding: 1.4rem 1.6rem;
+          background: linear-gradient(135deg, rgba(20,30,35,0.8) 0%, rgba(10,20,25,0.7) 100%);
+          border: 1px solid rgba(0,210,220,0.15);
+          border-radius: var(--radius-md);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 1px 0 rgba(0,210,220,0.06) inset;
+          transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .mbhub-alum-card:hover {
+          border-color: rgba(0,210,220,0.4);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+        }
+        .mbhub-alum-card--placeholder {
+          opacity: 0.3;
+          pointer-events: none;
+        }
+        .mbhub-alum-name {
+          font-family: var(--ff-serif);
+          font-size: 1.1rem;
+          font-weight: 500;
+          color: var(--clr-text);
+        }
+        .mbhub-alum-meta {
+          font-family: var(--ff-sans);
+          font-size: 0.72rem;
+          letter-spacing: 0.08em;
+          color: var(--clr-text-muted);
+        }
+        .mbhub-alum-meta em {
+          font-style: italic;
+          color: rgba(0,210,220,0.9);
+        }
       </style>
 
       <!-- Section header -->
@@ -978,6 +1058,31 @@
         </button>
 
       </div><!-- /mbhub-grid -->
+
+      <!-- ─── Alumni Block ─── -->
+      <div class="mbhub-alumni-wrap">
+        <div class="mbhub-alumni-header">
+          <span class="mbhub-alumni-rule" aria-hidden="true"></span>
+          <span class="mbhub-alumni-badge">Alumni</span>
+          <span class="mbhub-alumni-rule" aria-hidden="true"></span>
+        </div>
+        <p class="mbhub-alumni-desc">Those who shaped the sound — now carrying the note forward.</p>
+        <div class="mbhub-alumni-grid" id="alumni-grid">
+          <!-- Alumni cards -->
+          <div class="mbhub-alum-card">
+            <span class="mbhub-alum-name">Alumni Member</span>
+            <span class="mbhub-alum-meta">Batch of 'XX &middot; <em>Role</em></span>
+          </div>
+          <div class="mbhub-alum-card mbhub-alum-card--placeholder">
+            <span class="mbhub-alum-name">Alumni Member</span>
+            <span class="mbhub-alum-meta">Batch of 'XX &middot; <em>Role</em></span>
+          </div>
+          <div class="mbhub-alum-card mbhub-alum-card--placeholder">
+            <span class="mbhub-alum-name">Alumni Member</span>
+            <span class="mbhub-alum-meta">Batch of 'XX &middot; <em>Role</em></span>
+          </div>
+        </div>
+      </div>
 
     </section>
 
