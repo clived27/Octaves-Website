@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Archives — Octaves, VNIT Nagpur</title>
-  <meta name="description" content="Relive past Octaves performances — explore events, genres, and watch live recordings from VNIT Nagpur's music club." />
+  <title>The Archives â€” Octaves, VNIT Nagpur</title>
+  <meta name="description" content="Relive past Octaves performances â€” explore events, genres, and watch live recordings from VNIT Nagpur's music club." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* ── Page shell ── */
+    /* â”€â”€ Page shell â”€â”€ */
     body { background: #09090b; }
 
     .archives-wrapper {
@@ -22,9 +22,9 @@
       margin-top: 64px; /* clear fixed header */
     }
 
-    /* ══════════════════════════════
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        LEFT SIDEBAR
-    ══════════════════════════════ */
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .arc-sidebar {
       background: #0b0c10;
       border-right: 1px solid rgba(255,255,255,0.07);
@@ -66,7 +66,7 @@
       flex: 1;
     }
 
-    /* ── Event (accordion header) ── */
+    /* â”€â”€ Event (accordion header) â”€â”€ */
     .arc-event {
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
@@ -121,7 +121,7 @@
       color: var(--clr-gold);
     }
 
-    /* ── Performances sub-list ── */
+    /* â”€â”€ Performances sub-list â”€â”€ */
     .arc-performances {
       list-style: none;
       max-height: 0;
@@ -189,16 +189,16 @@
 
     /* Playing indicator dot */
     .arc-perf-btn.active .arc-perf-slot::before {
-      content: '▶ ';
+      content: 'â–¶ ';
       font-size: 0.55rem;
       color: var(--clr-gold);
       vertical-align: middle;
       margin-right: 0.15rem;
     }
 
-    /* ══════════════════════════════
-       RIGHT — MAIN PLAYER VIEW
-    ══════════════════════════════ */
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       RIGHT â€” MAIN PLAYER VIEW
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .arc-main {
       background: #09090b;
       display: flex;
@@ -318,7 +318,7 @@
       text-align: center;
     }
 
-    /* ── Responsive ── */
+    /* â”€â”€ Responsive â”€â”€ */
     @media (max-width: 860px) {
       .archives-wrapper {
         grid-template-columns: 1fr;
@@ -337,7 +337,7 @@
       }
     }
 
-    /* ── Page hero ── */
+    /* â”€â”€ Page hero â”€â”€ */
     .arc-page-hero {
       padding: clamp(5rem, 10vw, 8rem) 0 0;
       background: #09090b;
@@ -395,12 +395,12 @@
     </nav>
   </header>
 
-  <!-- ─── Slide-in Drawer ─── -->
+  <!-- â”€â”€â”€ Slide-in Drawer â”€â”€â”€ -->
   <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
   <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
     <div class="drawer-header">
       <span class="drawer-brand">OCTAVES</span>
-      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">✕</button>
+      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">âœ•</button>
     </div>
     <nav class="drawer-nav">
       <a href="archives.html" class="drawer-link">Archives</a>
@@ -409,7 +409,7 @@
       <a href="gallery.html"  class="drawer-link">Gallery</a>
     </nav>
     <div class="drawer-footer">
-      <a href="audition.html" class="drawer-register-btn">Register Now →</a>
+      <a href="audition.html" class="drawer-register-btn">Register Now â†’</a>
     </div>
   </aside>
 
@@ -447,12 +447,12 @@
 
         <!-- Now playing info -->
         <div class="arc-now-playing" id="arc-now-playing">
-          <p class="arc-now-playing-event" id="arc-np-event">—</p>
+          <p class="arc-now-playing-event" id="arc-np-event">â€”</p>
           <h2 class="arc-now-playing-slot" id="arc-np-slot">Select a performance</h2>
           <div>
             <span class="arc-genre-badge" id="arc-np-badge">
               <span class="arc-genre-dot"></span>
-              <span id="arc-np-genre">—</span>
+              <span id="arc-np-genre">â€”</span>
             </span>
           </div>
         </div>
@@ -469,8 +469,8 @@
         <img src="octaves.jpg" alt="Octaves Logo" class="footer-logo" />
         <span class="footer-name">OCTAVES</span>
       </div>
-      <p class="footer-tagline">Music Club · VNIT Nagpur</p>
-      <p class="footer-copy">&copy; 2025 Octaves, VNIT Nagpur. All rights reserved.</p>
+      <p class="footer-tagline">Music Club Â· VNIT Nagpur</p>
+      <p class="footer-copy">&copy; 2026 Octaves, VNIT Nagpur. All rights reserved.</p>
     </div>
   </footer>
 
@@ -500,7 +500,7 @@
       return url;
     }
 
-    /* ── Load a performance into the player ── */
+    /* â”€â”€ Load a performance into the player â”€â”€ */
     function loadPerformance(eventName, perf, btn) {
       /* Update iframe */
       iframe.src = toEmbedUrl(perf.youtubeUrl);
@@ -522,7 +522,7 @@
       btn.classList.add('active');
     }
 
-    /* ── Build sidebar ── */
+    /* â”€â”€ Build sidebar â”€â”€ */
     data.forEach(function (event, ei) {
       var li = document.createElement('li');
       li.setAttribute('role', 'treeitem');
@@ -547,7 +547,7 @@
         var perfLi = document.createElement('li');
         var perfBtn = document.createElement('button');
         perfBtn.className = 'arc-perf-btn';
-        perfBtn.setAttribute('aria-label', perf.slotName + (perf.genre ? ' — ' + perf.genre : ''));
+        perfBtn.setAttribute('aria-label', perf.slotName + (perf.genre ? ' â€” ' + perf.genre : ''));
         perfBtn.innerHTML =
           '<span class="arc-perf-slot">' + perf.slotName + '</span>' +
           (perf.genre && perf.genre.trim() ? '<span class="arc-perf-genre">' + perf.genre + '</span>' : '');
@@ -584,7 +584,7 @@
       listEl.appendChild(li);
     });
 
-    /* ── Auto-load: open Euphoria 2026 accordion and select Legends Never Die ── */
+    /* â”€â”€ Auto-load: open Euphoria 2026 accordion and select Legends Never Die â”€â”€ */
     if (data.length > 0 && data[0].performances.length > 0) {
       var firstEventBtn = listEl.querySelector('.arc-event-btn');
       var firstPerfList = listEl.querySelector('.arc-performances');
@@ -614,3 +614,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+

@@ -185,26 +185,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      transition: transform 0.5s cubic-bezier(.16,1,.3,1), filter 0.35s;
-      filter: brightness(0.9) saturate(0.85);
     }
-
-    .gallery-item:hover img {
-      transform: scale(1.06);
-      filter: brightness(1.06) saturate(1.12);
-    }
-
-    /* Subtle dark overlay on hover */
-    .gallery-item::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.18);
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-    }
-    .gallery-item:hover::after { opacity: 1; }
 
     /* ── Lightbox ── */
     .lightbox {
@@ -409,7 +390,7 @@
 
   <!-- ── Footer ── -->
   <footer class="gallery-footer" role="contentinfo">
-    <p>&copy; 2025 Octaves &middot; VNIT Nagpur &middot; All rights reserved</p>
+    <p>&copy; 2026 Octaves &middot; VNIT Nagpur &middot; All rights reserved</p>
   </footer>
 
   <script>
@@ -472,3 +453,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+

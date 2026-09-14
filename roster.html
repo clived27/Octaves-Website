@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Members — Octaves, VNIT Nagpur</title>
-  <meta name="description" content="Meet the musicians, council members, and minds behind Octaves — VNIT Nagpur's music club." />
+  <title>Members â€” Octaves, VNIT Nagpur</title>
+  <meta name="description" content="Meet the musicians, council members, and minds behind Octaves â€” VNIT Nagpur's music club." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Domine:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
 
-    /* ── Council 1-1-3-3 layout ── */
+    /* â”€â”€ Council 1-1-3-3 layout â”€â”€ */
 
     /* Stack all rows with consistent gap, no margin collisions */
     #council .container {
@@ -55,7 +55,7 @@
       }
     }
 
-    /* ── Members instrument sections ── */
+    /* â”€â”€ Members instrument sections â”€â”€ */
     .members-section {
       background: var(--clr-bg-2);
       border-top: 1px solid var(--clr-border);
@@ -97,7 +97,7 @@
       background: var(--clr-border);
     }
 
-    /* ── Member pill cards ── */
+    /* â”€â”€ Member pill cards â”€â”€ */
     .members-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -191,7 +191,7 @@
 </head>
 <body>
 
-  <!-- Navigation — starts transparent, becomes frosted on scroll -->
+  <!-- Navigation â€” starts transparent, becomes frosted on scroll -->
   <header class="site-header" id="site-header">
     <nav class="nav-container">
       <div class="nav-spacer" aria-hidden="true"></div>
@@ -213,12 +213,12 @@
     </nav>
   </header>
 
-  <!-- ─── Slide-in Drawer ─── -->
+  <!-- â”€â”€â”€ Slide-in Drawer â”€â”€â”€ -->
   <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
   <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
     <div class="drawer-header">
       <span class="drawer-brand">OCTAVES</span>
-      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">✕</button>
+      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">âœ•</button>
     </div>
     <nav class="drawer-nav">
       <a href="archives.html" class="drawer-link">Archives</a>
@@ -227,16 +227,16 @@
       <a href="gallery.html"  class="drawer-link">Gallery</a>
     </nav>
     <div class="drawer-footer">
-      <a href="audition.html" class="drawer-register-btn">Register Now →</a>
+      <a href="audition.html" class="drawer-register-btn">Register Now â†’</a>
     </div>
   </aside>
 
-  <!-- ─── Members Hero Video ─── -->
+  <!-- â”€â”€â”€ Members Hero Video â”€â”€â”€ -->
   <section class="hero" id="members-hero" aria-label="Members hero">
     <!-- Background image -->
     <video class="hero-video" src="backdrop hero/hero_clip_01-082.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
 
-    <!-- Dark overlay — slightly heavier than homepage for clean text legibility -->
+    <!-- Dark overlay â€” slightly heavier than homepage for clean text legibility -->
     <div class="hero-video-overlay" style="background:
       linear-gradient(to bottom, rgba(10,10,8,0.55) 0%, rgba(10,10,8,0.0) 30%, rgba(10,10,8,0.0) 65%, rgba(10,10,8,0.92) 100%),
       rgba(10,10,8,0.58);" aria-hidden="true"></div>
@@ -247,7 +247,7 @@
     <!-- Gold radial centre glow -->
     <div style="position:absolute;inset:0;z-index:3;background:radial-gradient(ellipse 65% 55% at 50% 45%,rgba(201,169,110,0.07) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
 
-    <!-- Centred title — shifted upward so faces in the video stay visible -->
+    <!-- Centred title â€” shifted upward so faces in the video stay visible -->
     <div class="hero-center" style="z-index:4; margin-bottom: 28vh;">
       <h1 class="hero-title" style="font-size:clamp(2.8rem,6vw,5.5rem);white-space:nowrap;">Meet the <em style="display:inline;">Members.</em></h1>
     </div>
@@ -256,13 +256,13 @@
 
   <main>
 
-    <!-- ─── Council Section — Music Player Carousel ─── -->
+    <!-- â”€â”€â”€ Council Section â€” Music Player Carousel â”€â”€â”€ -->
     <section class="council section" id="council" aria-labelledby="council-heading">
       <div class="container">
         <div class="section-label">Leadership</div>
         <h2 id="council-heading" class="section-title">The <em>Council</em></h2>
 
-        <!-- ── Music Player Card ── -->
+        <!-- â”€â”€ Music Player Card â”€â”€ -->
         <div style="display:flex;justify-content:center;padding:2rem 0 1rem;">
           <div id="player-card" style="
             background: linear-gradient(145deg, #111110 0%, #0d0d0b 60%, #131210 100%);
@@ -390,7 +390,7 @@
                 box-shadow:0 4px 20px rgba(106,176,76,0.45);
                 transition:transform 0.15s,box-shadow 0.15s;
               " onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-                <!-- Pause icon (default — playing) -->
+                <!-- Pause icon (default â€” playing) -->
                 <svg id="pc-icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="#0d0d0b"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
                 <!-- Play icon (hidden when playing) -->
                 <svg id="pc-icon-play" width="22" height="22" viewBox="0 0 24 24" fill="#0d0d0b" style="display:none;margin-left:2px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -418,10 +418,10 @@
     </section>
 
     <script>
-    /* ── Music Player Carousel ── */
+    /* â”€â”€ Music Player Carousel â”€â”€ */
     (function () {
 
-      /* ── Member Data ── */
+      /* â”€â”€ Member Data â”€â”€ */
       var members = [
         { name: 'Suhana Tembhurkar', post: 'President',                       role: 'Vocalist',    photo: 'photos/suhana/profpic.jpg',       initial: 'S', instagram: 'https://www.instagram.com/_miss_suhana19_/' },
         { name: 'Shreyansh Mohanty', post: 'Vice President',                  role: 'Keyboardist', photo: 'photos/shreyansh/profpic.jpg',    initial: 'S', instagram: 'https://www.instagram.com/_shreyanshmohanty_/' },
@@ -435,7 +435,7 @@
 
       var DURATION    = 6000; /* 6 seconds per member */
       var idx         = 0;
-      var isPlaying   = false; /* starts paused — IntersectionObserver kicks it off */
+      var isPlaying   = false; /* starts paused â€” IntersectionObserver kicks it off */
       var startTime   = null;  /* timestamp when current slide started (or resumed) */
       var elapsed     = 0;     /* ms elapsed before any pause */
       var rafId       = null;
@@ -455,7 +455,7 @@
       var iconPause = document.getElementById('pc-icon-pause');
       var iconPlay  = document.getElementById('pc-icon-play');
 
-      /* ── Build waveform bars ── */
+      /* â”€â”€ Build waveform bars â”€â”€ */
       function buildWaveform() {
         var bars  = 38;
         var w     = 200;
@@ -473,7 +473,7 @@
         elWave.innerHTML = svg;
       }
 
-      /* ── Build dot indicators ── */
+      /* â”€â”€ Build dot indicators â”€â”€ */
       function buildDots() {
         elDots.innerHTML = '';
         members.forEach(function (_, i) {
@@ -485,7 +485,7 @@
         });
       }
 
-      /* ── Load member into card ── */
+      /* â”€â”€ Load member into card â”€â”€ */
       function load(m, animate) {
         if (animate) {
           elName.style.opacity = '0'; elPost.style.opacity = '0'; elRole.style.opacity = '0';
@@ -495,7 +495,7 @@
           elPost.textContent    = m.post;
           elRole.textContent    = '\u201c' + m.role + '\u201d';
 
-          /* Photo — try multiple extensions so profpic always loads */
+          /* Photo â€” try multiple extensions so profpic always loads */
           elPhoto.innerHTML = '';
           var basePath = m.photo.substring(0, m.photo.lastIndexOf('.'));
           var exts = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'webp'];
@@ -535,7 +535,7 @@
         }, animate ? 160 : 0);
       }
 
-      /* ── Progress RAF loop ── */
+      /* â”€â”€ Progress RAF loop â”€â”€ */
       function tick(ts) {
         if (!startTime) startTime = ts;
         var total = elapsed + (ts - startTime);
@@ -558,14 +558,14 @@
         if (isPlaying) rafId = requestAnimationFrame(tick);
       }
 
-      /* ── Start / resume animation ── */
+      /* â”€â”€ Start / resume animation â”€â”€ */
       function startAnim() {
         if (rafId) cancelAnimationFrame(rafId);
         startTime = null;
         rafId = requestAnimationFrame(tick);
       }
 
-      /* ── Go to specific index ── */
+      /* â”€â”€ Go to specific index â”€â”€ */
       function goTo(i) {
         elapsed   = 0;
         startTime = null;
@@ -576,7 +576,7 @@
         if (isPlaying) startAnim();
       }
 
-      /* ── Exposed controls ── */
+      /* â”€â”€ Exposed controls â”€â”€ */
       window.pcNext = function () { goTo((idx + 1) % members.length); };
       window.pcPrev = function () { goTo((idx - 1 + members.length) % members.length); };
 
@@ -586,11 +586,11 @@
         iconPlay.style.display  = isPlaying ? 'none' : '';
 
         if (isPlaying) {
-          /* Resume — carry forward how much time had elapsed */
+          /* Resume â€” carry forward how much time had elapsed */
           startTime = null;
           startAnim();
         } else {
-          /* Pause — record elapsed so far */
+          /* Pause â€” record elapsed so far */
           if (rafId) cancelAnimationFrame(rafId);
           if (startTime !== null) {
             /* elapsed was computed inside tick, recalculate here */
@@ -606,11 +606,11 @@
 
       window.pcRepeat = function () { goTo(idx); };
 
-      /* ── Init ── */
+      /* â”€â”€ Init â”€â”€ */
       buildWaveform();
       load(members[0], false);
 
-      /* ── IntersectionObserver: start timer only when card is visible ── */
+      /* â”€â”€ IntersectionObserver: start timer only when card is visible â”€â”€ */
       var playerCard = document.getElementById('player-card');
       if ('IntersectionObserver' in window && playerCard) {
         var io = new IntersectionObserver(function (entries) {
@@ -636,11 +636,11 @@
     })();
     </script>
 
-    <!-- ─── Members Hub ─── -->
+    <!-- â”€â”€â”€ Members Hub â”€â”€â”€ -->
     <section class="mbhub-section section" id="members" aria-labelledby="mbhub-heading">
 
       <style>
-        /* ════ Members Hub — Slot Pill Edition ════ */
+        /* â•â•â•â• Members Hub â€” Slot Pill Edition â•â•â•â• */
 
         @keyframes mbhubFloat {
           0%, 100% { transform: translateY(0px); }
@@ -681,7 +681,7 @@
           animation: mbhubFadeUp 0.7s var(--ease-out) both;
         }
 
-        /* ── Wrapped category blocks (2 rows) ── */
+        /* â”€â”€ Wrapped category blocks (2 rows) â”€â”€ */
         .mbhub-grid {
           display: flex;
           flex-direction: row;
@@ -694,7 +694,7 @@
           padding: 1.25rem var(--sp-md) 2.5rem;
         }
 
-        /* ── Slot pill button: straight left, rounded-semicircle right ── */
+        /* â”€â”€ Slot pill button: straight left, rounded-semicircle right â”€â”€ */
         .mbhub-card {
           position: relative;
           display: flex;
@@ -780,7 +780,7 @@
         .mbhub-card-sub  { display: none; }
         .mbhub-card-arrow { display: none; }
 
-        /* ── Modal overlay ── */
+        /* â”€â”€ Modal overlay â”€â”€ */
         .mbhub-modal-overlay {
           position: fixed;
           inset: 0;
@@ -920,7 +920,7 @@
           }
         }
 
-        /* ── Alumni block ── */
+        /* â”€â”€ Alumni block â”€â”€ */
         .mbhub-alumni-wrap {
           max-width: 1100px;
           margin: var(--sp-xl) auto 0;
@@ -1055,14 +1055,14 @@
 
       </div><!-- /mbhub-grid -->
 
-      <!-- ─── Alumni Block ─── -->
+      <!-- â”€â”€â”€ Alumni Block â”€â”€â”€ -->
       <div class="mbhub-alumni-wrap">
         <div class="mbhub-alumni-header">
           <span class="mbhub-alumni-rule" aria-hidden="true"></span>
           <span class="mbhub-alumni-badge">Alumni</span>
           <span class="mbhub-alumni-rule" aria-hidden="true"></span>
         </div>
-        <p class="mbhub-alumni-desc">Those who shaped the sound — now carrying the note forward.</p>
+        <p class="mbhub-alumni-desc">Those who shaped the sound â€” now carrying the note forward.</p>
         <div class="mbhub-alumni-grid" id="alumni-grid">
           <!-- Alumni cards -->
           <div class="mbhub-alum-card">
@@ -1082,7 +1082,7 @@
 
     </section>
 
-    <!-- ─── Members Modal ─── -->
+    <!-- â”€â”€â”€ Members Modal â”€â”€â”€ -->
     <div class="mbhub-modal-overlay" id="mbhub-modal" role="dialog" aria-modal="true" aria-labelledby="mbhub-modal-title" hidden>
       <div class="mbhub-modal-panel">
         <div class="mbhub-modal-header">
@@ -1098,7 +1098,7 @@
     </div>
 
     <script>
-    /* ── Members Hub — Modal System ── */
+    /* â”€â”€ Members Hub â€” Modal System â”€â”€ */
     (function () {
       'use strict';
 
@@ -1226,12 +1226,13 @@
         <img src="octaves.jpg" alt="Octaves Logo" class="footer-logo" />
         <span class="footer-name">OCTAVES</span>
       </div>
-      <p class="footer-tagline">Music Club · VNIT Nagpur</p>
-      <p class="footer-copy">&copy; 2025 Octaves, VNIT Nagpur. All rights reserved.</p>
+      <p class="footer-tagline">Music Club Â· VNIT Nagpur</p>
+      <p class="footer-copy">&copy; 2026 Octaves, VNIT Nagpur. All rights reserved.</p>
     </div>
   </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
+
 
