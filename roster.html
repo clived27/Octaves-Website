@@ -681,23 +681,18 @@
           animation: mbhubFadeUp 0.7s var(--ease-out) both;
         }
 
-        /* ── One-line horizontal slot strip ── */
+        /* ── Wrapped category blocks (2 rows) ── */
         .mbhub-grid {
           display: flex;
           flex-direction: row;
-          flex-wrap: nowrap;
+          flex-wrap: wrap;
           align-items: center;
           justify-content: center;
-          gap: 0.9rem;
-          max-width: 1200px;
+          gap: 1.2rem;
+          max-width: 860px;
           margin: 0 auto;
-          padding: 1.25rem var(--sp-md) 2rem;
-          overflow-x: auto;
-          scroll-snap-type: x mandatory;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
+          padding: 1.25rem var(--sp-md) 2.5rem;
         }
-        .mbhub-grid::-webkit-scrollbar { display: none; }
 
         /* ── Slot pill button: straight left, rounded-semicircle right ── */
         .mbhub-card {
@@ -918,8 +913,7 @@
 
         @media (max-width: 680px) {
           .mbhub-grid {
-            justify-content: flex-start;
-            padding-left: 1rem;
+            padding: 1.25rem var(--sp-sm) 2rem;
           }
           .mbhub-card {
             padding: 0.6rem 1.1rem;
