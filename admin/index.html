@@ -324,10 +324,37 @@
           <span class="nav-brand">OCTAVES</span>
         </a>
         <div class="nav-actions">
+          <a href="/" class="nav-back-link" aria-label="Return to homepage" style="margin-right: 0.75rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back to Home
+          </a>
           <button class="adm-btn adm-btn-outline" id="btn-signout" style="font-size: 0.72rem;">Sign Out</button>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
+            <span class="ham-bar"></span>
+            <span class="ham-bar"></span>
+            <span class="ham-bar"></span>
+          </button>
         </div>
       </nav>
     </header>
+
+    <!-- ─── Slide-in Drawer ─── -->
+    <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
+    <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
+      <div class="drawer-header">
+        <span class="drawer-brand">OCTAVES</span>
+        <button class="drawer-close" id="drawer-close" aria-label="Close navigation">✕</button>
+      </div>
+      <nav class="drawer-nav">
+        <a href="/archives.html" class="drawer-link">Archives</a>
+        <a href="/roster.html"   class="drawer-link">Members</a>
+        <a href="/merch.html"    class="drawer-link">Merch</a>
+        <a href="/gallery.html"  class="drawer-link">Gallery</a>
+      </nav>
+      <div class="drawer-footer">
+        <a href="/audition.html" class="drawer-register-btn">Register Now →</a>
+      </div>
+    </aside>
 
     <div class="adm-page">
       <div class="adm-topbar">
@@ -576,5 +603,6 @@
       tableContainer.innerHTML = html;
     }
   </script>
+  <script src="/script.js" onerror="this.src='../script.js'"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@ $startMarker = "<!-- GALLERY-ITEMS-START"
 $endMarker   = "<!-- GALLERY-ITEMS-END -->"
 
 $images = Get-ChildItem -Path $photosDir -File |
-    Where-Object { $extensions -contains $_.Extension.ToLower() } |
+    Where-Object { $_.Name -ne "card_gallery.jpg" -and $extensions -contains $_.Extension.ToLower() } |
     Get-Random -Count 999
 
 if ($images.Count -eq 0) {
