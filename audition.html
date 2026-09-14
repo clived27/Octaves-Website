@@ -856,20 +856,36 @@
               <input class="aud-input" id="enrollment" name="enrollment" type="text" required />
             </div>
 
-            <div class="aud-field">
-              <label class="aud-label" for="department">Branch / Department <span class="aud-req">*</span></label>
-              <select class="aud-select" id="department" name="department" required>
+            <div class="aud-field" id="field-year">
+              <label class="aud-label" for="year">Year of Study <span class="aud-req">*</span></label>
+              <select class="aud-select" id="year" name="year" required>
+                <option value="" disabled selected>Select Year of Study</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="MTech">MTech</option>
+              </select>
+            </div>
+
+            <div class="aud-field" id="field-branch" style="display: none;">
+              <label class="aud-label" for="branch">Branch <span class="aud-req">*</span></label>
+              <select class="aud-select" id="branch" name="branch">
                 <option value="" disabled selected>Select Branch</option>
-                <option>Computer Science</option>
-                <option>Electronics and Communication</option>
-                <option>Mechanical</option>
-                <option>Civil</option>
-                <option>Electrical</option>
-                <option>Chemical</option>
-                <option>Architecture</option>
-                <option>Metallurgy</option>
-                <option>Mining</option>
-                <option>Other</option>
+                <option value="Computer Science and Engineering">Computer Science and Engineering</option>
+                <option value="Computer Science and Engineering (AI/DS)">Computer Science and Engineering (AI/DS)</option>
+                <option value="Electronics and Engineering">Electronics and Engineering</option>
+                <option value="Electronics Engineering (VLSI Design and Technology)">Electronics Engineering (VLSI Design and Technology)</option>
+                <option value="Mathematics and Computing">Mathematics and Computing</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Engineering Physics">Engineering Physics</option>
+                <option value="Electrical and Electronics">Electrical and Electronics</option>
+                <option value="Chemical Engineering">Chemical Engineering</option>
+                <option value="Mining Engineering">Mining Engineering</option>
+                <option value="Chemical Technology (Biopress Technology)">Chemical Technology (Biopress Technology)</option>
+                <option value="Metallurgy and Materials Engineering">Metallurgy and Materials Engineering</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Architecture">Architecture</option>
               </select>
             </div>
 
@@ -878,7 +894,7 @@
               <input class="aud-input" id="contact" name="contact" type="tel" required />
             </div>
 
-            <div class="aud-field full">
+            <div class="aud-field full" id="field-email">
               <label class="aud-label" for="email">Email ID <span class="aud-req">*</span></label>
               <input class="aud-input" id="email" name="email" type="email" required />
             </div>
@@ -1121,7 +1137,8 @@
 
       const fullName = document.getElementById('fullName');
       const enrollment = document.getElementById('enrollment');
-      const department = document.getElementById('department');
+      const year = document.getElementById('year');
+      const branch = document.getElementById('branch');
       const contact = document.getElementById('contact');
       const email = document.getElementById('email');
       const skillsetGroup = document.getElementById('skillset-group');
@@ -1129,7 +1146,7 @@
       const errorBox = document.getElementById('step1-error');
 
       // Reset error states
-      [fullName, enrollment, department, contact, email].forEach(el => {
+      [fullName, enrollment, year, branch, contact, email].forEach(el => {
         if (el) el.classList.remove('is-invalid');
       });
       if (skillsetGroup) skillsetGroup.classList.remove('is-invalid');
@@ -1152,11 +1169,20 @@
         missing.push('Enrollment Number');
       }
 
-      if (!department.value || department.value === '') {
-        department.classList.add('is-invalid');
+      if (!year.value || year.value === '') {
+        year.classList.add('is-invalid');
         isValid = false;
-        if (!firstInvalid) firstInvalid = department;
-        missing.push('Branch / Department');
+        if (!firstInvalid) firstInvalid = year;
+        missing.push('Year of Study');
+      }
+
+      if (year.value && year.value !== 'MTech') {
+        if (!branch.value || branch.value === '') {
+          branch.classList.add('is-invalid');
+          isValid = false;
+          if (!firstInvalid) firstInvalid = branch;
+          missing.push('Branch');
+        }
       }
 
       if (!contact.value.trim()) {
@@ -1204,10 +1230,33 @@
       }
     });
 
-    const deptEl = document.getElementById('department');
-    if (deptEl) {
-      deptEl.addEventListener('change', () => {
-        deptEl.classList.remove('is-invalid');
+    const yearEl = document.getElementById('year');
+    const branchField = document.getElementById('field-branch');
+    const branchEl = document.getElementById('branch');
+    const emailField = document.getElementById('field-email');
+
+    function handleYearChange() {
+      const selectedYear = yearEl.value;
+      if (selectedYear && selectedYear !== 'MTech') {
+        branchField.style.display = 'flex';
+        if (emailField) emailField.classList.remove('full');
+      } else {
+        branchField.style.display = 'none';
+        branchEl.value = '';
+        branchEl.classList.remove('is-invalid');
+        if (emailField) emailField.classList.add('full');
+      }
+      yearEl.classList.remove('is-invalid');
+      document.getElementById('step1-error').classList.remove('visible');
+    }
+
+    if (yearEl) {
+      yearEl.addEventListener('change', handleYearChange);
+    }
+
+    if (branchEl) {
+      branchEl.addEventListener('change', () => {
+        branchEl.classList.remove('is-invalid');
         document.getElementById('step1-error').classList.remove('visible');
       });
     }
@@ -1244,10 +1293,15 @@
 
       try {
         const enrollmentVal = document.getElementById('enrollment').value.trim();
+        const yearVal = document.getElementById('year').value.trim();
+        const branchVal = yearVal === 'MTech' ? 'MTech' : (document.getElementById('branch')?.value?.trim() || '');
+
         const formData = {
           fullName: document.getElementById('fullName').value.trim(),
           enrollment: enrollmentVal,
-          department: document.getElementById('department').value.trim(),
+          year: yearVal,
+          branch: branchVal,
+          department: branchVal,
           contact: document.getElementById('contact').value.trim(),
           email: document.getElementById('email').value.trim(),
           skills: Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(cb => cb.value),

@@ -4,17 +4,23 @@ import { db } from './firebase';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 /* ── Constants ── */
-const DEPARTMENTS = [
-  'Computer Science',
-  'Electronics and Communication',
-  'Mechanical',
-  'Civil',
-  'Electrical',
-  'Chemical',
+const YEARS = ['1', '2', '3', '4', 'MTech'];
+
+const BRANCHES = [
+  'Computer Science and Engineering',
+  'Computer Science and Engineering (AI/DS)',
+  'Electronics and Engineering',
+  'Electronics Engineering (VLSI Design and Technology)',
+  'Mathematics and Computing',
+  'Mechanical Engineering',
+  'Engineering Physics',
+  'Electrical and Electronics',
+  'Chemical Engineering',
+  'Mining Engineering',
+  'Chemical Technology (Biopress Technology)',
+  'Metallurgy and Materials Engineering',
+  'Civil Engineering',
   'Architecture',
-  'Metallurgy',
-  'Mining',
-  'Other',
 ];
 
 const SKILLSETS = [
@@ -34,6 +40,8 @@ const INITIAL_STATE = {
   // Step 1
   fullName: '',
   enrollment: '',
+  year: '',
+  branch: '',
   department: '',
   contact: '',
   email: '',
@@ -95,9 +103,15 @@ function StepOne({ data, onChange, onNext }) {
       errors.enrollment = true;
       missing.push('Enrollment Number');
     }
-    if (!data.department || !data.department.trim()) {
-      errors.department = true;
-      missing.push('Branch / Department');
+    if (!data.year || !data.year.trim()) {
+      errors.year = true;
+      missing.push('Year of Study');
+    }
+    if (data.year && data.year !== 'MTech') {
+      if (!data.branch || !data.branch.trim()) {
+        errors.branch = true;
+        missing.push('Branch');
+      }
     }
     if (!data.contact.trim()) {
       errors.contact = true;
@@ -156,23 +170,53 @@ function StepOne({ data, onChange, onNext }) {
           />
         </div>
 
-        {/* Department / Branch */}
+        {/* Year of Study */}
         <div className="af-field">
           <label className="af-label">
-            Branch / Department <span className="af-required">*</span>
+            Year of Study <span className="af-required">*</span>
           </label>
           <select
-            className={`af-select ${invalidFields.department ? 'is-invalid' : ''}`}
-            value={data.department}
-            onChange={(e) => handleFieldChange('department', e.target.value)}
+            className={`af-select ${invalidFields.year ? 'is-invalid' : ''}`}
+            value={data.year || ''}
+            onChange={(e) => {
+              const val = e.target.value;
+              handleFieldChange('year', val);
+              if (val === 'MTech') {
+                handleFieldChange('branch', '');
+                handleFieldChange('department', 'MTech');
+              }
+            }}
             required
           >
-            <option value="" disabled>Select Branch</option>
-            {DEPARTMENTS.map((d) => (
-              <option key={d} value={d}>{d}</option>
+            <option value="" disabled>Select Year of Study</option>
+            {YEARS.map((y) => (
+              <option key={y} value={y}>{y}</option>
             ))}
           </select>
         </div>
+
+        {/* Branch (if not MTech) */}
+        {data.year && data.year !== 'MTech' && (
+          <div className="af-field">
+            <label className="af-label">
+              Branch <span className="af-required">*</span>
+            </label>
+            <select
+              className={`af-select ${invalidFields.branch ? 'is-invalid' : ''}`}
+              value={data.branch || ''}
+              onChange={(e) => {
+                handleFieldChange('branch', e.target.value);
+                handleFieldChange('department', e.target.value);
+              }}
+              required
+            >
+              <option value="" disabled>Select Branch</option>
+              {BRANCHES.map((b) => (
+                <option key={b} value={b}>{b}</option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* Contact */}
         <div className="af-field">

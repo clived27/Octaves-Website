@@ -414,7 +414,7 @@
 
     function downloadCSV(rows) {
       const headers = [
-        'Name', 'Enrollment', 'Branch/Department', 'Contact', 'Email', 'Skills',
+        'Name', 'Enrollment', 'Year of Study', 'Branch', 'Contact', 'Email', 'Skills',
         'Vocal Genre', 'Vocal Languages', 'Vocal Original Compositions',
         'Vocal Training', 'Vocal Stage Experience', 'Vocal Achievements',
         'Instruments', 'Instr. Original Compositions', 'Instr. Training',
@@ -428,7 +428,8 @@
       const dataRows = rows.map((r) => [
         r.fullName,
         r.enrollment,
-        r.department,
+        r.year || '',
+        r.branch || (r.year === 'MTech' ? 'MTech' : (r.department || '')),
         r.contact,
         r.email,
         Array.isArray(r.skills) ? r.skills.join('; ') : '',
@@ -528,6 +529,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Enrollment</th>
+                <th>Year</th>
                 <th>Branch</th>
                 <th>Contact</th>
                 <th>Email</th>
@@ -555,7 +557,8 @@
             <td style="color: var(--clr-text-faint); font-size: 0.75rem;">${rows.length - idx}</td>
             <td class="adm-td-name">${r.fullName || '—'}</td>
             <td class="adm-td-enroll">${r.enrollment || '—'}</td>
-            <td>${r.department || '—'}</td>
+            <td style="white-space: nowrap; font-size: 0.8rem;">${r.year || '—'}</td>
+            <td>${r.branch || (r.year === 'MTech' ? 'MTech' : (r.department || '—'))}</td>
             <td>${r.contact || '—'}</td>
             <td style="font-size: 0.78rem;">${r.email || '—'}</td>
             <td>${skillsHtml}</td>

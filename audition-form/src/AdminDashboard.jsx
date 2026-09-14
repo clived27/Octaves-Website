@@ -12,7 +12,7 @@ const ADMIN_PASSWORD = 'octaves@2026';
 ───────────────────────────────────────────── */
 function downloadCSV(rows) {
   const headers = [
-    'Name', 'Enrollment', 'Department', 'Contact', 'Email', 'Skills',
+    'Name', 'Enrollment', 'Year of Study', 'Branch', 'Contact', 'Email', 'Skills',
     'Vocal Genre', 'Vocal Languages', 'Vocal Original Compositions',
     'Vocal Training', 'Vocal Stage Experience', 'Vocal Achievements',
     'Instruments', 'Instr. Original Compositions', 'Instr. Training',
@@ -26,7 +26,8 @@ function downloadCSV(rows) {
   const dataRows = rows.map((r) => [
     r.fullName,
     r.enrollment,
-    r.department,
+    r.year || '',
+    r.branch || (r.year === 'MTech' ? 'MTech' : (r.department || '')),
     r.contact,
     r.email,
     Array.isArray(r.skills) ? r.skills.join('; ') : '',
@@ -193,7 +194,8 @@ export default function AdminDashboard() {
                 <th>#</th>
                 <th>Name</th>
                 <th>Enrollment</th>
-                <th>Department</th>
+                <th>Year</th>
+                <th>Branch</th>
                 <th>Contact</th>
                 <th>Email</th>
                 <th>Skills</th>
@@ -208,7 +210,8 @@ export default function AdminDashboard() {
                   </td>
                   <td className="adm-td-name">{r.fullName || '—'}</td>
                   <td className="adm-td-enroll">{r.enrollment || '—'}</td>
-                  <td>{r.department || '—'}</td>
+                  <td style={{ whiteSpace: 'nowrap', fontSize: '0.8rem' }}>{r.year || '—'}</td>
+                  <td>{r.branch || (r.year === 'MTech' ? 'MTech' : (r.department || '—'))}</td>
                   <td>{r.contact || '—'}</td>
                   <td style={{ fontSize: '0.78rem' }}>{r.email || '—'}</td>
                   <td>
