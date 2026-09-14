@@ -194,17 +194,47 @@
   <!-- Navigation — starts transparent, becomes frosted on scroll -->
   <header class="site-header" id="site-header">
     <nav class="nav-container">
+      <div class="nav-spacer" aria-hidden="true"></div>
       <a href="index.html" class="nav-logo" aria-label="Octaves Home">
         <img src="octaves.jpg" alt="Octaves Logo" class="logo-img" />
         <span class="nav-brand">OCTAVES</span>
       </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back-link" aria-label="Return to homepage">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Home
+        </a>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
+          <span class="ham-bar"></span>
+          <span class="ham-bar"></span>
+          <span class="ham-bar"></span>
+        </button>
+      </div>
     </nav>
   </header>
+
+  <!-- ─── Slide-in Drawer ─── -->
+  <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
+  <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
+    <div class="drawer-header">
+      <span class="drawer-brand">OCTAVES</span>
+      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="archives.html" class="drawer-link">Archives</a>
+      <a href="roster.html"   class="drawer-link">Members</a>
+      <a href="merch.html"    class="drawer-link">Merch</a>
+      <a href="gallery.html"  class="drawer-link">Gallery</a>
+    </nav>
+    <div class="drawer-footer">
+      <a href="audition.html" class="drawer-register-btn">Register Now →</a>
+    </div>
+  </aside>
 
   <!-- ─── Members Hero Video ─── -->
   <section class="hero" id="members-hero" aria-label="Members hero">
     <!-- Background image -->
-    <img class="hero-video" src="backdrop hero/hero_clip_01-08.PNG" alt="Members hero backdrop" aria-hidden="true" />
+    <img class="hero-video" src="Assets and elements/stage.jpg" alt="Members hero backdrop" aria-hidden="true" />
 
     <!-- Dark overlay — slightly heavier than homepage for clean text legibility -->
     <div class="hero-video-overlay" style="background:
@@ -606,73 +636,489 @@
     })();
     </script>
 
-    <!-- ─── Members Section ─── -->
-    <section class="members-section section" id="members" aria-labelledby="members-heading">
-      <div class="container">
+    <!-- ─── Members Hub ─── -->
+    <section class="mbhub-section section" id="members" aria-labelledby="mbhub-heading">
+
+      <style>
+        /* ════ Members Hub — Slot Pill Edition ════ */
+
+        @keyframes mbhubFloat {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-5px); }
+        }
+        @keyframes mbhubFadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes mbhubModalIn {
+          from { opacity: 0; transform: translateY(24px) scale(0.97); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .mbhub-section {
+          background: var(--clr-bg-2);
+          border-top: 1px solid var(--clr-border);
+          padding: var(--sp-xl) 0 calc(var(--sp-xl) + 1rem);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .mbhub-section::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(ellipse 70% 60% at 20% 80%, rgba(0,210,220,0.05) 0%, transparent 55%),
+            radial-gradient(ellipse 55% 65% at 80% 20%, rgba(201,169,110,0.04) 0%, transparent 55%);
+          pointer-events: none;
+        }
+
+        .mbhub-header {
+          text-align: center;
+          padding: 0 var(--sp-md) var(--sp-lg);
+          animation: mbhubFadeUp 0.7s var(--ease-out) both;
+        }
+
+        /* ── One-line horizontal slot strip ── */
+        .mbhub-grid {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          align-items: center;
+          justify-content: center;
+          gap: 0.9rem;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 1.25rem var(--sp-md) 2rem;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .mbhub-grid::-webkit-scrollbar { display: none; }
+
+        /* ── Slot pill button: straight left, rounded-semicircle right ── */
+        .mbhub-card {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 0.65rem;
+          /* flat on left, full semicircle on right */
+          padding: 0.7rem 1.5rem 0.7rem 1rem;
+          border-radius: 4px 999px 999px 4px;
+          white-space: nowrap;
+          flex-shrink: 0;
+          scroll-snap-align: start;
+          cursor: pointer;
+          text-align: left;
+          /* bright surface with cyan-gold border */
+          background: linear-gradient(135deg, rgba(20,24,28,0.92) 0%, rgba(12,28,30,0.88) 100%);
+          border: 1px solid rgba(0, 210, 220, 0.35);
+          box-shadow:
+            0 3px 18px rgba(0,0,0,0.4),
+            0 0 0 1px rgba(0,210,220,0.08) inset,
+            0 0 22px rgba(0,210,220,0.06);
+          transition:
+            border-color 0.3s,
+            box-shadow 0.3s,
+            transform 0.3s var(--ease-out),
+            background 0.3s;
+          animation: mbhubFloat 5s ease-in-out infinite;
+          overflow: visible;
+        }
+
+        /* stagger floats */
+        .mbhub-card:nth-child(1) { animation-delay: 0.0s; }
+        .mbhub-card:nth-child(2) { animation-delay: 0.35s; }
+        .mbhub-card:nth-child(3) { animation-delay: 0.7s; }
+        .mbhub-card:nth-child(4) { animation-delay: 1.05s; }
+        .mbhub-card:nth-child(5) { animation-delay: 1.4s; }
+        .mbhub-card:nth-child(6) { animation-delay: 0.2s; }
+        .mbhub-card:nth-child(7) { animation-delay: 0.55s; }
+
+        .mbhub-card:hover,
+        .mbhub-card:focus-visible {
+          border-color: rgba(0, 230, 240, 0.75);
+          background: linear-gradient(135deg, rgba(0,40,48,0.95) 0%, rgba(10,32,38,0.92) 100%);
+          box-shadow:
+            0 10px 36px rgba(0,0,0,0.55),
+            0 0 0 1px rgba(0,210,220,0.2) inset,
+            0 0 50px rgba(0,210,220,0.12);
+          transform: translateY(-5px);
+          animation-play-state: paused;
+          outline: none;
+        }
+
+        /* small icon */
+        .mbhub-card-icon {
+          width: 22px;
+          height: 22px;
+          object-fit: contain;
+          flex-shrink: 0;
+          filter: brightness(1.6) drop-shadow(0 0 6px rgba(0,210,220,0.4));
+          transition: transform 0.3s var(--ease-out), filter 0.3s;
+        }
+
+        .mbhub-card:hover .mbhub-card-icon {
+          transform: scale(1.2) rotate(-5deg);
+          filter: brightness(2) drop-shadow(0 0 10px rgba(0,220,230,0.65));
+        }
+
+        .mbhub-card-label {
+          font-family: var(--ff-sans);
+          font-size: 0.85rem;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: rgba(220, 245, 248, 0.92);
+          transition: color 0.2s;
+        }
+
+        .mbhub-card:hover .mbhub-card-label {
+          color: #ffffff;
+        }
+
+        /* hide sub text if any */
+        .mbhub-card-sub  { display: none; }
+        .mbhub-card-arrow { display: none; }
+
+        /* ── Modal overlay ── */
+        .mbhub-modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(4,6,8,0.85);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          z-index: 900;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+          opacity: 0;
+          transition: opacity 0.25s;
+        }
+        .mbhub-modal-overlay:not([hidden]) { opacity: 1; }
+        .mbhub-modal-overlay[hidden] { display: none; }
+
+        .mbhub-modal-panel {
+          background: var(--clr-surface);
+          border: 1px solid rgba(0, 210, 220, 0.25);
+          border-radius: var(--radius-lg);
+          box-shadow:
+            0 30px 80px rgba(0,0,0,0.8),
+            0 0 0 1px rgba(0,210,220,0.06) inset;
+          width: 100%;
+          max-width: 520px;
+          max-height: 80vh;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          animation: mbhubModalIn 0.35s var(--ease-out) both;
+        }
+
+        .mbhub-modal-header {
+          display: flex;
+          align-items: center;
+          gap: 0.9rem;
+          padding: 1.5rem 1.8rem 1.1rem;
+          border-bottom: 1px solid var(--clr-border);
+          flex-shrink: 0;
+        }
+
+        .mbhub-modal-icon {
+          width: 28px;
+          height: 28px;
+          object-fit: contain;
+          flex-shrink: 0;
+          filter: brightness(1.5);
+        }
+
+        .mbhub-modal-title {
+          flex: 1;
+          font-family: var(--ff-serif);
+          font-size: 1.5rem;
+          font-weight: 400;
+          color: var(--clr-text);
+          letter-spacing: -0.01em;
+        }
+
+        .mbhub-modal-close {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          border: 1px solid var(--clr-border);
+          background: transparent;
+          color: var(--clr-text-muted);
+          cursor: pointer;
+          transition: border-color 0.2s, color 0.2s, background 0.2s;
+          flex-shrink: 0;
+        }
+        .mbhub-modal-close:hover {
+          border-color: rgba(0,210,220,0.5);
+          color: rgba(0,220,235,0.9);
+          background: rgba(0,210,220,0.06);
+        }
+
+        .mbhub-modal-list {
+          list-style: none;
+          overflow-y: auto;
+          padding: 1.2rem 1.8rem 1.8rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.55rem;
+        }
+        .mbhub-modal-list::-webkit-scrollbar { width: 4px; }
+        .mbhub-modal-list::-webkit-scrollbar-track { background: transparent; }
+        .mbhub-modal-list::-webkit-scrollbar-thumb { background: var(--clr-border-mid); border-radius: 99px; }
+
+        .mbhub-modal-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          padding: 0.8rem 1.1rem;
+          background: var(--clr-surface-2);
+          border: 1px solid var(--clr-border);
+          border-radius: var(--radius-md);
+          transition: border-color 0.2s;
+        }
+        .mbhub-modal-item:hover { border-color: rgba(0,210,220,0.35); }
+
+        .mbhub-modal-item-name {
+          font-family: var(--ff-serif);
+          font-size: 1rem;
+          font-weight: 500;
+          color: var(--clr-text);
+        }
+
+        .mbhub-modal-item-year {
+          font-family: var(--ff-sans);
+          font-size: 0.68rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--clr-gold);
+          white-space: nowrap;
+        }
+
+        .mbhub-modal-empty {
+          padding: 2rem 1.8rem;
+          text-align: center;
+          font-family: var(--ff-sans);
+          font-size: var(--fs-sm);
+          color: var(--clr-text-faint);
+          font-style: italic;
+        }
+
+        @media (max-width: 680px) {
+          .mbhub-grid {
+            justify-content: flex-start;
+            padding-left: 1rem;
+          }
+          .mbhub-card {
+            padding: 0.6rem 1.2rem 0.6rem 0.85rem;
+          }
+        }
+      </style>
+
+      <!-- Section header -->
+      <div class="mbhub-header">
         <div class="section-label">The Roster</div>
-        <h2 id="members-heading" class="section-title"><em>Members</em></h2>
+        <h2 id="mbhub-heading" class="section-title"><em>Members</em></h2>
+        <p style="font-family:var(--ff-sans);font-size:var(--fs-sm);color:var(--clr-text-muted);letter-spacing:0.05em;">Click a category to meet the musicians behind the music.</p>
+      </div>
 
-        <!-- Keyboardists -->
-        <div class="instrument-group" id="group-keyboards">
-          <div class="instrument-group-header">
-            <span class="instrument-group-icon" aria-hidden="true">🎹</span>
-            <h3 class="instrument-group-title">Keyboardists</h3>
-            <span class="instrument-group-line" aria-hidden="true"></span>
-          </div>
-          <div class="members-grid" id="grid-keyboards">
-            <article class="member-pill member-pill--placeholder" id="member-kb-1"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-kb-2"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-kb-3"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-          </div>
-        </div>
+      <!-- One-line category slot buttons -->
+      <div class="mbhub-grid" role="list">
 
-        <!-- Guitarists -->
-        <div class="instrument-group" id="group-guitars">
-          <div class="instrument-group-header">
-            <span class="instrument-group-icon" aria-hidden="true">🎸</span>
-            <h3 class="instrument-group-title">Guitarists</h3>
-            <span class="instrument-group-line" aria-hidden="true"></span>
-          </div>
-          <div class="members-grid" id="grid-guitars">
-            <article class="member-pill member-pill--placeholder" id="member-gt-1"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-gt-2"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-gt-3"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-gt-4"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-          </div>
-        </div>
-
-        <!-- Drummers -->
-        <div class="instrument-group" id="group-drums">
-          <div class="instrument-group-header">
-            <span class="instrument-group-icon" aria-hidden="true">🥁</span>
-            <h3 class="instrument-group-title">Drummers</h3>
-            <span class="instrument-group-line" aria-hidden="true"></span>
-          </div>
-          <div class="members-grid" id="grid-drums">
-            <article class="member-pill member-pill--placeholder" id="member-dr-1"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-dr-2"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-dr-3"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-          </div>
-        </div>
+        <!-- Guitars -->
+        <button class="mbhub-card" data-category="guitars" data-icon="Assets and elements/vectors/gutiar.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/vectors/gutiar.png" alt="" aria-hidden="true" />
+          <span class="mbhub-card-label">Guitars</span>
+        </button>
 
         <!-- Vocalists -->
-        <div class="instrument-group" id="group-vocals">
-          <div class="instrument-group-header">
-            <span class="instrument-group-icon" aria-hidden="true">🎤</span>
-            <h3 class="instrument-group-title">Vocalists</h3>
-            <span class="instrument-group-line" aria-hidden="true"></span>
-          </div>
-          <div class="members-grid" id="grid-vocals">
-            <article class="member-pill member-pill--placeholder" id="member-vo-1"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-vo-2"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-vo-3"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-vo-4"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-            <article class="member-pill member-pill--placeholder" id="member-vo-5"><div class="pill-avatar"><span>—</span></div><div class="pill-info"><span class="pill-name">Add Member</span><span class="pill-year">— Year</span></div></article>
-          </div>
-        </div>
+        <button class="mbhub-card" data-category="vocals" data-icon="Assets and elements/vectors/vocal.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/vectors/vocal.png" alt="" aria-hidden="true" />
+          <span class="mbhub-card-label">Vocalists</span>
+        </button>
 
-      </div>
+        <!-- Percussionists -->
+        <button class="mbhub-card" data-category="percussion" data-icon="Assets and elements/vectors/drums.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/vectors/drums.png" alt="" aria-hidden="true" />
+          <span class="mbhub-card-label">Percussionists</span>
+        </button>
+
+        <!-- Flautists -->
+        <button class="mbhub-card" data-category="flute" data-icon="Assets and elements/vectors/flute.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/vectors/flute.png" alt="" aria-hidden="true" />
+          <span class="mbhub-card-label">Flautists</span>
+        </button>
+
+        <!-- Keyboardists -->
+        <button class="mbhub-card" data-category="keys" data-icon="Assets and elements/vectors/keyboard.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/vectors/keyboard.png" alt="" aria-hidden="true" />
+          <span class="mbhub-card-label">Keyboardists</span>
+        </button>
+
+        <!-- Violin -->
+        <button class="mbhub-card" data-category="violin" data-icon="Assets and elements/vectors/violin.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/vectors/violin.png" alt="" aria-hidden="true" />
+          <span class="mbhub-card-label">Violin</span>
+        </button>
+
+        <!-- Others -->
+        <button class="mbhub-card" data-category="others" data-icon="Assets and elements/vectors/others.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/vectors/others.png" alt="" aria-hidden="true" />
+          <span class="mbhub-card-label">Others</span>
+        </button>
+
+      </div><!-- /mbhub-grid -->
+
     </section>
+
+    <!-- ─── Members Modal ─── -->
+    <div class="mbhub-modal-overlay" id="mbhub-modal" role="dialog" aria-modal="true" aria-labelledby="mbhub-modal-title" hidden>
+      <div class="mbhub-modal-panel">
+        <div class="mbhub-modal-header">
+          <img class="mbhub-modal-icon" id="mbhub-modal-icon" src="" alt="" aria-hidden="true" />
+          <h3 class="mbhub-modal-title" id="mbhub-modal-title"></h3>
+          <button class="mbhub-modal-close" id="mbhub-modal-close" aria-label="Close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <ul class="mbhub-modal-list" id="mbhub-modal-list" aria-label="Members list"></ul>
+        <p class="mbhub-modal-empty" id="mbhub-modal-empty" hidden>Members will be announced soon.</p>
+      </div>
+    </div>
+
+    <script>
+    /* ── Members Hub — Modal System ── */
+    (function () {
+      'use strict';
+
+      var MEMBERS = {
+        guitars:    [ /* { name: 'Arjun Mehta', year: '3rd Year' }, */ ],
+        vocals:     [ /* { name: 'Priya Sharma', year: '2nd Year' }, */ ],
+        percussion: [ /* { name: 'Rohan Desai', year: '4th Year' }, */ ],
+        flute:      [ /* { name: 'Sneha Patil', year: '1st Year' }, */ ],
+        keys:       [ /* { name: 'Aditya Kumar', year: '3rd Year' }, */ ],
+        violin:     [ /* { name: 'Kavya Rao', year: '2nd Year' }, */ ],
+        others:     [ /* { name: 'Tanvi Joshi', year: '4th Year', subtitle: 'Bass Guitar' }, */ ],
+      };
+
+      var META = {
+        guitars:    { title: 'Guitars',        icon: 'Assets and elements/vectors/gutiar.png' },
+        vocals:     { title: 'Vocalists',      icon: 'Assets and elements/vectors/vocal.png' },
+        percussion: { title: 'Percussionists', icon: 'Assets and elements/vectors/drums.png' },
+        flute:      { title: 'Flautists',      icon: 'Assets and elements/vectors/flute.png' },
+        keys:       { title: 'Keyboardists',   icon: 'Assets and elements/vectors/keyboard.png' },
+        violin:     { title: 'Violin',         icon: 'Assets and elements/vectors/violin.png' },
+        others:     { title: 'Others',         icon: 'Assets and elements/vectors/others.png' },
+      };
+
+      var overlay  = document.getElementById('mbhub-modal');
+      var iconEl   = document.getElementById('mbhub-modal-icon');
+      var titleEl  = document.getElementById('mbhub-modal-title');
+      var listEl   = document.getElementById('mbhub-modal-list');
+      var emptyEl  = document.getElementById('mbhub-modal-empty');
+      var closeBtn = document.getElementById('mbhub-modal-close');
+      var cards    = document.querySelectorAll('.mbhub-card');
+      var previousFocus = null;
+
+      function openModal(category) {
+        var meta    = META[category] || { title: category, icon: '' };
+        var members = MEMBERS[category] || [];
+
+        iconEl.src          = meta.icon;
+        titleEl.textContent = meta.title;
+
+        listEl.innerHTML = '';
+        if (members.length > 0) {
+          members.forEach(function (m) {
+            var li = document.createElement('li');
+            li.className = 'mbhub-modal-item';
+            var nameSpan = document.createElement('span');
+            nameSpan.className   = 'mbhub-modal-item-name';
+            nameSpan.textContent = m.name;
+            var yearSpan = document.createElement('span');
+            yearSpan.className   = 'mbhub-modal-item-year';
+            yearSpan.textContent = m.year + (m.subtitle ? ' \u00b7 ' + m.subtitle : '');
+            li.appendChild(nameSpan);
+            li.appendChild(yearSpan);
+            listEl.appendChild(li);
+          });
+          listEl.hidden  = false;
+          emptyEl.hidden = true;
+        } else {
+          listEl.hidden  = true;
+          emptyEl.hidden = false;
+        }
+
+        previousFocus = document.activeElement;
+        overlay.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(function () { closeBtn.focus(); });
+      }
+
+      function closeModal() {
+        overlay.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+        if (previousFocus) { previousFocus.focus(); previousFocus = null; }
+      }
+
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () { openModal(card.dataset.category); });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) { closeModal(); }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if ((e.key === 'Escape' || e.key === 'Esc') && !overlay.hasAttribute('hidden')) {
+          closeModal();
+        }
+      });
+
+      overlay.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+        var focusable = overlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        var first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+        else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
+      });
+
+      /* Entrance animation */
+      if ('IntersectionObserver' in window) {
+        var cardList = Array.from(cards);
+        cardList.forEach(function (c) { c.style.opacity = '0'; c.style.transform = 'translateY(16px)'; });
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var el  = entry.target;
+              var idx = cardList.indexOf(el);
+              setTimeout(function () {
+                el.style.transition = 'opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out)';
+                el.style.opacity    = '1';
+                el.style.transform  = 'translateY(0)';
+              }, idx * 70);
+              io.unobserve(el);
+            }
+          });
+        }, { threshold: 0.1 });
+        cardList.forEach(function (c) { io.observe(c); });
+      }
+
+    })();
+    </script>
 
   </main>
 
