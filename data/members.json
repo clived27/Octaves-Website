@@ -1,27 +1,66 @@
 ﻿{
   "guitars": [
-    { "name": "Pratham", "year": "3rd Year" },
-    { "name": "Prajjwal", "year": "2nd Year" }
+    { "name": "Prajjwal Harave", "year": "4th Year" },
+    { "name": "Dhruv Khator", "year": "4th Year" },
+    { "name": "Pranav Patil", "year": "4th Year" },
+    { "name": "Pratham Sharma", "year": "3rd Year" },
+    { "name": "Shashwat Paliwal", "year": "2nd Year" },
+    { "name": "Shaurya Dunung", "year": "2nd Year" },
+    { "name": "Thrishanth Arunan", "year": "2nd Year" },
+    { "name": "Akhilesh Kamble", "year": "2nd Year" },
+    { "name": "Shivansh Dandotiya", "year": "2nd Year" }
   ],
   "vocals": [
-    { "name": "Suhana", "year": "3rd Year" },
-    { "name": "Samriddhi", "year": "2nd Year" },
-    { "name": "Aarushi", "year": "1st Year" }
+    { "name": "Suhana Tembhurkar", "year": "4th Year" },
+    { "name": "Samriddhi Debbrama", "year": "4th Year" },
+    { "name": "Priyakshi", "year": "4th Year" },
+    { "name": "Purva Oak", "year": "4th Year" },
+    { "name": "Pranav Patil", "year": "4th Year" },
+    { "name": "Hiten Hasani", "year": "4th Year" },
+    { "name": "Dhruv Khator", "year": "4th Year" },
+    { "name": "Vishnu Vardhan", "year": "4th Year" },
+    { "name": "Kaustubh Wardhe", "year": "4th Year" },
+    { "name": "Harshita Umashankar", "year": "3rd Year" },
+    { "name": "Sopan Avdhutwar", "year": "3rd Year" },
+    { "name": "Mrudula Patil", "year": "3rd Year" },
+    { "name": "Anika Nigudkar", "year": "3rd Year" },
+    { "name": "Akshay Dubey", "year": "3rd Year" },
+    { "name": "Bhavana Upparapalli", "year": "3rd Year" },
+    { "name": "Anang Menon", "year": "3rd Year" },
+    { "name": "Sudhakar Nair", "year": "2nd Year" },
+    { "name": "Shivansh Dandotiya", "year": "2nd Year" },
+    { "name": "Joshpin Siby", "year": "2nd Year" },
+    { "name": "Paul Raj", "year": "2nd Year" },
+    { "name": "Kanad Joshi", "year": "2nd Year" },
+    { "name": "Nilay Kulkarni", "year": "2nd Year" },
+    { "name": "Adithya Sanju Raj", "year": "2nd Year" },
+    { "name": "Aarushi Deoghare", "year": "2nd Year" },
+    { "name": "Devyani Landge", "year": "2nd Year" },
+    { "name": "Yashasvi Mishra", "year": "2nd Year" }
   ],
   "percussion": [
-    { "name": "Add Member", "year": "Year" }
+    { "name": "Abhas Chouhan", "year": "4th Year" },
+    { "name": "Anang Menon", "year": "3rd Year" },
+    { "name": "Soham Holey", "year": "2nd Year" },
+    { "name": "Nachiket Deshpande", "year": "2nd Year" }
   ],
   "flute": [
-    { "name": "Add Member", "year": "Year" }
+    { "name": "Uday Saikia", "year": "3rd Year" }
   ],
   "keys": [
-    { "name": "Shreyansh", "year": "2nd Year" },
-    { "name": "Harikrishna", "year": "1st Year" }
+    { "name": "Shreyansh Mohanty", "year": "3rd Year" },
+    { "name": "Aum Mankame", "year": "3rd Year" },
+    { "name": "Clive Dsilva", "year": "2nd Year" },
+    { "name": "Harikrishna Nair", "year": "2nd Year" },
+    { "name": "Anish Khurpadi", "year": "2nd Year" }
+  
   ],
   "violin": [
-    { "name": "Add Member", "year": "Year" }
+    { "name": "Purva Oak", "year": "4th Year" },
+    { "name": "Vedhas Soman", "year": "3rd Year" }
   ],
   "others": [
-    { "name": "Add Member", "year": "Year", "subtitle": "Role" }
+    { "name": "Videet Sharma", "year": "3rd Year", "subtitle": "Beatboxing" },
+    { "name": "Shivansh Dandotiya", "year": "2nd Year", "subtitle": "Beatboxing" }
   ]
 }
