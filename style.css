@@ -1630,24 +1630,8 @@ ul  { list-style: none; }
   color: var(--clr-text-faint);
 }
 
-/* ════════════════════════════════════════════
-   REVEAL ON SCROLL
-════════════════════════════════════════════ */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
-}
 
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
 
 /* ════════════════════════════════════════════
    RESPONSIVE
@@ -2078,19 +2062,8 @@ ul  { list-style: none; }
 /* ── Text Content ── */
 .snap-text-inner {
   max-width: 520px;
-  /* Initial state — animated in by JS when section snaps into view */
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.72s var(--ease-out),
-    transform 0.72s var(--ease-out);
 }
 
-/* Class added by JS when section is in view */
-.snap-text-inner.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .snap-eyebrow {
   font-family: var(--ff-sans);

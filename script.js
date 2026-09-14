@@ -74,27 +74,7 @@
   }, delay);
 })();
 
-/* ════════════════════════════════════════
-   Hero entrance animation
-════════════════════════════════════════ */
-(function () {
-  var heroCenter = document.querySelector('.hero-center');
-  if (!heroCenter) return;
 
-  Array.from(heroCenter.children).forEach(function (child, i) {
-    child.style.opacity = '0';
-    child.style.transform = 'translateY(22px)';
-    child.style.transition =
-      'opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1)';
-    child.style.transitionDelay = (i * 0.14) + 's';
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        child.style.opacity = '1';
-        child.style.transform = 'translateY(0)';
-      });
-    });
-  });
-})();
 
 /* ════════════════════════════════════════
    Profile pictures — inject into .member-photo
@@ -132,31 +112,7 @@
   });
 })();
 
-/* ════════════════════════════════════════
-   Scroll-reveal animation
-════════════════════════════════════════ */
-(function () {
-  var targets = document.querySelectorAll(
-    '.member-card, .section-label, .section-title, .section-subtitle, .about-text, .body-text, .contact-item'
-  );
 
-  targets.forEach(function (el, i) {
-    el.classList.add('reveal');
-    var d = i % 4;
-    if (d > 0) el.classList.add('reveal-delay-' + d);
-  });
-
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.10, rootMargin: '0px 0px -30px 0px' });
-
-  targets.forEach(function (el) { observer.observe(el); });
-})();
 
 /* ════════════════════════════════════════
    GIG VAULT — Data + Interactive Renderer
@@ -288,38 +244,4 @@ var GIG_VAULT_DATA = [
   setActive(0);
 })();
 
-/* ════════════════════════════════════════
-   Scroll-Snap Sections: Reveal animation
-   Fires .is-visible on text when section
-   enters viewport; resets on exit so
-   re-entering re-triggers the animation.
-════════════════════════════════════════ */
-(function () {
-  var sections = document.querySelectorAll('.snap-section');
-  if (!sections.length) return;
 
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      var inner = entry.target.querySelector('.snap-text-inner');
-      if (!inner) return;
-
-      if (entry.isIntersecting) {
-        /* Small rAF delay so the snap animation has started */
-        requestAnimationFrame(function () {
-          setTimeout(function () {
-            inner.classList.add('is-visible');
-          }, 80);
-        });
-      } else {
-        /* Reset so re-entry re-animates */
-        inner.classList.remove('is-visible');
-      }
-    });
-  }, {
-    threshold: 0.42 /* Fire when 42% of section is visible */
-  });
-
-  sections.forEach(function (section) {
-    observer.observe(section);
-  });
-})();
