@@ -1012,44 +1012,44 @@
       <div class="mbhub-grid" role="list">
 
         <!-- Guitars -->
-        <button class="mbhub-card" data-category="guitars" data-icon="Assets and elements/vectors/gutiar.png" role="listitem" aria-haspopup="dialog">
-          <img class="mbhub-card-icon" src="Assets and elements/vectors/gutiar.png" alt="" aria-hidden="true" />
+        <button class="mbhub-card" data-category="guitars" data-icon="Assets and elements/Vectors/gutiar.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/Vectors/gutiar.png" alt="" aria-hidden="true" />
           <span class="mbhub-card-label">Guitars</span>
         </button>
 
         <!-- Vocalists -->
-        <button class="mbhub-card" data-category="vocals" data-icon="Assets and elements/vectors/vocal.png" role="listitem" aria-haspopup="dialog">
-          <img class="mbhub-card-icon" src="Assets and elements/vectors/vocal.png" alt="" aria-hidden="true" />
+        <button class="mbhub-card" data-category="vocals" data-icon="Assets and elements/Vectors/vocal.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/Vectors/vocal.png" alt="" aria-hidden="true" />
           <span class="mbhub-card-label">Vocalists</span>
         </button>
 
         <!-- Percussionists -->
-        <button class="mbhub-card" data-category="percussion" data-icon="Assets and elements/vectors/drums.png" role="listitem" aria-haspopup="dialog">
-          <img class="mbhub-card-icon" src="Assets and elements/vectors/drums.png" alt="" aria-hidden="true" />
+        <button class="mbhub-card" data-category="percussion" data-icon="Assets and elements/Vectors/drums.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/Vectors/drums.png" alt="" aria-hidden="true" />
           <span class="mbhub-card-label">Percussionists</span>
         </button>
 
         <!-- Flautists -->
-        <button class="mbhub-card" data-category="flute" data-icon="Assets and elements/vectors/flute.png" role="listitem" aria-haspopup="dialog">
-          <img class="mbhub-card-icon" src="Assets and elements/vectors/flute.png" alt="" aria-hidden="true" />
+        <button class="mbhub-card" data-category="flute" data-icon="Assets and elements/Vectors/flute.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/Vectors/flute.png" alt="" aria-hidden="true" />
           <span class="mbhub-card-label">Flautists</span>
         </button>
 
         <!-- Keyboardists -->
-        <button class="mbhub-card" data-category="keys" data-icon="Assets and elements/vectors/keyboard.png" role="listitem" aria-haspopup="dialog">
-          <img class="mbhub-card-icon" src="Assets and elements/vectors/keyboard.png" alt="" aria-hidden="true" />
+        <button class="mbhub-card" data-category="keys" data-icon="Assets and elements/Vectors/keyboard.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/Vectors/keyboard.png" alt="" aria-hidden="true" />
           <span class="mbhub-card-label">Keyboardists</span>
         </button>
 
         <!-- Violin -->
-        <button class="mbhub-card" data-category="violin" data-icon="Assets and elements/vectors/violin.png" role="listitem" aria-haspopup="dialog">
-          <img class="mbhub-card-icon" src="Assets and elements/vectors/violin.png" alt="" aria-hidden="true" />
+        <button class="mbhub-card" data-category="violin" data-icon="Assets and elements/Vectors/violin.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/Vectors/violin.png" alt="" aria-hidden="true" />
           <span class="mbhub-card-label">Violin</span>
         </button>
 
         <!-- Others -->
-        <button class="mbhub-card" data-category="others" data-icon="Assets and elements/vectors/others.png" role="listitem" aria-haspopup="dialog">
-          <img class="mbhub-card-icon" src="Assets and elements/vectors/others.png" alt="" aria-hidden="true" />
+        <button class="mbhub-card" data-category="others" data-icon="Assets and elements/Vectors/others.png" role="listitem" aria-haspopup="dialog">
+          <img class="mbhub-card-icon" src="Assets and elements/Vectors/others.png" alt="" aria-hidden="true" />
           <span class="mbhub-card-label">Others</span>
         </button>
 
@@ -1102,24 +1102,20 @@
     (function () {
       'use strict';
 
-      var MEMBERS = {
-        guitars:    [ /* { name: 'Arjun Mehta', year: '3rd Year' }, */ ],
-        vocals:     [ /* { name: 'Priya Sharma', year: '2nd Year' }, */ ],
-        percussion: [ /* { name: 'Rohan Desai', year: '4th Year' }, */ ],
-        flute:      [ /* { name: 'Sneha Patil', year: '1st Year' }, */ ],
-        keys:       [ /* { name: 'Aditya Kumar', year: '3rd Year' }, */ ],
-        violin:     [ /* { name: 'Kavya Rao', year: '2nd Year' }, */ ],
-        others:     [ /* { name: 'Tanvi Joshi', year: '4th Year', subtitle: 'Bass Guitar' }, */ ],
-      };
+      var MEMBERS = {};
+      fetch('data/members.json')
+        .then(function(res) { return res.json(); })
+        .then(function(data) { MEMBERS = data; })
+        .catch(function(err) { console.error("Error loading members:", err); });
 
       var META = {
-        guitars:    { title: 'Guitars',        icon: 'Assets and elements/vectors/gutiar.png' },
-        vocals:     { title: 'Vocalists',      icon: 'Assets and elements/vectors/vocal.png' },
-        percussion: { title: 'Percussionists', icon: 'Assets and elements/vectors/drums.png' },
-        flute:      { title: 'Flautists',      icon: 'Assets and elements/vectors/flute.png' },
-        keys:       { title: 'Keyboardists',   icon: 'Assets and elements/vectors/keyboard.png' },
-        violin:     { title: 'Violin',         icon: 'Assets and elements/vectors/violin.png' },
-        others:     { title: 'Others',         icon: 'Assets and elements/vectors/others.png' },
+        guitars:    { title: 'Guitars',        icon: 'Assets and elements/Vectors/gutiar.png' },
+        vocals:     { title: 'Vocalists',      icon: 'Assets and elements/Vectors/vocal.png' },
+        percussion: { title: 'Percussionists', icon: 'Assets and elements/Vectors/drums.png' },
+        flute:      { title: 'Flautists',      icon: 'Assets and elements/Vectors/flute.png' },
+        keys:       { title: 'Keyboardists',   icon: 'Assets and elements/Vectors/keyboard.png' },
+        violin:     { title: 'Violin',         icon: 'Assets and elements/Vectors/violin.png' },
+        others:     { title: 'Others',         icon: 'Assets and elements/Vectors/others.png' },
       };
 
       var overlay  = document.getElementById('mbhub-modal');
@@ -1238,3 +1234,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+

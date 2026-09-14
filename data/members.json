@@ -1,0 +1,27 @@
+﻿{
+  "guitars": [
+    { "name": "Pratham", "year": "3rd Year" },
+    { "name": "Prajjwal", "year": "2nd Year" }
+  ],
+  "vocals": [
+    { "name": "Suhana", "year": "3rd Year" },
+    { "name": "Samriddhi", "year": "2nd Year" },
+    { "name": "Aarushi", "year": "1st Year" }
+  ],
+  "percussion": [
+    { "name": "Add Member", "year": "Year" }
+  ],
+  "flute": [
+    { "name": "Add Member", "year": "Year" }
+  ],
+  "keys": [
+    { "name": "Shreyansh", "year": "2nd Year" },
+    { "name": "Harikrishna", "year": "1st Year" }
+  ],
+  "violin": [
+    { "name": "Add Member", "year": "Year" }
+  ],
+  "others": [
+    { "name": "Add Member", "year": "Year", "subtitle": "Role" }
+  ]
+}
