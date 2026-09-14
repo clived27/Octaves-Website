@@ -5,6 +5,7 @@
 ════════════════════════════════════════ */
 (function () {
   var header = document.getElementById('site-header');
+  if (!header) return;
   function onScroll() {
     header.classList.toggle('scrolled', window.scrollY > 40);
   }
