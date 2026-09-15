@@ -188,6 +188,53 @@
     }
 
   </style>
+
+  <!-- Members-specific Hero Styles (16:9 responsive) -->
+  <style>
+    /* Ensure the wrapper scales fluidly up to a max width and stays 16:9 */
+    .site-header {
+      /* Remove padding or height restrictions if any */
+    }
+    #members-hero {
+      position: relative;
+      width: 100%;
+      max-width: 1920px; /* scales up to maximum width */
+      margin: 0 auto;    /* centers it if screen is larger than max-width */
+      min-height: 0 !important; 
+      aspect-ratio: 16 / 9;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: 0 !important; 
+      background: #000;
+    }
+    #members-hero .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* perfectly maintains aspect without squishing */
+    }
+    #members-hero .hero-center {
+      /* Keep it centered, slightly pushed up to keep faces visible */
+      margin-bottom: 8% !important; 
+      z-index: 4;
+    }
+    
+    /* Lock the ratio across all sizes */
+    @media (max-width: 900px) {
+      #members-hero { aspect-ratio: 16 / 9 !important; max-width: 100%; }
+    }
+    @media (max-width: 768px) {
+      #members-hero { aspect-ratio: 16 / 9 !important; }
+      #members-hero .hero-center { margin-bottom: 5% !important; }
+    }
+    @media (max-width: 480px) {
+      #members-hero { aspect-ratio: 16 / 9 !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -1071,7 +1118,7 @@
       </div><!-- /mbhub-grid -->
 
       <!-- â”€â”€â”€ Alumni Block â”€â”€â”€ -->
-      <div class="mbhub-alumni-wrap">
+      <div class="mbhub-alumni-wrap" style="display: none;">
         <div class="mbhub-alumni-header">
           <span class="mbhub-alumni-rule" aria-hidden="true"></span>
           <span class="mbhub-alumni-badge">Alumni</span>
@@ -1250,6 +1297,10 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
 
 
 
