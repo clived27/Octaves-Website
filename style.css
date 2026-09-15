@@ -1,9 +1,9 @@
-/* ─────────────────────────────────────────────────────────────
-   Octaves — VNIT Nagpur Music Club
+﻿/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   Octaves â€” VNIT Nagpur Music Club
    Design System: Warm Dark Premium
-   ───────────────────────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-/* ── Design Tokens ── */
+/* â”€â”€ Design Tokens â”€â”€ */
 :root {
   --clr-bg:          #0a0a08;
   --clr-bg-2:        #111109;
@@ -54,7 +54,7 @@
   --radius-lg: 20px;
 }
 
-/* ── Reset ── */
+/* â”€â”€ Reset â”€â”€ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
@@ -77,7 +77,7 @@ img { display: block; max-width: 100%; }
 a   { color: inherit; text-decoration: none; }
 ul  { list-style: none; }
 
-/* ── Container ── */
+/* â”€â”€ Container â”€â”€ */
 .container {
   width: 100%;
   max-width: 1160px;
@@ -85,10 +85,10 @@ ul  { list-style: none; }
   padding-inline: clamp(1.25rem, 5vw, 3rem);
 }
 
-/* ── Section Base ── */
+/* â”€â”€ Section Base â”€â”€ */
 .section { padding-block: var(--sp-2xl); }
 
-/* ── Section Labels ── */
+/* â”€â”€ Section Labels â”€â”€ */
 .section-label {
   font-family: var(--ff-sans);
   font-size: var(--fs-xs);
@@ -144,7 +144,7 @@ ul  { list-style: none; }
 
 .body-text + .body-text { margin-top: var(--sp-sm); }
 
-/* ── Buttons ── */
+/* â”€â”€ Buttons â”€â”€ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -192,9 +192,9 @@ ul  { list-style: none; }
   transform: translateY(-2px);
 }
 
-/* ════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    NAVIGATION
-════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -211,7 +211,7 @@ ul  { list-style: none; }
 }
 
 
-/* ── Top Announcement Marquee Banner ── */
+/* â”€â”€ Top Announcement Marquee Banner â”€â”€ */
 .top-marquee-banner {
   display: block;
   width: 100%;
@@ -268,7 +268,7 @@ ul  { list-style: none; }
 }
 
 .top-marquee-item::after {
-  content: '✦';
+  content: 'âœ¦';
   font-size: 0.62rem;
   color: #c084fc;
   opacity: 0.7;
@@ -306,33 +306,55 @@ ul  { list-style: none; }
 }
 
 .nav-container {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  position: relative;
   max-width: 1160px;
   margin-inline: auto;
   padding: 1rem clamp(1.25rem, 5vw, 3rem);
+  min-height: 70px;
 }
 
 .nav-spacer {
-  /* takes up the left column so the center logo stays truly centered */
-}
-
-.nav-actions {
-  justify-self: end;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  display: none;
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  transition: opacity 0.2s;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  justify-self: center;
+  /* Centered absolutely by default on desktop */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+@media (max-width: 850px) {
+  /* On mobile unscrolled: logo sits on the left to avoid collision with Register */
+  .site-header:not(.scrolled) .nav-logo {
+    position: static;
+    transform: none;
+  }
+  
+  /* On mobile scrolled: register btn disappears, logo gracefully centers */
+  .site-header.scrolled .nav-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+
 
 .nav-logo:hover { opacity: 0.85; }
 
@@ -353,7 +375,7 @@ ul  { list-style: none; }
   text-transform: uppercase;
 }
 
-/* ── Right side: Register + Hamburger ── */
+/* â”€â”€ Right side: Register + Hamburger â”€â”€ */
 
 .nav-register-btn {
   font-family: var(--ff-sans);
@@ -380,7 +402,7 @@ ul  { list-style: none; }
   transform: translateY(-1px);
 }
 
-/* ── Scroll: hide Register, keep logo centred ── */
+/* â”€â”€ Scroll: hide Register, keep logo centred â”€â”€ */
 .site-header.scrolled .nav-register-btn {
   opacity: 0;
   pointer-events: none;
@@ -396,7 +418,7 @@ ul  { list-style: none; }
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
-/* ── Hamburger button ── */
+/* â”€â”€ Hamburger button â”€â”€ */
 .nav-hamburger {
   display: flex;
   flex-direction: column;
@@ -428,7 +450,7 @@ ul  { list-style: none; }
   background: var(--clr-gold);
 }
 
-/* ── Drawer Overlay ── */
+/* â”€â”€ Drawer Overlay â”€â”€ */
 .nav-drawer-overlay {
   position: fixed;
   inset: 0;
@@ -444,7 +466,7 @@ ul  { list-style: none; }
   pointer-events: auto;
 }
 
-/* ── Drawer Panel ── */
+/* â”€â”€ Drawer Panel â”€â”€ */
 .nav-drawer {
   position: fixed;
   top: 0;
@@ -551,9 +573,9 @@ ul  { list-style: none; }
   transform: translateY(-1px);
 }
 
-/* ════════════════════════════════════════════
-   HERO — Fully centered
-════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   HERO â€” Fully centered
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .hero {
   position: relative;
   min-height: 100svh;
@@ -565,7 +587,7 @@ ul  { list-style: none; }
   text-align: center;
 }
 
-/* ── Hero video background ── */
+/* â”€â”€ Hero video background â”€â”€ */
 .hero-video {
   position: absolute;
   inset: 0;
@@ -644,7 +666,7 @@ ul  { list-style: none; }
   flex-shrink: 0;
 }
 
-/* Main hero title — dominant centerpiece */
+/* Main hero title â€” dominant centerpiece */
 .hero-title {
   font-family: var(--ff-serif);
   font-size: var(--fs-hero);
@@ -662,7 +684,7 @@ ul  { list-style: none; }
   display: block;
 }
 
-/* Tagline — Playfair Display italic, luxury gold, clean glow */
+/* Tagline â€” Playfair Display italic, luxury gold, clean glow */
 .hero-tagline {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(1.1rem, 2.6vw, 1.6rem);
@@ -704,9 +726,9 @@ ul  { list-style: none; }
 
 /* Scroll indicator removed */
 
-/* ════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    ABOUT
-════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /* hover hint under section subtitle */
 .hover-hint {
   display: block;
@@ -781,9 +803,9 @@ ul  { list-style: none; }
   margin-top: 1.25rem;
 }
 
-/* ════════════════════════════════════════════
-   EXPLORE HUB — Navigation Card Grid
-════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   EXPLORE HUB â€” Navigation Card Grid
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .explore-hub {
   background: #0b0c10;
   padding-block: clamp(3rem, 6vw, 5rem);
@@ -799,14 +821,14 @@ ul  { list-style: none; }
   margin-bottom: 1.6rem;
 }
 
-/* 3-column grid — stacks to 1 on mobile */
+/* 3-column grid â€” stacks to 1 on mobile */
 .explore-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
 
-/* ── Individual card ── */
+/* â”€â”€ Individual card â”€â”€ */
 .explore-card {
   position: relative;
   display: block;
@@ -846,7 +868,7 @@ ul  { list-style: none; }
   transform: scale(1.04);
 }
 
-/* Bottom vignette — keeps text always readable */
+/* Bottom vignette â€” keeps text always readable */
 .explore-card-vignette {
   position: absolute;
   inset: 0;
@@ -945,21 +967,21 @@ ul  { list-style: none; }
   }
 }
 
-/* ════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    COUNCIL
-════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .council {
   background: var(--clr-bg);
 }
 
-/* ── President row — single centered featured card ── */
+/* â”€â”€ President row â€” single centered featured card â”€â”€ */
 .council-president-row {
   display: flex;
   justify-content: center;
   margin-bottom: var(--sp-lg);
 }
 
-/* ── Core members: 4-column grid ── */
+/* â”€â”€ Core members: 4-column grid â”€â”€ */
 .council-grid--core {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -967,14 +989,14 @@ ul  { list-style: none; }
   margin-bottom: var(--sp-lg);
 }
 
-/* ── Representatives: 3-column grid ── */
+/* â”€â”€ Representatives: 3-column grid â”€â”€ */
 .council-grid--reps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
-/* ════════════ MEMBER CARD BASE ════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â• MEMBER CARD BASE â•â•â•â•â•â•â•â•â•â•â•â• */
 .member-card {
   position: relative;
   background: var(--clr-surface);
@@ -1032,7 +1054,7 @@ ul  { list-style: none; }
 
 .member-card:hover::before { opacity: 1; }
 
-/* ════════ Avatar ════════ */
+/* â•â•â•â•â•â•â•â• Avatar â•â•â•â•â•â•â•â• */
 .member-avatar-wrap {
   position: relative;
   width: 72px;
@@ -1073,7 +1095,7 @@ ul  { list-style: none; }
   line-height: 1;
 }
 
-/* Instrument emoji badge — bottom right of avatar */
+/* Instrument emoji badge â€” bottom right of avatar */
 .instrument-badge {
   position: absolute;
   bottom: -2px;
@@ -1090,7 +1112,7 @@ ul  { list-style: none; }
   line-height: 1;
 }
 
-/* ════════ Member Info ════════ */
+/* â•â•â•â•â•â•â•â• Member Info â•â•â•â•â•â•â•â• */
 .member-info {
   display: flex;
   flex-direction: column;
@@ -1138,7 +1160,7 @@ ul  { list-style: none; }
   margin-top: 0.1rem;
 }
 
-/* ── Instagram link ── */
+/* â”€â”€ Instagram link â”€â”€ */
 .member-insta {
   display: inline-flex;
   align-items: center;
@@ -1168,7 +1190,7 @@ ul  { list-style: none; }
   background: rgba(201, 169, 110, 0.06);
 }
 
-/* ════════ Photo Card — replaces circular avatar ════════ */
+/* â•â•â•â•â•â•â•â• Photo Card â€” replaces circular avatar â•â•â•â•â•â•â•â• */
 .member-card {
   padding: 0;          /* photo fills the top edge-to-edge */
   align-items: stretch;
@@ -1182,7 +1204,7 @@ ul  { list-style: none; }
   flex-shrink: 0;
 }
 
-/* The photo frame — 4:5 portrait, rounded top corners only */
+/* The photo frame â€” 4:5 portrait, rounded top corners only */
 .member-photo {
   width: 100%;
   aspect-ratio: 4 / 5;
@@ -1233,7 +1255,7 @@ ul  { list-style: none; }
   z-index: 1;
 }
 
-/* Instrument badge — bottom-right of photo frame */
+/* Instrument badge â€” bottom-right of photo frame */
 .member-photo-wrap .instrument-badge {
   position: absolute;
   bottom: -2px;
@@ -1258,7 +1280,7 @@ ul  { list-style: none; }
   border-radius: 0 0 var(--radius-md) var(--radius-md);
   background: var(--clr-surface);
 }
-/* ════════ President card — VIP gold glow ════════ */
+/* â•â•â•â•â•â•â•â• President card â€” VIP gold glow â•â•â•â•â•â•â•â• */
 .member-card--president {
   width: min(360px, 100%);
   border-color: rgba(245, 158, 11, 0.35);
@@ -1320,15 +1342,15 @@ ul  { list-style: none; }
 
 
 
-/* ════════════════════════════════════════════
-   PROFILE PIC — injected into .member-photo by JS
-════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   PROFILE PIC â€” injected into .member-photo by JS
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 /* Base styles for injected img are defined in .member-photo img above */
 
 /* Per-member orientation fixes on the new photo card */
-/* Suhana: default — no rotation override */
+/* Suhana: default â€” no rotation override */
 
-/* Aarushi: landscape shot — rotate +90° */
+/* Aarushi: landscape shot â€” rotate +90Â° */
 #member-2yr-girls .member-photo img {
   transform: rotate(90deg) scale(1.55);
   object-position: center;
@@ -1357,7 +1379,7 @@ ul  { list-style: none; }
   object-position: 55% 20%;
 }
 
-/* Shreyansh: portrait, upper half is face — pull up slightly */
+/* Shreyansh: portrait, upper half is face â€” pull up slightly */
 #member-vp .avatar-profpic {
   object-position: center 15%;
 }
@@ -1377,9 +1399,9 @@ ul  { list-style: none; }
   object-position: center 12%;
 }
 
-/* ════════════════════════════════════════════
-   GALLERY POPUP — compact floating tooltip
-════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   GALLERY POPUP â€” compact floating tooltip
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .gallery-overlay {
   position: fixed;
   z-index: 600;
@@ -1482,7 +1504,7 @@ ul  { list-style: none; }
   margin-top: 0.05rem;
 }
 
-/* 2×2 compact photo grid */
+/* 2Ã—2 compact photo grid */
 .gallery-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1551,9 +1573,9 @@ ul  { list-style: none; }
   font-size: 0.56rem;
 }
 
-/* ════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    CONTACT
-════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .contact {
   background: var(--clr-bg-2);
   border-top: 1px solid var(--clr-border);
@@ -1598,9 +1620,9 @@ ul  { list-style: none; }
   box-shadow: 0 8px 24px rgba(201, 169, 110, 0.12);
 }
 
-/* ════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    FOOTER
-════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .site-footer {
   background: var(--clr-bg);
   border-top: 1px solid var(--clr-border);
@@ -1651,9 +1673,9 @@ ul  { list-style: none; }
 
 
 
-/* ════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    RESPONSIVE
-════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 @media (max-width: 1000px) {
   .council-grid--core {
     grid-template-columns: repeat(2, 1fr);
@@ -1686,9 +1708,9 @@ ul  { list-style: none; }
   }
 }
 
-/* ════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    GIG VAULT
-════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .gig-vault {
   background: #09090b;   /* near-black, slightly cooler than hero */
 }
@@ -1732,7 +1754,7 @@ ul  { list-style: none; }
   margin-top: 0.1rem;
 }
 
-/* ── Main split layout ── */
+/* â”€â”€ Main split layout â”€â”€ */
 .gig-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -1740,7 +1762,7 @@ ul  { list-style: none; }
   align-items: start;
 }
 
-/* ── Left side ── */
+/* â”€â”€ Left side â”€â”€ */
 .gig-left {
   display: flex;
   flex-direction: column;
@@ -1824,7 +1846,7 @@ ul  { list-style: none; }
   border-color: rgba(245,158,11,0.4);
 }
 
-/* ── Right side ── */
+/* â”€â”€ Right side â”€â”€ */
 .gig-right {
   position: sticky;
   top: 5.5rem;   /* below the header */
@@ -1971,7 +1993,7 @@ ul  { list-style: none; }
   color: rgba(245,158,11,0.85);
 }
 
-/* ── Responsive ── */
+/* â”€â”€ Responsive â”€â”€ */
 @media (max-width: 860px) {
   .gig-layout {
     grid-template-columns: 1fr;
@@ -1985,20 +2007,20 @@ ul  { list-style: none; }
 }
 
 
-/* ════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SCROLL-SNAP SPLIT SECTIONS
    Four full-screen sections: Archives, Gallery, Members, Merch
-════════════════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-/* ── Wrapper: establishes the snap scroll container ── */
+/* â”€â”€ Wrapper: establishes the snap scroll container â”€â”€ */
 .snap-sections-wrapper {
   /* Scroll snapping is handled per-section via scroll-snap-align
-     on the page's natural scroll, not a sub-container —
+     on the page's natural scroll, not a sub-container â€”
      this keeps the nav and rest of page usable */
   position: relative;
 }
 
-/* ── Each 100vh section ── */
+/* â”€â”€ Each 100vh section â”€â”€ */
 .snap-section {
   position: relative;
   height: 100vh;
@@ -2022,14 +2044,14 @@ ul  { list-style: none; }
   order: 1;
 }
 
-/* ── Left Panel: Background Image ── */
+/* â”€â”€ Left Panel: Background Image â”€â”€ */
 .snap-image-panel {
   position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   overflow: visible; /* let the curve clip-path bleed out */
-  /* Convex curve on the right edge — clips the image into a curved shape
+  /* Convex curve on the right edge â€” clips the image into a curved shape
      that "bulges" into the text panel */
   clip-path: ellipse(110% 55% at 10% 50%);
   transition: clip-path 0.6s var(--ease-out);
@@ -2060,7 +2082,7 @@ ul  { list-style: none; }
   );
 }
 
-/* ── Right Panel: Dark Text Side ── */
+/* â”€â”€ Right Panel: Dark Text Side â”€â”€ */
 .snap-text-panel {
   position: relative;
   background: var(--clr-bg);
@@ -2077,7 +2099,7 @@ ul  { list-style: none; }
   box-shadow: inset -6px 0 48px rgba(201, 169, 110, 0.04);
 }
 
-/* ── Text Content ── */
+/* â”€â”€ Text Content â”€â”€ */
 .snap-text-inner {
   max-width: 520px;
 }
@@ -2128,7 +2150,7 @@ ul  { list-style: none; }
   transition-delay: 0.16s;
 }
 
-/* ── CTA Button ── */
+/* â”€â”€ CTA Button â”€â”€ */
 .snap-cta {
   display: inline-flex;
   align-items: center;
@@ -2190,7 +2212,7 @@ ul  { list-style: none; }
   transform: translateX(4px);
 }
 
-/* ── Section divider line on image panel (decorative) ── */
+/* â”€â”€ Section divider line on image panel (decorative) â”€â”€ */
 .snap-section::after {
   content: '';
   position: absolute;
@@ -2208,14 +2230,14 @@ ul  { list-style: none; }
   right: 38%;
 }
 
-/* ── Scroll-snap: scoped to the 4-section wrapper only ──
+/* â”€â”€ Scroll-snap: scoped to the 4-section wrapper only â”€â”€
    Using proximity so the user can still scroll past freely.
-   The wrapper itself becomes the scroll container. ── */
+   The wrapper itself becomes the scroll container. â”€â”€ */
 .snap-sections-wrapper {
   /* Keep position: relative from above, add snap container */
   scroll-snap-type: y proximity;
   /* Note: snap container must have a defined height/overflow
-     to scroll independently — but here we use the page scroll
+     to scroll independently â€” but here we use the page scroll
      with snap-align on children, which works in modern browsers
      when the root also has scroll-snap-type set to proximity. */
 }
@@ -2230,7 +2252,7 @@ html {
   scroll-snap-align: start;
 }
 
-/* ── Responsive ── */
+/* â”€â”€ Responsive â”€â”€ */
 @media (max-width: 900px) {
   .snap-section,
   .snap-section--reverse {
@@ -2287,7 +2309,7 @@ html {
   }
 }
 
-/* ── ON AIR Neon Sign & Marquee (inspired by on air.jpg) ── */
+/* â”€â”€ ON AIR Neon Sign & Marquee (inspired by on air.jpg) â”€â”€ */
 .on-air-pill {
   display: inline-flex;
   align-items: center;
@@ -2371,7 +2393,7 @@ html {
 }
 
 .merch-marquee-item::after {
-  content: '✦';
+  content: 'âœ¦';
   font-size: 0.6rem;
   color: #ff6b7b;
   opacity: 0.8;
@@ -2382,9 +2404,9 @@ html {
   100% { transform: translateX(-50%); }
 }
 
-/* ════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    GLOBAL MOBILE FIXES
-════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 /* Prevent horizontal overflow site-wide */
 html, body {
@@ -2433,4 +2455,7 @@ html, body {
     display: none;
   }
 }
+
+
+
 
