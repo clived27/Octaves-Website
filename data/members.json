@@ -38,10 +38,12 @@
     { "name": "Devyani Landge", "year": "2nd Year" },
     { "name": "Yashasvi Mishra", "year": "2nd Year" }
   ],
-  "percussion": [
+  "drums": [
     { "name": "Abhas Chouhan", "year": "4th Year" },
     { "name": "Anang Menon", "year": "3rd Year" },
-    { "name": "Soham Holey", "year": "2nd Year" },
+    { "name": "Soham Holey", "year": "2nd Year" }
+  ],
+  "tabla": [
     { "name": "Nachiket Deshpande", "year": "2nd Year" }
   ],
   "flute": [
@@ -64,3 +66,4 @@
     { "name": "Shivansh Dandotiya", "year": "2nd Year", "subtitle": "Beatboxing" }
   ]
 }
+

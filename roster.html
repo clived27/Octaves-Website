@@ -774,7 +774,20 @@
 
         /* hide sub text if any */
         .mbhub-card-sub  { display: none; }
-        .mbhub-card-arrow { display: none; }
+        
+          .mbhub-card::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            margin-left: 0.5rem; /* Space between text and chevron */
+            background: url("data:image/svg+xml;utf8,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.4)%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpolyline%20points%3D%229%2018%2015%2012%209%206%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E") no-repeat center center;
+            background-size: contain;
+            transition: transform 0.3s ease, background 0.3s ease;
+          }
+          .mbhub-card:hover::after {
+            transform: translateX(4px);
+            background: url("data:image/svg+xml;utf8,%3Csvg%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.9)%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpolyline%20points%3D%229%2018%2015%2012%209%206%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E") no-repeat center center;
+          }
 
         /* â”€â”€ Modal overlay â”€â”€ */
         .mbhub-modal-overlay {
@@ -1019,11 +1032,17 @@
           <span class="mbhub-card-label">Vocalists</span>
         </button>
 
-        <!-- Percussionists -->
-        <button class="mbhub-card" data-category="percussion" data-icon="Assets and elements/Vectors/drums.png" role="listitem" aria-haspopup="dialog">
-          <img class="mbhub-card-icon" src="Assets and elements/Vectors/drums.png" alt="" aria-hidden="true" />
-          <span class="mbhub-card-label">Percussionists</span>
-        </button>
+        <!-- Drums -->
+          <button class="mbhub-card" data-category="drums" data-icon="Assets and elements/Vectors/drums.png" role="listitem" aria-haspopup="dialog">
+            <img class="mbhub-card-icon" src="Assets and elements/Vectors/drums.png" alt="" aria-hidden="true" />
+            <span class="mbhub-card-label">Drums</span>
+          </button>
+
+          <!-- Tabla -->
+          <button class="mbhub-card" data-category="tabla" data-icon="Assets and elements/Vectors/tabla.png" role="listitem" aria-haspopup="dialog">
+            <img class="mbhub-card-icon" src="Assets and elements/Vectors/tabla.png" alt="" aria-hidden="true" />
+            <span class="mbhub-card-label">Tabla</span>
+          </button>
 
         <!-- Flautists -->
         <button class="mbhub-card" data-category="flute" data-icon="Assets and elements/Vectors/flute.png" role="listitem" aria-haspopup="dialog">
@@ -1107,7 +1126,8 @@
       var META = {
         guitars:    { title: 'Guitars',        icon: 'Assets and elements/Vectors/gutiar.png' },
         vocals:     { title: 'Vocalists',      icon: 'Assets and elements/Vectors/vocal.png' },
-        percussion: { title: 'Percussionists', icon: 'Assets and elements/Vectors/drums.png' },
+        drums:      { title: 'Drums',          icon: 'Assets and elements/Vectors/drums.png' },
+        tabla:      { title: 'Tabla',          icon: 'Assets and elements/Vectors/tabla.png' },
         flute:      { title: 'Flautists',      icon: 'Assets and elements/Vectors/flute.png' },
         keys:       { title: 'Keyboardists',   icon: 'Assets and elements/Vectors/keyboard.png' },
         violin:     { title: 'Violin',         icon: 'Assets and elements/Vectors/violin.png' },
@@ -1230,6 +1250,10 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
 
 
 
