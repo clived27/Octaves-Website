@@ -2404,7 +2404,8 @@ html, body {
 /* Nav Collision & Hero Fixes */
 @media (max-width: 768px) {
   .hero {
-    min-height: 56vw;
+    aspect-ratio: 16 / 9;
+    min-height: min-content;
     padding-top: 4rem;
   }
 
@@ -2457,6 +2458,7 @@ html, body {
 @media (max-width: 480px) {
   .hero {
     min-height: 100svh;
+    aspect-ratio: auto;
   }
   .nav-spacer {
     display: none;
@@ -2483,6 +2485,8 @@ html, body {
     gap: 0.25rem;
   }
 }
+
+
 
 
 

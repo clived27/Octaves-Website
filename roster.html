@@ -290,7 +290,7 @@
               <!-- Member Photo -->
               <div style="flex-shrink:0;position:relative;">
                 <div id="pc-photo" style="
-                  width:160px;height:190px;
+                  width: clamp(100px, 35vw, 160px); aspect-ratio: 160 / 190; height: auto;
                   background:linear-gradient(160deg,rgba(201,169,110,0.15),rgba(10,10,8,0.8));
                   border-radius:14px;
                   border:1px solid rgba(201,169,110,0.2);
@@ -1230,6 +1230,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
