@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Members  -  Octaves, VNIT Nagpur</title>
-  <meta name="description" content="Meet the musicians, council members, and minds behind Octaves  -  VNIT Nagpur's music club." />
+  <title>Members &mdash; Octaves, VNIT Nagpur</title>
+  <meta name="description" content="Meet the musicians, council members, and minds behind Octaves &mdash; VNIT Nagpur's music club." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Domine:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -191,7 +191,7 @@
 </head>
 <body>
 
-  <!-- Navigation  -  starts transparent, becomes frosted on scroll -->
+  <!-- Navigation &mdash; starts transparent, becomes frosted on scroll -->
   <header class="site-header" id="site-header">
     <nav class="nav-container">
       <div class="nav-spacer" aria-hidden="true"></div>
@@ -232,7 +232,7 @@
     <!-- Background image -->
     <video class="hero-video" src="backdrop hero/hero_clip_01-082.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
 
-    <!-- Dark overlay  -  slightly heavier than homepage for clean text legibility -->
+    <!-- Dark overlay &mdash; slightly heavier than homepage for clean text legibility -->
     <div class="hero-video-overlay" style="background:
       linear-gradient(to bottom, rgba(10,10,8,0.55) 0%, rgba(10,10,8,0.0) 30%, rgba(10,10,8,0.0) 65%, rgba(10,10,8,0.92) 100%),
       rgba(10,10,8,0.58);" aria-hidden="true"></div>
@@ -243,7 +243,7 @@
     <!-- Gold radial centre glow -->
     <div style="position:absolute;inset:0;z-index:3;background:radial-gradient(ellipse 65% 55% at 50% 45%,rgba(201,169,110,0.07) 0%,transparent 70%);pointer-events:none;" aria-hidden="true"></div>
 
-    <!-- Centred title  -  shifted upward so faces in the video stay visible -->
+    <!-- Centred title &mdash; shifted upward so faces in the video stay visible -->
     <div class="hero-center" style="z-index:4; margin-bottom: 28vh;">
       <h1 class="hero-title" style="font-size:clamp(2.8rem,6vw,5.5rem);white-space:nowrap;">Meet the <em style="display:inline;">Members.</em></h1>
     </div>
@@ -252,7 +252,7 @@
 
   <main>
 
-    <!-- â”€â”€â”€ Council Section  -  Music Player Carousel â”€â”€â”€ -->
+    <!-- â”€â”€â”€ Council Section &mdash; Music Player Carousel â”€â”€â”€ -->
     <section class="council section" id="council" aria-labelledby="council-heading">
       <div class="container">
         <div class="section-label">Leadership</div>
@@ -386,7 +386,7 @@
                 box-shadow:0 4px 20px rgba(106,176,76,0.45);
                 transition:transform 0.15s,box-shadow 0.15s;
               " onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-                <!-- Pause icon (default  -  playing) -->
+                <!-- Pause icon (default &mdash; playing) -->
                 <svg id="pc-icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="#0d0d0b"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
                 <!-- Play icon (hidden when playing) -->
                 <svg id="pc-icon-play" width="22" height="22" viewBox="0 0 24 24" fill="#0d0d0b" style="display:none;margin-left:2px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -431,7 +431,7 @@
 
       var DURATION    = 6000; /* 6 seconds per member */
       var idx         = 0;
-      var isPlaying   = false; /* starts paused  -  IntersectionObserver kicks it off */
+      var isPlaying   = false; /* starts paused &mdash; IntersectionObserver kicks it off */
       var startTime   = null;  /* timestamp when current slide started (or resumed) */
       var elapsed     = 0;     /* ms elapsed before any pause */
       var rafId       = null;
@@ -491,7 +491,7 @@
           elPost.textContent    = m.post;
           elRole.textContent    = '\u201c' + m.role + '\u201d';
 
-          /* Photo  -  try multiple extensions so profpic always loads */
+          /* Photo &mdash; try multiple extensions so profpic always loads */
           elPhoto.innerHTML = '';
           var basePath = m.photo.substring(0, m.photo.lastIndexOf('.'));
           var exts = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'webp'];
@@ -582,11 +582,11 @@
         iconPlay.style.display  = isPlaying ? 'none' : '';
 
         if (isPlaying) {
-          /* Resume  -  carry forward how much time had elapsed */
+          /* Resume &mdash; carry forward how much time had elapsed */
           startTime = null;
           startAnim();
         } else {
-          /* Pause  -  record elapsed so far */
+          /* Pause &mdash; record elapsed so far */
           if (rafId) cancelAnimationFrame(rafId);
           if (startTime !== null) {
             /* elapsed was computed inside tick, recalculate here */
@@ -636,7 +636,7 @@
     <section class="mbhub-section section" id="members" aria-labelledby="mbhub-heading">
 
       <style>
-        /* â•â•â•â• Members Hub  -  Slot Pill Edition â•â•â•â• */
+        /* â•â•â•â• Members Hub &mdash; Slot Pill Edition â•â•â•â• */
 
         @keyframes mbhubFloat {
           0%, 100% { transform: translateY(0px); }
@@ -1058,7 +1058,7 @@
           <span class="mbhub-alumni-badge">Alumni</span>
           <span class="mbhub-alumni-rule" aria-hidden="true"></span>
         </div>
-        <p class="mbhub-alumni-desc">Those who shaped the sound  -  now carrying the note forward.</p>
+        <p class="mbhub-alumni-desc">Those who shaped the sound &mdash; now carrying the note forward.</p>
         <div class="mbhub-alumni-grid" id="alumni-grid">
           <!-- Alumni cards -->
           <div class="mbhub-alum-card">
@@ -1094,7 +1094,7 @@
     </div>
 
     <script>
-    /* â”€â”€ Members Hub  -  Modal System â”€â”€ */
+    /* â”€â”€ Members Hub &mdash; Modal System â”€â”€ */
     (function () {
       'use strict';
 
@@ -1230,5 +1230,6 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 

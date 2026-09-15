@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Archives  -  Octaves, VNIT Nagpur</title>
-  <meta name="description" content="Relive past Octaves performances  -  explore events, genres, and watch live recordings from VNIT Nagpur's music club." />
+  <title>The Archives &mdash; Octaves, VNIT Nagpur</title>
+  <meta name="description" content="Relive past Octaves performances &mdash; explore events, genres, and watch live recordings from VNIT Nagpur's music club." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
@@ -189,15 +189,15 @@
 
     /* Playing indicator dot */
     .arc-perf-btn.active .arc-perf-slot::before {
-      content: 'â–¶ ';
-      font-size: 0.55rem;
+      content: '\2022 ';
+        font-size: 0.55rem;
       color: var(--clr-gold);
       vertical-align: middle;
       margin-right: 0.15rem;
     }
 
     /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       RIGHT  -  MAIN PLAYER VIEW
+       RIGHT &mdash; MAIN PLAYER VIEW
     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     .arc-main {
       background: #09090b;
@@ -543,7 +543,7 @@
         var perfLi = document.createElement('li');
         var perfBtn = document.createElement('button');
         perfBtn.className = 'arc-perf-btn';
-        perfBtn.setAttribute('aria-label', perf.slotName + (perf.genre ? '  -  ' + perf.genre : ''));
+        perfBtn.setAttribute('aria-label', perf.slotName + (perf.genre ? ' &mdash; ' + perf.genre : ''));
         perfBtn.innerHTML =
           '<span class="arc-perf-slot">' + perf.slotName + '</span>' +
           (perf.genre && perf.genre.trim() ? '<span class="arc-perf-genre">' + perf.genre + '</span>' : '');
@@ -610,4 +610,10 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
 
