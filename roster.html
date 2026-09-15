@@ -461,6 +461,13 @@
         </div><!-- /flex wrapper -->
 
       </div>
+
+      <!-- Ambient Background Audio for Members Page -->
+      <audio id="members-ambient-audio" loop preload="auto">
+        <source src="assets/music%20members.mp3" type="audio/mpeg">
+        <source src="Assets%20and%20elements/music%20members.mp3" type="audio/mpeg">
+        <source src="Assets and elements/music members.mp3" type="audio/mpeg">
+      </audio>
     </section>
 
     <script>
@@ -500,6 +507,10 @@
       var elWave    = document.getElementById('pc-waveform');
       var iconPause = document.getElementById('pc-icon-pause');
       var iconPlay  = document.getElementById('pc-icon-play');
+      var ambientAudio = document.getElementById('members-ambient-audio');
+      if (ambientAudio) {
+        ambientAudio.volume = 0.40; /* 40% volume (between 30% and 50%) */
+      }
 
       /* â”€â”€ Build waveform bars â”€â”€ */
       function buildWaveform() {
@@ -635,12 +646,18 @@
           /* Resume &mdash; carry forward how much time had elapsed */
           startTime = null;
           startAnim();
+          if (ambientAudio) {
+            ambientAudio.play().catch(function () {});
+          }
         } else {
           /* Pause &mdash; record elapsed so far */
           if (rafId) cancelAnimationFrame(rafId);
           if (startTime !== null) {
             /* elapsed was computed inside tick, recalculate here */
             elapsed += performance.now() - startTime;
+          }
+          if (ambientAudio) {
+            ambientAudio.pause();
           }
         }
       };
@@ -668,6 +685,25 @@
               iconPause.style.display = '';
               iconPlay.style.display  = 'none';
               startAnim();
+              if (ambientAudio) {
+                ambientAudio.volume = 0.40;
+                var playPromise = ambientAudio.play();
+                if (playPromise !== undefined) {
+                  playPromise.catch(function () {
+                    var unlockAudio = function () {
+                      if (isPlaying && ambientAudio.paused) {
+                        ambientAudio.play().catch(function () {});
+                      }
+                      window.removeEventListener('click', unlockAudio);
+                      window.removeEventListener('touchstart', unlockAudio);
+                      window.removeEventListener('keydown', unlockAudio);
+                    };
+                    window.addEventListener('click', unlockAudio, { once: true });
+                    window.addEventListener('touchstart', unlockAudio, { once: true });
+                    window.addEventListener('keydown', unlockAudio, { once: true });
+                  });
+                }
+              }
               io.disconnect(); /* fire only once */
             }
           });
@@ -677,6 +713,10 @@
         /* Fallback for browsers without IntersectionObserver */
         isPlaying = true;
         startAnim();
+        if (ambientAudio) {
+          ambientAudio.volume = 0.40;
+          ambientAudio.play().catch(function () {});
+        }
       }
 
     })();
@@ -1300,6 +1340,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
