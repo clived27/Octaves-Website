@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard — Octaves VNIT</title>
   <meta name="description" content="Octaves VNIT Auditions 2026 Admin Portal" />
+  <link rel="icon" type="image/jpeg" href="/octaves.jpg" />
+  <link rel="shortcut icon" type="image/jpeg" href="../octaves.jpg" />
+  <link rel="apple-touch-icon" href="/octaves.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -324,10 +327,6 @@
           <span class="nav-brand">OCTAVES</span>
         </a>
         <div class="nav-actions">
-          <a href="/" class="nav-back-link" aria-label="Return to homepage" style="margin-right: 0.75rem;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            Back to Home
-          </a>
           <button class="adm-btn adm-btn-outline" id="btn-signout" style="font-size: 0.72rem;">Sign Out</button>
           <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
             <span class="ham-bar"></span>
@@ -343,7 +342,7 @@
     <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
       <div class="drawer-header">
         <span class="drawer-brand">OCTAVES</span>
-        <button class="drawer-close" id="drawer-close" aria-label="Close navigation">✕</button>
+        <button class="drawer-close" id="drawer-close" aria-label="Close navigation">&times;</button>
       </div>
       <nav class="drawer-nav">
         <a href="/archives.html" class="drawer-link">Archives</a>
@@ -352,7 +351,7 @@
         <a href="/gallery.html"  class="drawer-link">Gallery</a>
       </nav>
       <div class="drawer-footer">
-        <a href="/audition.html" class="drawer-register-btn">Register Now →</a>
+        <a href="/audition.html" class="drawer-register-btn">Register Now &rarr;</a>
       </div>
     </aside>
 
@@ -603,6 +602,6 @@
       tableContainer.innerHTML = html;
     }
   </script>
-  <script src="/script.js" onerror="this.src='../script.js'"></script>
+  <script src="/script.js" onerror="this.src='script.js'"></script>
 </body>
 </html>

@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Audition Registration — Octaves VNIT</title>
   <meta name="description" content="Register for Octaves Music Club auditions at VNIT Nagpur." />
+  <link rel="icon" type="image/jpeg" href="/octaves.jpg" />
+  <link rel="shortcut icon" type="image/jpeg" href="../octaves.jpg" />
+  <link rel="apple-touch-icon" href="/octaves.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -124,8 +127,8 @@
     }
 
     .psy-blob-1 {
-      width: 550px;
-      height: 550px;
+      width: min(550px, 100vw);
+      aspect-ratio: 1;
       background: radial-gradient(circle, rgba(147, 51, 234, 0.6) 0%, rgba(59, 130, 246, 0.25) 60%, transparent 80%);
       top: -10%;
       left: -5%;
@@ -133,8 +136,8 @@
     }
 
     .psy-blob-2 {
-      width: 600px;
-      height: 600px;
+      width: min(600px, 100vw);
+      aspect-ratio: 1;
       background: radial-gradient(circle, rgba(56, 189, 248, 0.45) 0%, rgba(168, 85, 247, 0.3) 50%, transparent 80%);
       bottom: -15%;
       right: -10%;
@@ -143,8 +146,8 @@
     }
 
     .psy-blob-3 {
-      width: 420px;
-      height: 420px;
+      width: min(420px, 100vw);
+      aspect-ratio: 1;
       background: radial-gradient(circle, rgba(232, 121, 249, 0.4) 0%, rgba(99, 102, 241, 0.25) 60%, transparent 80%);
       top: 40%;
       left: 55%;
@@ -184,7 +187,7 @@
       top: 50%;
       transform: translateY(-50%) translateX(-50%);
       width: clamp(520px, 46vw, 720px);
-      height: clamp(520px, 46vw, 720px);
+      aspect-ratio: 1;
       border-radius: 50%;
       overflow: hidden;
       opacity: 0.17; /* turned down */
@@ -784,15 +787,11 @@
   <header class="site-header scrolled" id="site-header">
     <nav class="nav-container">
       <div class="nav-spacer"></div>
-      <a href="/" class="nav-logo" aria-label="Back to Octaves Home">
-        <img src="/octaves.jpg" alt="Octaves Logo" class="logo-img" onerror="this.src='octaves.jpg'" />
+      <a href="index.html" class="nav-logo" aria-label="Back to Octaves Home">
+        <img src="octaves.jpg" alt="Octaves Logo" class="logo-img" />
         <span class="nav-brand">OCTAVES</span>
       </a>
       <div class="nav-actions">
-        <a href="/" class="nav-back-link" aria-label="Return to homepage">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-          Back to Home
-        </a>
         <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
           <span class="ham-bar"></span>
           <span class="ham-bar"></span>
@@ -807,16 +806,16 @@
   <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
     <div class="drawer-header">
       <span class="drawer-brand">OCTAVES</span>
-      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">✕</button>
+      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">&times;</button>
     </div>
     <nav class="drawer-nav">
-      <a href="/archives.html" class="drawer-link">Archives</a>
-      <a href="/roster.html"   class="drawer-link">Members</a>
-      <a href="/merch.html"    class="drawer-link">Merch</a>
-      <a href="/gallery.html"  class="drawer-link">Gallery</a>
+      <a href="archives.html" class="drawer-link">Archives</a>
+      <a href="roster.html"   class="drawer-link">Members</a>
+      <a href="merch.html"    class="drawer-link">Merch</a>
+      <a href="gallery.html"  class="drawer-link">Gallery</a>
     </nav>
     <div class="drawer-footer">
-      <a href="/audition.html" class="drawer-register-btn">Register Now →</a>
+      <a href="audition.html" class="drawer-register-btn">Register Now &rarr;</a>
     </div>
   </aside>
 
@@ -1379,6 +1378,7 @@
     });
   </script>
 
-  <script src="/script.js" onerror="this.src='../script.js'"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
