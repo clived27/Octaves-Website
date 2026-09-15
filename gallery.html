@@ -172,11 +172,16 @@
       .gallery-item:nth-child(5n + 5) { grid-column: span 3 !important; }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
       .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
       }
-      .gallery-item { grid-column: span 1 !important; }
+      .gallery-item {
+        grid-column: span 1 !important;
+        aspect-ratio: 1 / 1;
+      }
+    }
     }
 
     .gallery-item img {
@@ -298,10 +303,7 @@
       <span>OCTAVES</span>
     </a>
     <div style="display: flex; align-items: center; gap: 0.75rem;">
-      <a href="index.html" class="gallery-nav-back" aria-label="Return to homepage">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Back to Home
-      </a>
+      
       <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
         <span class="ham-bar"></span>
         <span class="ham-bar"></span>

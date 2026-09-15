@@ -210,34 +210,6 @@ ul  { list-style: none; }
   border-bottom-color: var(--clr-border);
 }
 
-/* ── Universal Back to Home Nav Link ── */
-.nav-back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--ff-sans, 'Inter', sans-serif);
-  font-size: 0.74rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--clr-text-muted, rgba(232, 224, 240, 0.65));
-  text-decoration: none;
-  transition: color 0.25s ease;
-  justify-self: end;
-  margin-left: auto;
-}
-
-.nav-back-link:hover {
-  color: var(--clr-gold-light, #d4b483);
-}
-
-.nav-back-link svg {
-  transition: transform 0.25s ease;
-}
-
-.nav-back-link:hover svg {
-  transform: translateX(-3px);
-}
 
 /* ── Top Announcement Marquee Banner ── */
 .top-marquee-banner {
@@ -406,6 +378,22 @@ ul  { list-style: none; }
   color: #ffffff;
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.55), 0 0 35px rgba(59, 130, 246, 0.35);
   transform: translateY(-1px);
+}
+
+/* ── Scroll: hide Register, keep logo centred ── */
+.site-header.scrolled .nav-register-btn {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* Smooth restore when scrolled back to top */
+.site-header:not(.scrolled) .nav-register-btn {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 /* ── Hamburger button ── */
@@ -2392,5 +2380,57 @@ html {
 @keyframes marqueeRun {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+/* ════════════════════════════════════════
+   GLOBAL MOBILE FIXES
+════════════════════════════════════════ */
+
+/* Prevent horizontal overflow site-wide */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Hero video: proper aspect ratio & no overflow on mobile */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 56vw; /* maintain ~16:9 */
+    padding-top: 4rem;
+  }
+
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .nav-container {
+    padding: 0.85rem clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .nav-logo .nav-brand {
+    font-size: 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 9vw, 5.5rem);
+  }
+
+  .hero-tagline {
+    font-size: clamp(0.95rem, 2.2vw, 1.25rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 100svh;
+  }
+
+  .nav-spacer {
+    display: none;
+  }
 }
 
