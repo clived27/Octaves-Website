@@ -2450,8 +2450,20 @@ html, body {
     letter-spacing: 0.1em;
   }
 
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+  }
+
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    width: 16px;
+  }
+
   .hero-title {
-    font-size: clamp(3rem, 9vw, 5.5rem);
+    font-size: clamp(3.5rem, 11vw, 6rem);
   }
 
   .hero-tagline {
@@ -2507,5 +2519,22 @@ html, body {
     height: 34px;
     padding: 0 7px;
     flex-shrink: 0;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.85rem;
+    gap: 0.4rem;
+  }
+
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    width: 12px;
+  }
+
+  .hero-title {
+    font-size: clamp(3.4rem, 13vw, 4.6rem);
+    line-height: 0.95;
   }
 }
