@@ -1,4 +1,4 @@
-﻿/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Octaves â€” VNIT Nagpur Music Club
    Design System: Warm Dark Premium
    â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -339,20 +339,7 @@ ul  { list-style: none; }
   margin-left: auto;
 }
 
-@media (max-width: 850px) {
-  /* On mobile unscrolled: logo sits on the left to avoid collision with Register */
-  .site-header:not(.scrolled) .nav-logo {
-    position: static;
-    transform: none;
-  }
-  
-  /* On mobile scrolled: register btn disappears, logo gracefully centers */
-  .site-header.scrolled .nav-logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
+
 
 
 
@@ -2404,9 +2391,9 @@ html {
   100% { transform: translateX(-50%); }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ════════════════════════════════════════
    GLOBAL MOBILE FIXES
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+════════════════════════════════════════ */
 
 /* Prevent horizontal overflow site-wide */
 html, body {
@@ -2414,10 +2401,10 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Hero video: proper aspect ratio & no overflow on mobile */
+/* Nav Collision & Hero Fixes */
 @media (max-width: 768px) {
   .hero {
-    min-height: 56vw; /* maintain ~16:9 */
+    min-height: 56vw;
     padding-top: 4rem;
   }
 
@@ -2430,11 +2417,32 @@ html, body {
   }
 
   .nav-container {
-    padding: 0.85rem clamp(1rem, 4vw, 1.5rem);
+    padding: 0.85rem clamp(0.5rem, 3vw, 1.25rem);
+    min-height: 60px;
+  }
+
+  .nav-actions {
+    gap: 0.4rem;
+  }
+
+  .nav-register-btn {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .nav-logo {
+    gap: 0.5rem;
+  }
+
+  .logo-img {
+    width: 32px;
+    height: 32px;
   }
 
   .nav-logo .nav-brand {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
   }
 
   .hero-title {
@@ -2450,12 +2458,12 @@ html, body {
   .hero {
     min-height: 100svh;
   }
-
   .nav-spacer {
     display: none;
   }
+  
+  /* Prevent logo & register collision on very small screens */
+  .nav-logo .nav-brand {
+    display: none;
+  }
 }
-
-
-
-
