@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Merch &mdash; Octaves VNIT Nagpur</title>
-  <meta name="description" content="Octaves merchandise is coming soon. Limited-edition drops designed by the club, for the community." />
+  <meta name="description" content="Octaves merchandise — VNIT Nagpur's music club." />
   <link rel="icon" type="image/jpeg" href="/octaves.jpg" />
   <link rel="shortcut icon" type="image/jpeg" href="octaves.jpg" />
   <link rel="apple-touch-icon" href="/octaves.jpg" />
@@ -13,85 +13,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* â”€â”€ Merch Coming Soon page &mdash; self-contained styles â”€â”€ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    .merch-page {
+    html, body {
+      background: #0a0a08;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: var(--clr-bg);
-      position: relative;
-      overflow: hidden;
     }
 
-    /* Ambient background rings */
-    .merch-bg {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .merch-bg-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(201, 169, 110, 0.07);
-      animation: ringExpand 8s ease-in-out infinite;
-    }
-
-    .merch-bg-ring:nth-child(1) {
-      width: 500px; height: 500px;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: 0s;
-    }
-    .merch-bg-ring:nth-child(2) {
-      width: 750px; height: 750px;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: 1.5s;
-      border-color: rgba(201, 169, 110, 0.05);
-    }
-    .merch-bg-ring:nth-child(3) {
-      width: 1050px; height: 1050px;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: 3s;
-      border-color: rgba(201, 169, 110, 0.03);
-    }
-
-    @keyframes ringExpand {
-      0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-      50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.04); }
-    }
-
-    /* Central warm glow */
-    .merch-bg::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        ellipse 60% 50% at 50% 50%,
-        rgba(201, 169, 110, 0.06) 0%,
-        transparent 70%
-      );
-    }
-
-    /* â”€â”€ Main content â”€â”€ */
-    .merch-main {
-      position: relative;
-      z-index: 1;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 6rem clamp(1.5rem, 5vw, 4rem) 4rem;
-      text-align: center;
-    }
-
-    /* Logo link back */
-    .merch-back {
+    /* ── Fixed top nav ── */
+    .merch-nav {
       position: fixed;
       top: 0;
       left: 0;
@@ -100,533 +34,133 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem clamp(1.5rem, 5vw, 3rem);
+      padding: 1rem clamp(1.25rem, 5vw, 2.5rem);
       background: rgba(10, 10, 8, 0);
       transition: background 0.4s, border-color 0.4s;
       border-bottom: 1px solid transparent;
     }
 
-    .merch-back.scrolled {
-      background: rgba(10, 10, 8, 0.9);
+    .merch-nav.scrolled {
+      background: rgba(10, 10, 8, 0.92);
       backdrop-filter: blur(16px);
-      border-bottom-color: var(--clr-border);
+      border-bottom-color: rgba(255,255,255,0.07);
     }
 
-    .merch-back-logo {
+    .merch-nav-logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      color: var(--clr-text);
+      gap: 0.65rem;
+      color: #f0ebe0;
+      text-decoration: none;
       transition: opacity 0.25s;
     }
 
-    .merch-back-logo:hover { opacity: 0.7; }
+    .merch-nav-logo:hover { opacity: 0.7; }
 
-    .merch-back-logo img {
+    .merch-nav-logo img {
       width: 32px;
       height: 32px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid var(--clr-border-mid);
+      border: 1px solid rgba(255,255,255,0.15);
     }
 
-    .merch-back-logo span {
-      font-family: var(--ff-serif);
+    .merch-nav-logo span {
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem;
       font-weight: 500;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.15em;
     }
 
-    .merch-back-link {
+    /* ── Merch image section ── */
+    .merch-body {
+      padding-top: 72px; /* below fixed nav */
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      font-family: var(--ff-sans);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--clr-text-muted);
-      transition: color 0.25s;
     }
 
-    .merch-back-link:hover { color: var(--clr-gold-light); }
-
-    .merch-back-link svg {
-      transition: transform 0.25s;
-    }
-
-    .merch-back-link:hover svg { transform: translateX(-3px); }
-
-    /* â”€â”€ ON AIR & BUY NOW Marquee at Top â”€â”€ */
-    .merch-marquee-strip {
+    .merch-image-wrap {
       width: 100%;
-      max-width: 760px;
-      margin: 0 auto 2.5rem;
-      overflow: hidden;
-      padding: 0.75rem 0;
-      border-top: 1px solid rgba(255, 30, 46, 0.4);
-      border-bottom: 1px solid rgba(255, 30, 46, 0.4);
-      background: rgba(255, 20, 40, 0.05);
-      position: relative;
-      opacity: 0;
-      animation: fadeDown 0.9s 0.1s var(--ease-out) forwards;
-      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    }
-
-    .on-air-tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.18rem 0.65rem;
-      border: 1.5px solid #ff1e2e;
-      border-radius: 9999px;
-      color: #ff3344;
-      background: radial-gradient(ellipse at center, rgba(35, 2, 6, 0.95) 0%, rgba(8, 0, 2, 0.98) 100%);
-      font-size: 0.68rem;
-      font-weight: 900;
-      letter-spacing: 0.2em;
-      box-shadow: 0 0 10px rgba(255, 30, 46, 0.8), inset 0 0 6px rgba(255, 30, 46, 0.5);
-      text-shadow: 0 0 8px #ff1e2e;
-      margin-right: 0.5rem;
-    }
-
-    .merch-marquee-track {
-      display: inline-flex;
-      gap: 2rem;
-      white-space: nowrap;
-      animation: marqueeRun 16s linear infinite;
-    }
-
-    .merch-marquee-item {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #ff3b4b;
-      text-shadow: 0 0 10px rgba(255, 40, 60, 0.75);
-      display: inline-flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .merch-marquee-item::after {
-      content: '\2726';
-        font-size: 0.6rem;
-      color: #ff6b7b;
-      opacity: 0.8;
-    }
-
-    @keyframes marqueeRun {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* â”€â”€ Hero content â”€â”€ */
-    .merch-eyebrow {
-      font-family: var(--ff-sans);
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--clr-gold);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s var(--ease-out) forwards;
-    }
-
-    .merch-eyebrow::before,
-    .merch-eyebrow::after {
-      content: '';
-      display: inline-block;
-      width: 28px;
-      height: 1px;
-      background: var(--clr-gold);
-      flex-shrink: 0;
-    }
-
-    .merch-logo-mark {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid var(--clr-border-mid);
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeDown 0.9s 0s var(--ease-out) forwards;
-      filter: brightness(0.85);
-    }
-
-    .merch-title {
-      font-family: var(--ff-serif);
-      font-size: clamp(3.5rem, 9vw, 7rem);
-      font-weight: 300;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      color: var(--clr-text);
-      margin-bottom: 0.5rem;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.3s var(--ease-out) forwards;
-    }
-
-    .merch-title em {
-      font-style: italic;
-      color: var(--clr-gold-light);
-    }
-
-    /* Animated subtitle word */
-    .merch-coming-soon {
-      font-family: var(--ff-serif);
-      font-size: clamp(1.3rem, 3vw, 2rem);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--clr-text-muted);
-      letter-spacing: 0.06em;
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.45s var(--ease-out) forwards;
-    }
-
-    .merch-desc {
-      font-family: var(--ff-sans);
-      font-size: clamp(0.9rem, 1.5vw, 1.05rem);
-      font-weight: 300;
-      line-height: 1.85;
-      color: var(--clr-text-muted);
-      max-width: 52ch;
-      margin: 0 auto 3.5rem;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.6s var(--ease-out) forwards;
-    }
-
-    /* â”€â”€ Notify form â”€â”€ */
-    .merch-notify-wrap {
-      opacity: 0;
-      animation: fadeUp 0.9s 0.75s var(--ease-out) forwards;
-      margin-bottom: 3rem;
-    }
-
-    .merch-notify-label {
-      font-family: var(--ff-sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--clr-text-faint);
-      margin-bottom: 0.9rem;
-    }
-
-    .merch-notify-form {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      max-width: 420px;
+      max-width: 1200px;
       margin: 0 auto;
-      border: 1px solid var(--clr-border-mid);
-      border-radius: 2px;
-      overflow: hidden;
-      transition: border-color 0.3s;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 5vw, 2rem) clamp(2rem, 5vw, 4rem);
     }
 
-    .merch-notify-form:focus-within {
-      border-color: var(--clr-gold);
-      box-shadow: 0 0 0 1px var(--clr-gold-dim);
+    .merch-image-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 4px;
     }
 
-    .merch-notify-input {
-      flex: 1;
-      padding: 0.85rem 1.25rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: none;
-      outline: none;
-      font-family: var(--ff-sans);
-      font-size: 0.875rem;
-      color: var(--clr-text);
-      caret-color: var(--clr-gold);
-    }
+    /* ── Mobile: full width, no side padding ── */
+    @media (max-width: 600px) {
+      .merch-image-wrap {
+        padding: 1rem 0 2rem;
+        max-width: 100%;
+      }
 
-    .merch-notify-input::placeholder {
-      color: var(--clr-text-faint);
-    }
-
-    .merch-notify-btn {
-      padding: 0.85rem 1.5rem;
-      background: var(--clr-gold);
-      border: none;
-      color: var(--clr-bg);
-      font-family: var(--ff-sans);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.25s, box-shadow 0.25s;
-    }
-
-    .merch-notify-btn:hover {
-      background: var(--clr-gold-light);
-      box-shadow: 0 4px 16px rgba(201, 169, 110, 0.3);
-    }
-
-    /* â”€â”€ Status tags â”€â”€ */
-    .merch-tags {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.9s var(--ease-out) forwards;
-      margin-bottom: 4rem;
-    }
-
-    .merch-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.45rem 1rem;
-      border: 1px solid var(--clr-border);
-      border-radius: 100px;
-      font-family: var(--ff-sans);
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--clr-text-faint);
-    }
-
-    .merch-tag-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--clr-gold);
-      animation: dotPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes dotPulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.7); }
-    }
-
-    /* â”€â”€ Divider line â”€â”€ */
-    .merch-divider {
-      width: 1px;
-      height: 48px;
-      background: linear-gradient(to bottom, transparent, var(--clr-border-mid), transparent);
-      margin: 0 auto 2rem;
-      opacity: 0;
-      animation: fadeUp 0.9s 1s var(--ease-out) forwards;
-    }
-
-    /* â”€â”€ Back button â”€â”€ */
-    .merch-home-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--ff-sans);
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--clr-text-muted);
-      transition: color 0.25s;
-      opacity: 0;
-      animation: fadeUp 0.9s 1.1s var(--ease-out) forwards;
-    }
-
-    .merch-home-link:hover { color: var(--clr-gold-light); }
-    .merch-home-link:hover svg { transform: translateX(-3px); }
-    .merch-home-link svg { transition: transform 0.25s; }
-
-    /* â”€â”€ Keyframes â”€â”€ */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* â”€â”€ Footer â”€â”€ */
-    .merch-footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 1.5rem;
-      border-top: 1px solid var(--clr-border);
-    }
-
-    .merch-footer p {
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      color: var(--clr-text-faint);
-      text-transform: uppercase;
+      .merch-image-wrap img {
+        border-radius: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="merch-page">
-
-    <!-- Ambient background -->
-    <div class="merch-bg" aria-hidden="true">
-      <div class="merch-bg-ring"></div>
-      <div class="merch-bg-ring"></div>
-      <div class="merch-bg-ring"></div>
+  <!-- Fixed nav -->
+  <nav class="merch-nav" id="merch-nav" aria-label="Navigation">
+    <a href="index.html" class="merch-nav-logo" aria-label="Back to Octaves Home">
+      <img src="octaves.jpg" alt="Octaves Logo" />
+      <span>OCTAVES</span>
+    </a>
+    <div class="nav-actions">
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
+        <span class="ham-bar"></span>
+        <span class="ham-bar"></span>
+        <span class="ham-bar"></span>
+      </button>
     </div>
+  </nav>
 
-    <!-- Fixed top bar -->
-    <nav class="merch-back" id="merch-nav" aria-label="Navigation">
-      <div class="nav-spacer" aria-hidden="true" style="flex:1;"></div>
-      <div class="nav-actions" style="flex:1; justify-content: flex-end;">
-        <button class="nav-hamburger" id="nav-hamburger" aria-label="Open navigation" aria-expanded="false">
-          <span class="ham-bar"></span>
-          <span class="ham-bar"></span>
-          <span class="ham-bar"></span>
-        </button>
-      </div>
+  <!-- Slide-in Drawer -->
+  <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
+  <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
+    <div class="drawer-header">
+      <span class="drawer-brand">OCTAVES</span>
+      <button class="drawer-close" id="drawer-close" aria-label="Close navigation">&times;</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="archives.html" class="drawer-link">Archives</a>
+      <a href="roster.html"   class="drawer-link">Members</a>
+      <a href="merch.html"    class="drawer-link">Merch</a>
+      <a href="gallery.html"  class="drawer-link">Gallery</a>
     </nav>
+    <div class="drawer-footer">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeodG04VcIMXu8eJXGvgRpeRrBSjTf3WcK5hB9uNO5Sr9JnNw/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="drawer-register-btn">Register Now &rarr;</a>
+    </div>
+  </aside>
 
-    <!-- â”€â”€â”€ Slide-in Drawer â”€â”€â”€ -->
-    <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
-    <aside class="nav-drawer" id="nav-drawer" aria-label="Site navigation" aria-hidden="true">
-      <div class="drawer-header">
-        <span class="drawer-brand">OCTAVES</span>
-        <button class="drawer-close" id="drawer-close" aria-label="Close navigation">&times;</button>
-      </div>
-      <nav class="drawer-nav">
-        <a href="archives.html" class="drawer-link">Archives</a>
-        <a href="roster.html"   class="drawer-link">Members</a>
-        <a href="merch.html"    class="drawer-link">Merch</a>
-        <a href="gallery.html"  class="drawer-link">Gallery</a>
-      </nav>
-      <div class="drawer-footer">
-        <a href="audition.html" class="drawer-register-btn">Register Now &rarr;</a>
-      </div>
-    </aside>
-
-    <!-- Main content -->
-    <main class="merch-main" id="merch-main">
-
-      <!-- ON AIR & BUY NOW Marquee at Top -->
-      <div class="merch-marquee-strip" aria-hidden="true">
-        <div class="merch-marquee-track">
-          <span class="merch-marquee-item"><span class="on-air-tag">ON AIR</span> BUY NOW</span>
-          <span class="merch-marquee-item">OCTAVES MERCH</span>
-          <span class="merch-marquee-item"><span class="on-air-tag">ON AIR</span> BUY NOW</span>
-          <span class="merch-marquee-item">LIMITED DROP</span>
-          <span class="merch-marquee-item"><span class="on-air-tag">ON AIR</span> BUY NOW</span>
-          <span class="merch-marquee-item">OFFICIAL GEAR</span>
-          <span class="merch-marquee-item"><span class="on-air-tag">ON AIR</span> BUY NOW</span>
-          <span class="merch-marquee-item">VNIT NAGPUR</span>
-          <span class="merch-marquee-item"><span class="on-air-tag">ON AIR</span> BUY NOW</span>
-          <span class="merch-marquee-item">OCTAVES MERCH</span>
-          <span class="merch-marquee-item"><span class="on-air-tag">ON AIR</span> BUY NOW</span>
-          <span class="merch-marquee-item">LIMITED DROP</span>
-          <span class="merch-marquee-item"><span class="on-air-tag">ON AIR</span> BUY NOW</span>
-          <span class="merch-marquee-item">OFFICIAL GEAR</span>
-        </div>
-      </div>
-
-      <img src="octaves.jpg" alt="Octaves" class="merch-logo-mark" />
-
-      <p class="merch-eyebrow">Octaves &middot; VNIT Nagpur</p>
-
-      <h1 class="merch-title">
-        Merch is <em>Coming.</em>
-      </h1>
-
-
-      <!-- Notify form -->
-      <div class="merch-notify-wrap">
-        <p class="merch-notify-label">Notify me at launch</p>
-        <form class="merch-notify-form" id="merch-notify-form" onsubmit="handleNotify(event)" novalidate>
-          <input
-            type="email"
-            class="merch-notify-input"
-            id="merch-email"
-            placeholder="your@email.com"
-            autocomplete="email"
-            aria-label="Email address"
-            required
-          />
-          <button type="submit" class="merch-notify-btn" id="merch-notify-btn">Notify Me</button>
-        </form>
-      </div>
-
-      <!-- Status tags -->
-      <div class="merch-tags" role="list" aria-label="Merch status indicators">
-        <span class="merch-tag" role="listitem">
-          <span class="merch-tag-dot" aria-hidden="true"></span>
-          Limited Edition
-        </span>
-        <span class="merch-tag" role="listitem">
-          <span class="merch-tag-dot" aria-hidden="true"></span>
-          Designed In-House
-        </span>
-        <span class="merch-tag" role="listitem">
-          <span class="merch-tag-dot" aria-hidden="true"></span>
-          Drop Incoming
-        </span>
-      </div>
-
-      <div class="merch-divider" aria-hidden="true"></div>
-
-      
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="merch-footer" role="contentinfo">
-      <p>&copy; 2026 Octaves &middot; VNIT Nagpur &middot; All rights reserved</p>
-    </footer>
-
+  <!-- Merch update image -->
+  <div class="merch-body">
+    <div class="merch-image-wrap">
+      <img src="merch_update.jpeg" alt="Octaves Merch Update" />
+    </div>
   </div>
 
   <script>
-    /* Scroll-aware top nav */
+    /* Scroll-aware nav */
     (function () {
       var nav = document.getElementById('merch-nav');
       window.addEventListener('scroll', function () {
         nav.classList.toggle('scrolled', window.scrollY > 20);
       }, { passive: true });
     })();
-
-    /* Notify form handler */
-    function handleNotify(e) {
-      e.preventDefault();
-      var input = document.getElementById('merch-email');
-      var btn   = document.getElementById('merch-notify-btn');
-      var email = input.value.trim();
-
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        input.style.borderRight = '2px solid rgba(201,169,110,0.5)';
-        input.focus();
-        return;
-      }
-
-      /* Success state */
-      btn.textContent = 'âœ“ Added';
-      btn.style.background = '#3a7c5b';
-      btn.style.color = '#fff';
-      input.value = '';
-      input.placeholder = 'You\'re on the list!';
-      input.disabled = true;
-      btn.disabled = true;
-    }
   </script>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
