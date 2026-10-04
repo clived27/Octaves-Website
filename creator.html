@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet the Creators &mdash; Octaves VNIT</title>
+  <link rel="icon" type="image/jpeg" href="octaves.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #08090d;
+      --surface:  #0e1017;
+      --border:   rgba(255,255,255,0.1);
+      
+      /* Dual Color Scheme: Crimson Red & Electric Blue */
+      --red:      #ff3b47;
+      --red-dim:  rgba(255,59,71,0.14);
+      --red-glow: rgba(255,59,71,0.35);
+
+      --blue:     #00b4d8;
+      --blue-dim: rgba(0,180,216,0.14);
+      --blue-glow:rgba(0,180,216,0.35);
+
+      --text:     #f0f4f8;
+      --muted:    #94a3b8;
+      --faint:    #475569;
+
+      --ff-serif: 'DM Serif Display', Georgia, serif;
+      --ff-sans:  'Space Grotesk', system-ui, sans-serif;
+      --ff-mono:  'Space Mono', monospace;
+      --ease:     cubic-bezier(.16,1,.3,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient Dual Red & Blue Background Glow */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 55% 45% at 15% 20%, rgba(255,59,71,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 55% at 85% 80%, rgba(0,180,216,0.12) 0%, transparent 60%);
+    }
+
+    /* ── Nav ── */
+    .cr-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem clamp(1.5rem, 5vw, 3.5rem);
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.35s, border-color 0.35s;
+    }
+    .cr-nav.scrolled {
+      background: rgba(8,9,13,0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom-color: var(--border);
+    }
+    .cr-back {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--ff-sans); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em;
+      color: var(--text); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .cr-back:hover { color: var(--blue); }
+
+    /* ── Page wrapper ── */
+    .cr-page {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 7rem clamp(1.5rem, 6vw, 4rem) 5rem;
+      gap: 3.5rem;
+    }
+
+    /* ── Title Block ── */
+    .cr-title-block {
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s var(--ease) forwards;
+    }
+
+    .cr-eyebrow {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.9rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    }
+    .cr-eyebrow::before,
+    .cr-eyebrow::after {
+      content: '';
+      display: block; width: 22px; height: 1px;
+      background: linear-gradient(90deg, var(--red), var(--blue));
+    }
+
+    .cr-h1 {
+      font-family: var(--ff-serif);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--text);
+    }
+    .cr-h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--red) 20%, var(--blue) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ── Cards grid ── */
+    .cr-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.2rem;
+      width: 100%;
+      max-width: 1060px;
+      opacity: 0;
+      animation: fadeUp 0.85s 0.3s var(--ease) forwards;
+    }
+
+    /* ── Card ── */
+    .cr-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color 0.3s, transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+      will-change: transform;
+    }
+
+    .cr-card:nth-child(1) { animation: float1 7s 0s ease-in-out infinite; }
+    .cr-card:nth-child(2) { animation: float2 8s 1.4s ease-in-out infinite; }
+
+    /* Red Hover Glow for Shashwat */
+    .cr-card:nth-child(1):hover {
+      animation-play-state: paused;
+      transform: translateY(-8px) scale(1.015) !important;
+      border-color: rgba(255,59,71,0.45);
+      box-shadow: 0 28px 70px rgba(255,59,71,0.18), 0 8px 24px rgba(0,0,0,0.6);
+    }
+
+    /* Blue Hover Glow for Clive */
+    .cr-card:nth-child(2):hover {
+      animation-play-state: paused;
+      transform: translateY(-8px) scale(1.015) !important;
+      border-color: rgba(0,180,216,0.45);
+      box-shadow: 0 28px 70px rgba(0,180,216,0.18), 0 8px 24px rgba(0,0,0,0.6);
+    }
+
+    /* Top Accent Bar */
+    .cr-bar {
+      height: 3px; flex-shrink: 0;
+    }
+    .cr-card:nth-child(1) .cr-bar {
+      background: linear-gradient(to right, var(--red), rgba(255,59,71,0.2));
+    }
+    .cr-card:nth-child(2) .cr-bar {
+      background: linear-gradient(to right, var(--blue), rgba(0,180,216,0.2));
+    }
+
+    /* ── Photo Container ── */
+    .cr-photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: #0d0f14;
+      position: relative;
+    }
+
+    .cr-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .cr-card:hover .cr-photo img {
+      transform: scale(1.03);
+    }
+
+    /* ── Info Container ── */
+    .cr-info {
+      padding: 1.6rem 1.75rem 2rem;
+      display: flex; flex-direction: column; gap: 0.9rem;
+      flex: 1;
+    }
+
+    .cr-name {
+      font-family: var(--ff-serif);
+      font-size: 1.85rem; font-weight: 400;
+      letter-spacing: -0.01em; line-height: 1.15;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* Subheading for Instrument */
+    .cr-subheading {
+      font-family: var(--ff-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+      margin-bottom: 0.1rem;
+    }
+    .cr-card:nth-child(1) .cr-subheading { color: var(--red); }
+    .cr-card:nth-child(2) .cr-subheading { color: var(--blue); }
+
+    .cr-dept {
+      font-family: var(--ff-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .cr-rule {
+      width: 100%; height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .cr-bio {
+      font-family: var(--ff-sans);
+      font-size: 0.92rem; line-height: 1.7;
+      color: var(--muted); font-weight: 300;
+    }
+
+    .cr-bio strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── Instagram Handle Button (Enhanced High Visibility) ── */
+    .cr-ig {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--ff-sans);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      text-decoration: none;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      transition: all 0.25s var(--ease);
+      margin-top: auto;
+      align-self: flex-start;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    }
+
+    .cr-ig svg {
+      color: #ffffff;
+      flex-shrink: 0;
+      transition: transform 0.25s var(--ease);
+    }
+
+    /* Hover effect for Shashwat (Red) */
+    .cr-card:nth-child(1) .cr-ig:hover {
+      background: var(--red);
+      border-color: var(--red);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(255,59,71,0.45);
+      transform: translateY(-2px);
+    }
+
+    /* Hover effect for Clive (Blue) */
+    .cr-card:nth-child(2) .cr-ig:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(0,180,216,0.45);
+      transform: translateY(-2px);
+    }
+
+    .cr-ig:hover svg {
+      transform: scale(1.1);
+    }
+
+    /* ── Footer ── */
+    .cr-footer {
+      position: relative; z-index: 1;
+      width: 100%; text-align: center;
+      border-top: 1px solid var(--border);
+      padding: 1.75rem clamp(1.5rem, 6vw, 4rem);
+      opacity: 0;
+      animation: fadeUp 0.7s 0.6s var(--ease) forwards;
+    }
+    .cr-footer p {
+      font-family: var(--ff-mono); font-size: 0.62rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float1 {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      40%      { transform: translateY(-8px) rotate(0.2deg); }
+      70%      { transform: translateY(-3px) rotate(-0.15deg); }
+    }
+    @keyframes float2 {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      35%      { transform: translateY(-5px) rotate(-0.2deg); }
+      72%      { transform: translateY(-10px) rotate(0.15deg); }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 680px) {
+      .cr-grid { grid-template-columns: 1fr; }
+      .cr-card:nth-child(1),
+      .cr-card:nth-child(2) { animation: none; }
+      .cr-photo { aspect-ratio: 4 / 4.8; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="cr-nav" id="cr-nav">
+    <a href="index.html" class="cr-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to Octaves
+    </a>
+  </nav>
+
+  <!-- Page -->
+  <div class="cr-page">
+
+    <!-- Title -->
+    <div class="cr-title-block">
+      <p class="cr-eyebrow">Octaves VNIT</p>
+      <h1 class="cr-h1">Meet the <em>Creators.</em></h1>
+    </div>
+
+    <!-- Cards -->
+    <div class="cr-grid">
+
+      <!-- Shashwat -->
+      <div class="cr-card">
+        <div class="cr-bar"></div>
+        <div class="cr-photo">
+          <img src="shashwat.jpg" alt="Shashwat Paliwal" />
+        </div>
+        <div class="cr-info">
+          <div>
+            <h2 class="cr-name">Shashwat Paliwal</h2>
+            <p class="cr-subheading">Guitarist</p>
+            <p class="cr-dept">Mechanical Engineering</p>
+          </div>
+
+          <div class="cr-rule"></div>
+
+          <p class="cr-bio">
+            Driven by Rock, Nu Metal, Math/Prog Rock, and Indie Rock. Inspired by <strong>Polyphia</strong>, <strong>Linkin Park</strong>, and <strong>Bruno Mars</strong>.
+          </p>
+
+          <div class="cr-rule"></div>
+
+          <a href="https://instagram.com/paliwal_shashwat" target="_blank" rel="noopener" class="cr-ig">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @paliwal_shashwat
+          </a>
+        </div>
+      </div>
+
+      <!-- Clive -->
+      <div class="cr-card">
+        <div class="cr-bar"></div>
+        <div class="cr-photo">
+          <img src="clive.jpg" alt="Clive Dsilva" />
+        </div>
+        <div class="cr-info">
+          <div>
+            <h2 class="cr-name">Clive Dsilva</h2>
+            <p class="cr-subheading">Keyboardist</p>
+            <p class="cr-dept">Computer Science &amp; Engineering</p>
+          </div>
+
+          <div class="cr-rule"></div>
+
+          <p class="cr-bio">
+            Passionate about Indie Pop, English Pop, Alt Rock, and Soul music.
+          </p>
+
+          <div class="cr-rule"></div>
+
+          <a href="https://instagram.com/clived27" target="_blank" rel="noopener" class="cr-ig">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @clived27
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="cr-footer">
+      <p>&copy; 2026 Octaves &middot; VNIT Nagpur</p>
+    </footer>
+
+  </div>
+
+  <script>
+    (function() {
+      var nav = document.getElementById('cr-nav');
+      window.addEventListener('scroll', function() {
+        nav.classList.toggle('scrolled', window.scrollY > 30);
+      }, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>
