@@ -530,26 +530,28 @@ ul  { list-style: none; }
   border-bottom-color: var(--clr-border);
 }
 
-/* ── Drawer separator ── */
+/* ── Drawer separator (pushes Devs block to bottom) ── */
 .drawer-separator {
   height: 1px;
-  background: var(--clr-border);
-  margin: 0.5rem 1.5rem;
+  background: linear-gradient(to right, rgba(255,59,71,0.4), rgba(0,180,216,0.4));
+  margin: auto 1.5rem 0;
 }
 
-/* ── The Devs link ── */
+/* ── The Devs link — same font/size as nav links, red-blue gradient color ── */
 .drawer-link-devs {
-  font-size: 1.1rem !important;
-  color: var(--clr-text-faint) !important;
-  letter-spacing: 0.06em !important;
-  padding-top: 0.55rem !important;
-  padding-bottom: 0.55rem !important;
+  background: linear-gradient(135deg, #ff3b47 0%, #00b4d8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .drawer-link-devs:hover {
-  color: var(--clr-gold) !important;
+  background: linear-gradient(135deg, #ff6b74 0%, #33c8e8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   padding-left: 2rem;
-  border-bottom-color: var(--clr-border);
+  border-bottom-color: transparent;
 }
 
 .drawer-footer {
