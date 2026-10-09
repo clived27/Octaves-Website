@@ -1,4 +1,4 @@
-﻿{
+{
   "guitars": [
     { "name": "Prajjwal Harave", "year": "4th Year" },
     { "name": "Dhruv Khator", "year": "4th Year" },
@@ -60,6 +60,9 @@
   "violin": [
     { "name": "Purva Oak", "year": "4th Year" },
     { "name": "Vedhas Soman", "year": "3rd Year" }
+  ],
+  "media": [
+    { "name": "Krish Mukhija", "year": "3rd Year" }
   ],
   "others": [
     { "name": "Videet Sharma", "year": "3rd Year", "subtitle": "Beatboxing" },
