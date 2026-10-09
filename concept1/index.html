@@ -1,0 +1,1331 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>OCTAVES.IN — Comic Jam / Split Stage | Concept 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+/* ======================================================
+   OCTAVES.IN — CONCEPT 1: Comic Jam / Split Stage
+   Visual Prototype — Edit config in <script id="CFG">
+   ====================================================== */
+
+/* ── CSS VARIABLES ─ Edit colors here ─────────────────── */
+:root {
+  --cl:  #ff3cac;        /* Left / Guitarist accent  */
+  --cr:  #00f5d4;        /* Right / Keyboardist accent */
+  --cd:  #ffe600;        /* Divider lightning color  */
+  --bg:  #07080f;        /* Stage dark background    */
+  --bgm: #0d0f1e;
+  --tw:  #ffffff;
+  --td:  rgba(255,255,255,.55);
+  --glb: rgba(7,9,22,.75);
+  --trn: .72s cubic-bezier(.16,1,.3,1);
+  --ff1: 'Bebas Neue', sans-serif;
+  --ff2: 'Space Grotesk', sans-serif;
+  --ff3: 'Orbitron', monospace;
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+html, body {
+  width:100%; height:100%; overflow:hidden;
+  background:var(--bg); color:var(--tw);
+  font-family:var(--ff2);
+}
+
+/* ── FILM GRAIN ─────────────────────────────────────── */
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  opacity:.038;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+  animation:grain .14s steps(1) infinite;
+}
+@keyframes grain {
+  0%{transform:translate(0,0)}10%{transform:translate(-3%,-2%)}
+  20%{transform:translate(2%,3%)}30%{transform:translate(-1%,4%)}
+  40%{transform:translate(4%,-1%)}50%{transform:translate(-2%,2%)}
+  60%{transform:translate(1%,-4%)}70%{transform:translate(-4%,1%)}
+  80%{transform:translate(3%,-2%)}90%{transform:translate(-1%,3%)}
+  100%{transform:translate(2%,-3%)}
+}
+
+/* ── STAGE ───────────────────────────────────────────── */
+#stage {
+  position:relative; width:100vw; height:100vh;
+  display:flex; overflow:hidden;
+}
+/* scanlines */
+#stage::before {
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:90;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);
+}
+
+/* ── PANELS ──────────────────────────────────────────── */
+.panel {
+  position:relative; height:100%; overflow:hidden; flex-shrink:0;
+  transition: width var(--trn), filter var(--trn);
+  cursor:pointer;
+}
+#pl { width:50%; }
+#pr { width:50%; }
+
+#stage.hl #pl { width:70%; }
+#stage.hl #pr { width:30%; filter:brightness(.4) saturate(.35); }
+#stage.hr #pr { width:70%; }
+#stage.hr #pl { width:30%; filter:brightness(.4) saturate(.35); }
+
+/* ── PANEL BACKGROUNDS ───────────────────────────────── */
+.pbg {
+  position:absolute; inset:0;
+  transition: transform var(--trn);
+}
+#pl .pbg {
+  background:
+    radial-gradient(ellipse 90% 85% at 25% 70%, rgba(255,60,172,.22) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 60% 95%, rgba(255,60,172,.10) 0%, transparent 55%),
+    linear-gradient(160deg,#0a0510 0%,#0f0618 50%,#07080f 100%);
+}
+#pr .pbg {
+  background:
+    radial-gradient(ellipse 90% 85% at 75% 70%, rgba(0,245,212,.22) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 40% 95%, rgba(0,180,255,.10) 0%, transparent 55%),
+    linear-gradient(200deg,#050f10 0%,#061618 50%,#07080f 100%);
+}
+#stage.hl #pl .pbg { transform:scale(1.05); }
+#stage.hr #pr .pbg { transform:scale(1.05); }
+
+/* ── FLOOR SHADOW ────────────────────────────────────── */
+.floor {
+  position:absolute; bottom:0; left:0; right:0; height:35%;
+  pointer-events:none;
+}
+#pl .floor { background:linear-gradient(transparent,rgba(255,60,172,.05) 100%); }
+#pr .floor { background:linear-gradient(transparent,rgba(0,245,212,.05) 100%); }
+
+/* ── CHARACTER WRAPPER ───────────────────────────────── */
+.charwrap {
+  position:absolute; bottom:0; width:100%;
+  display:flex; align-items:flex-end; justify-content:center;
+  transition: transform var(--trn);
+  pointer-events:none;
+}
+#pl .charwrap { justify-content:flex-end; padding-right:2%; }
+#pr .charwrap { justify-content:flex-start; padding-left:2%; }
+
+#stage.hl #pl .charwrap { transform:scale(1.06) translateX(1%); }
+#stage.hr #pr .charwrap { transform:scale(1.06) translateX(-1%); }
+#stage.hl #pr .charwrap { transform:scale(.94); }
+#stage.hr #pl .charwrap { transform:scale(.94); }
+
+.charwrap svg { width:auto; height:90vh; max-height:820px; display:block; }
+
+/* ── GLOW POOL ───────────────────────────────────────── */
+.gpool {
+  position:absolute; bottom:0; border-radius:50%;
+  filter:blur(50px); pointer-events:none;
+  transition: opacity var(--trn), width var(--trn);
+  opacity:.4; width:55%; height:80px;
+}
+#pl .gpool { background:var(--cl); right:5%; }
+#pr .gpool { background:var(--cr); left:5%; }
+#stage.hl #pl .gpool { opacity:.9; width:70%; }
+#stage.hr #pr .gpool { opacity:.9; width:70%; }
+
+/* ── SOUND RINGS ─────────────────────────────────────── */
+.rings {
+  position:absolute; pointer-events:none;
+  width:220px; height:220px;
+  bottom:20%; opacity:.6;
+  transition: opacity var(--trn);
+}
+#pl .rings { right:8%; }
+#pr .rings { left:8%; }
+#stage.hl #pl .rings { opacity:1; }
+#stage.hr #pr .rings { opacity:1; }
+
+.ring {
+  position:absolute; inset:0; border-radius:50%;
+  border:1.5px solid; opacity:0;
+  animation:rpulse 2.6s ease-out infinite;
+}
+#pl .ring { border-color:var(--cl); }
+#pr .ring { border-color:var(--cr); }
+.ring:nth-child(1){animation-delay:0s}
+.ring:nth-child(2){animation-delay:.65s}
+.ring:nth-child(3){animation-delay:1.3s}
+.ring:nth-child(4){animation-delay:1.95s}
+@keyframes rpulse{0%{transform:scale(.25);opacity:.7}100%{transform:scale(3);opacity:0}}
+
+/* ── EQ BARS ─────────────────────────────────────────── */
+.eqwrap {
+  position:absolute; bottom:12%; display:flex;
+  align-items:flex-end; gap:3px; height:70px;
+  pointer-events:none; z-index:8;
+  opacity:.3; transition: opacity var(--trn);
+}
+#pl .eqwrap { right:3%; }
+#pr .eqwrap { left:3%; }
+#stage.hl #pl .eqwrap { opacity:.75; }
+#stage.hr #pr .eqwrap { opacity:.75; }
+
+.eqbar {
+  width:3px; border-radius:2px 2px 0 0;
+  transform-origin:bottom;
+  animation:eqdance var(--dur,.6s) ease-in-out infinite alternate;
+}
+#pl .eqbar { background:var(--cl); box-shadow:0 0 6px var(--cl); }
+#pr .eqbar { background:var(--cr); box-shadow:0 0 6px var(--cr); }
+@keyframes eqdance{from{transform:scaleY(var(--a,.15))}to{transform:scaleY(var(--b,.9))}}
+
+/* ── WAVEFORM SVG ────────────────────────────────────── */
+.wavsvg {
+  position:absolute; pointer-events:none; z-index:7;
+  opacity:.22; transition: opacity var(--trn);
+}
+#stage.hl #pl .wavsvg { opacity:.65; }
+#stage.hr #pr .wavsvg { opacity:.65; }
+
+/* ── MUSIC SYMBOLS ───────────────────────────────────── */
+.msym {
+  position:absolute; pointer-events:none; z-index:6; overflow:hidden;
+  inset:0;
+}
+.msym span {
+  position:absolute; opacity:0;
+  animation:floatsym linear infinite;
+}
+@keyframes floatsym{
+  0%{opacity:0;transform:translateY(0) rotate(0deg) scale(.8)}
+  8%{opacity:.3}
+  92%{opacity:.08}
+  100%{opacity:0;transform:translateY(-95vh) rotate(200deg) scale(1.3)}
+}
+
+/* ── PARTICLES CANVAS ────────────────────────────────── */
+#pcanvas {
+  position:absolute; inset:0; z-index:5; pointer-events:none;
+}
+
+/* ── CENTRAL DIVIDER ─────────────────────────────────── */
+#divider {
+  position:absolute; top:0; bottom:0; left:50%;
+  transform:translateX(-50%);
+  width:56px; z-index:50; pointer-events:none;
+  transition: left var(--trn);
+}
+#stage.hl #divider { left:70%; }
+#stage.hr #divider { left:30%; }
+#divsvg { width:100%; height:100%; }
+
+/* ── LOGO / TITLE ────────────────────────────────────── */
+#logo {
+  position:absolute; top:0; left:50%;
+  transform:translateX(-50%);
+  z-index:200; text-align:center; padding-top:24px;
+  pointer-events:none; white-space:nowrap;
+  transition: left var(--trn), opacity var(--trn);
+}
+#stage.hl #logo { left:70%; opacity:.5; }
+#stage.hr #logo { left:30%; opacity:.5; }
+
+.ltitle {
+  font-family:var(--ff1); font-size:clamp(1.5rem,2.6vw,2.5rem);
+  letter-spacing:.18em; color:#fff;
+  text-shadow:0 0 14px rgba(255,230,0,.9),0 0 35px rgba(255,230,0,.4),0 0 70px rgba(255,230,0,.15);
+}
+.lsub {
+  font-family:var(--ff3); font-size:clamp(.45rem,.75vw,.68rem);
+  letter-spacing:.32em; color:rgba(255,255,255,.4); margin-top:5px;
+}
+
+/* ── PANEL LABEL ─────────────────────────────────────── */
+.plabel {
+  position:absolute; top:20px; z-index:70;
+  font-family:var(--ff3); font-size:.56rem; letter-spacing:.28em;
+  text-transform:uppercase; pointer-events:none;
+  transition: opacity var(--trn);
+}
+#pl .plabel { left:22px; color:rgba(255,60,172,.5); }
+#pr .plabel { right:22px; color:rgba(0,245,212,.5); }
+#stage.hr #pl .plabel, #stage.hl #pr .plabel { opacity:0; }
+
+/* ── HOVER CTA ───────────────────────────────────────── */
+#cta {
+  position:absolute; bottom:24px; left:50%;
+  transform:translateX(-50%);
+  z-index:200; font-family:var(--ff3); font-size:.55rem;
+  letter-spacing:.28em; color:rgba(255,255,255,.22);
+  pointer-events:none;
+  transition: left var(--trn), opacity var(--trn);
+  animation:ctablink 2.8s ease-in-out infinite;
+}
+#stage.hl #cta { left:70%; opacity:.12; }
+#stage.hr #cta { left:30%; opacity:.12; }
+@keyframes ctablink{0%,100%{opacity:.22}50%{opacity:.06}}
+
+/* ── BIO CARD ────────────────────────────────────────── */
+.biocard {
+  position:absolute; bottom:20%; z-index:60;
+  width:min(290px,80%);
+  background:var(--glb);
+  backdrop-filter:blur(22px) saturate(1.6);
+  -webkit-backdrop-filter:blur(22px) saturate(1.6);
+  border-radius:14px; padding:20px 20px 16px;
+  opacity:0; pointer-events:none;
+  transform:translateY(32px);
+  transition: opacity .5s ease .1s, transform .55s cubic-bezier(.16,1,.3,1) .1s;
+}
+#pl .biocard { left:5%; border:1px solid rgba(255,60,172,.4); box-shadow:0 0 32px rgba(255,60,172,.14),inset 0 1px 0 rgba(255,255,255,.05); }
+#pr .biocard { right:5%; border:1px solid rgba(0,245,212,.4); box-shadow:0 0 32px rgba(0,245,212,.14),inset 0 1px 0 rgba(255,255,255,.05); }
+
+#stage.hl #pl .biocard { opacity:1; transform:translateY(0); pointer-events:auto; }
+#stage.hr #pr .biocard { opacity:1; transform:translateY(0); pointer-events:auto; }
+
+.brtag {
+  font-family:var(--ff3); font-size:.58rem; letter-spacing:.2em;
+  margin-bottom:9px; display:flex; align-items:center; gap:8px;
+}
+#pl .brtag{color:var(--cl)} #pr .brtag{color:var(--cr)}
+.brtag::before {
+  content:''; width:6px; height:6px; border-radius:50%;
+  background:currentColor; box-shadow:0 0 7px currentColor;
+  animation:pdot 1.9s ease infinite;
+}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
+
+.bname { font-family:var(--ff1); font-size:clamp(1.3rem,2vw,1.8rem); letter-spacing:.07em; line-height:1; margin-bottom:3px; }
+.btitle { font-size:.7rem; color:var(--td); margin-bottom:12px; letter-spacing:.03em; }
+.bslabel { font-family:var(--ff3); font-size:.5rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.28); margin-bottom:4px; margin-top:11px; }
+.bstack { display:flex; flex-wrap:wrap; gap:5px; }
+.bpill { font-family:var(--ff3); font-size:.56rem; letter-spacing:.06em; padding:3px 9px; border-radius:100px; border:1px solid; opacity:.85; }
+#pl .bpill{border-color:rgba(255,60,172,.5);color:var(--cl)}
+#pr .bpill{border-color:rgba(0,245,212,.5);color:var(--cr)}
+.bbio { font-size:.7rem; color:var(--td); line-height:1.55; }
+.briff { font-size:.66rem; color:var(--td); font-style:italic; }
+
+.bigline { display:flex; align-items:center; gap:7px; margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,.08); }
+.bigline a { font-family:var(--ff3); font-size:.58rem; text-decoration:none; letter-spacing:.07em; }
+#pl .bigline a{color:var(--cl)} #pr .bigline a{color:var(--cr)}
+.bigline a:hover{text-decoration:underline}
+.bigico{width:17px;height:17px;flex-shrink:0}
+
+/* ── IG STICKER ──────────────────────────────────────── */
+.igstk {
+  position:absolute; z-index:65; cursor:pointer;
+  animation:stkfloat 3.8s ease-in-out infinite;
+  text-decoration:none;
+}
+#pl .igstk { bottom:29%; right:7%; }
+#pr .igstk { bottom:29%; left:7%; }
+@keyframes stkfloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(1.5deg)}}
+
+.stkinner {
+  background:rgba(8,5,18,.88); border:1.5px solid rgba(255,255,255,.18);
+  border-radius:11px; padding:7px 13px;
+  display:flex; align-items:center; gap:7px;
+  backdrop-filter:blur(8px);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  position:relative; overflow:hidden;
+}
+.igstk:hover .stkinner { transform:scale(1.1); border-color:rgba(255,255,255,.45); }
+#pl .igstk:hover .stkinner { box-shadow:0 0 22px rgba(255,60,172,.55); }
+#pr .igstk:hover .stkinner { box-shadow:0 0 22px rgba(0,245,212,.55); }
+
+.stkinner::after {
+  content:''; position:absolute; inset:0; border-radius:10px;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.13) 50%,transparent 70%);
+  background-size:220% 100%; background-position:200% 0;
+  opacity:0; transition: opacity .3s;
+}
+.igstk:hover .stkinner::after { opacity:1; animation:shimmer .75s ease forwards; }
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+
+.stkico{width:17px;height:17px;flex-shrink:0}
+.stktxt { font-family:var(--ff3); font-size:.58rem; letter-spacing:.05em; color:rgba(255,255,255,.85); }
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media(max-width:768px){
+  html,body{overflow-y:auto;overflow-x:hidden}
+  #stage{flex-direction:column;height:auto;min-height:100vh}
+  .panel{width:100%!important;height:52vh;filter:none!important;cursor:default}
+  #stage.hl #pl,.stage.hr #pr{height:68vh}
+  #stage.hl #pr,#stage.hr #pl{height:36vh}
+  #divider{position:relative;left:auto!important;transform:none;width:100%;height:36px;top:auto;bottom:auto}
+  #divsvg{transform:rotate(90deg);width:100%;height:36px}
+  #logo{left:50%!important;transform:translateX(-50%)!important;opacity:1!important}
+  .ltitle{font-size:1.25rem}
+  .biocard{bottom:4%;width:88%}
+  #pl .biocard{left:6%}
+  #pr .biocard{right:6%}
+  #cta{display:none}
+  .charwrap{justify-content:center;padding:0}
+  .charwrap svg{height:58vh;max-height:none}
+  #pl .igstk{bottom:12%;right:5%}
+  #pr .igstk{bottom:12%;left:5%}
+}
+@media(max-width:480px){
+  .ltitle{font-size:1rem;letter-spacing:.12em}
+  .biocard{padding:14px 14px 12px}
+}
+
+::-webkit-scrollbar{width:4px;background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+</style>
+</head>
+<body>
+
+<!--
+  ================================================================
+  OCTAVES.IN — CONCEPT 1: COMIC JAM / SPLIT STAGE
+  Visual Prototype — standalone, editable, no build step needed
+  ================================================================
+  HOW TO EDIT CONTENT:
+    1. Find <script id="CFG"> below and change any value there
+  HOW TO REPLACE CHARACTERS:
+    2. Replace the <svg id="guitarist-art"> with your final art
+       or swap to an <img src="assets/characters/guitarist.svg">
+    3. Same for <svg id="keyboardist-art">
+  ================================================================
+-->
+
+<!-- == SITE CONFIG — ALL EDITABLE DATA LIVES HERE ============= -->
+<script id="CFG" type="application/json">
+{
+  "site": {
+    "title":    "OCTAVES.IN",
+    "subtitle": "TWO MINDS. TWO INSTRUMENTS. ONE FREQUENCY."
+  },
+  "left": {
+    "label":     "GUITARIST",
+    "name":      "ARJUN K.",
+    "role":      "Frontend / Creative Developer",
+    "bio":       "Builds interactive experiences, visual interfaces and creative web projects that blur the line between design and engineering.",
+    "stack":     ["React", "Three.js", "GSAP", "JavaScript"],
+    "riff":      "Comfortably Numb — Pink Floyd",
+    "ig_handle": "@arjun.codes",
+    "ig_url":    "https://instagram.com/your_guitarist_handle",
+    "accent":    "#ff3cac",
+    "image":     "assets/characters/guitarist.svg"
+  },
+  "right": {
+    "label":     "KEYBOARDIST",
+    "name":      "RIYA S.",
+    "role":      "Full-Stack / Systems Developer",
+    "bio":       "Crafts scalable systems, data pipelines and seamless backend architectures that power performant digital products.",
+    "stack":     ["Node.js", "Python", "PostgreSQL", "Go"],
+    "riff":      "Midnight City — M83",
+    "ig_handle": "@riya.dev",
+    "ig_url":    "https://instagram.com/your_keyboardist_handle",
+    "accent":    "#00f5d4",
+    "image":     "assets/characters/keyboardist.svg"
+  }
+}
+</script>
+
+<!-- ================================================================
+     MAIN STAGE
+     ================================================================ -->
+<div id="stage">
+
+  <!-- AMBIENT PARTICLES -->
+  <canvas id="pcanvas"></canvas>
+
+  <!-- LOGO -->
+  <div id="logo">
+    <div class="ltitle" id="J_title">OCTAVES.IN</div>
+    <div class="lsub"   id="J_sub">TWO MINDS. TWO INSTRUMENTS. ONE FREQUENCY.</div>
+  </div>
+
+  <!-- HOVER CTA -->
+  <div id="cta">HOVER TO MEET THE DUO</div>
+
+  <!-- ================================================================
+       LEFT PANEL — GUITARIST
+       ================================================================ -->
+  <div class="panel" id="pl">
+    <div class="pbg"></div>
+    <div class="plabel" id="J_ll">GUITARIST</div>
+    <div class="floor"></div>
+    <div class="msym" id="msl"></div>
+    <canvas class="wavsvg" id="wl" style="position:absolute;bottom:7%;left:0;width:58%;height:55px;z-index:7;"></canvas>
+    <div class="rings">
+      <div class="ring"></div><div class="ring"></div>
+      <div class="ring"></div><div class="ring"></div>
+    </div>
+    <div class="eqwrap" id="eql"></div>
+    <div class="gpool"></div>
+
+    <!-- ============================================================
+         GUITARIST CHARACTER — PLACEHOLDER SVG
+         REPLACE: swap this <svg id="guitarist-art"> with your final
+         illustration, or use <img src="assets/characters/guitarist.svg">
+         Target: face toward center (right), full body with guitar
+         ============================================================ -->
+    <div class="charwrap" id="cwl">
+      <svg id="guitarist-art" viewBox="0 0 380 760" xmlns="http://www.w3.org/2000/svg"
+           style="filter:drop-shadow(0 0 22px rgba(255,60,172,.5))">
+        <defs>
+          <radialGradient id="gGl" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ff3cac" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#ff3cac" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="gSk" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f5c9a8"/>
+            <stop offset="100%" stop-color="#d4906a"/>
+          </linearGradient>
+          <linearGradient id="gJk" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#180830"/>
+            <stop offset="100%" stop-color="#0c0420"/>
+          </linearGradient>
+          <linearGradient id="gGt" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1a0830"/>
+            <stop offset="45%" stop-color="#cc2090"/>
+            <stop offset="100%" stop-color="#5a0030"/>
+          </linearGradient>
+          <filter id="gNeon" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="gNeonS" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="1.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- floor glow -->
+        <ellipse cx="190" cy="752" rx="115" ry="12" fill="rgba(255,60,172,.2)" filter="url(#gNeon)"/>
+
+        <!-- ── LEGS ── -->
+        <rect x="128" y="490" width="50" height="265" rx="8" fill="#0e0522"/>
+        <rect x="200" y="490" width="50" height="265" rx="8" fill="#0e0522"/>
+        <line x1="132" y1="565" x2="174" y2="554" stroke="rgba(255,60,172,.35)" stroke-width="1.5"/>
+        <line x1="132" y1="595" x2="170" y2="588" stroke="rgba(255,60,172,.2)" stroke-width="1"/>
+        <line x1="204" y1="555" x2="246" y2="565" stroke="rgba(255,60,172,.35)" stroke-width="1.5"/>
+
+        <!-- ── SHOES ── -->
+        <rect x="116" y="742" width="66" height="14" rx="7" fill="#0a0015"/>
+        <rect x="196" y="742" width="66" height="14" rx="7" fill="#0a0015"/>
+        <ellipse cx="149" cy="748" rx="34" ry="9" fill="#111"/>
+        <ellipse cx="229" cy="748" rx="34" ry="9" fill="#111"/>
+
+        <!-- ── TORSO / JACKET ── -->
+        <rect x="112" y="298" width="156" height="208" rx="20" fill="url(#gJk)"/>
+        <!-- collar -->
+        <polygon points="190,310 158,372 190,348" fill="#220a40"/>
+        <polygon points="190,310 222,372 190,348" fill="#1a0835"/>
+        <!-- jacket neon trim -->
+        <path d="M112 318 Q104 400 112 506" stroke="#ff3cac" stroke-width="1.5" fill="none" opacity=".55" filter="url(#gNeonS)"/>
+        <path d="M268 318 Q276 400 268 506" stroke="#ff3cac" stroke-width="1.5" fill="none" opacity=".55" filter="url(#gNeonS)"/>
+        <!-- band-tee area -->
+        <rect x="160" y="368" width="60" height="48" rx="4" fill="rgba(255,60,172,.07)" stroke="rgba(255,60,172,.25)" stroke-width=".5"/>
+        <text x="190" y="388" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(255,60,172,.65)">♩ ♫ ♬</text>
+        <text x="190" y="404" text-anchor="middle" font-family="monospace" font-size="5.5" fill="rgba(255,255,255,.2)">OCTAVES</text>
+        <!-- belt -->
+        <rect x="116" y="487" width="148" height="14" rx="4" fill="#180530"/>
+        <rect x="184" y="490" width="12" height="9" rx="2" fill="#ff3cac" opacity=".85"/>
+
+        <!-- ── NECK + HEAD ── -->
+        <rect x="178" y="236" width="24" height="68" rx="6" fill="url(#gSk)"/>
+        <ellipse cx="190" cy="210" rx="60" ry="66" fill="url(#gSk)"/>
+
+        <!-- HAIR — dark, styled, slight motion spikes -->
+        <ellipse cx="190" cy="155" rx="63" ry="38" fill="#160530"/>
+        <path d="M130 180 Q118 160 132 140 Q148 118 190 122 Q232 118 248 140 Q262 160 250 180" fill="#160530"/>
+        <!-- spiky motion hair strands -->
+        <path d="M133 175 Q126 158 136 144 Q122 162 128 178" fill="#1e0840" stroke="#200840" stroke-width="1"/>
+        <path d="M148 168 Q138 148 148 135" fill="#1e0840" stroke="#1e0840" stroke-width="2"/>
+        <!-- hair highlight — pink/purple streak -->
+        <path d="M162 138 Q172 130 186 134 Q194 136 186 142" stroke="#ff3cac" stroke-width="2.2" fill="none" opacity=".55" filter="url(#gNeonS)"/>
+
+        <!-- face -->
+        <!-- eyes — glowing magenta -->
+        <ellipse cx="174" cy="204" rx="9" ry="8" fill="#0d0018"/>
+        <ellipse cx="210" cy="204" rx="9" ry="8" fill="#0d0018"/>
+        <ellipse cx="174" cy="204" rx="5.5" ry="5.5" fill="#ff3cac" opacity=".75" filter="url(#gNeonS)"/>
+        <ellipse cx="210" cy="204" rx="5.5" ry="5.5" fill="#ff3cac" opacity=".75" filter="url(#gNeonS)"/>
+        <ellipse cx="172" cy="202" rx="2" ry="2" fill="white" opacity=".9"/>
+        <ellipse cx="208" cy="202" rx="2" ry="2" fill="white" opacity=".9"/>
+        <!-- eyebrows -->
+        <path d="M164 192 Q174 186 184 190" stroke="#160530" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M200 190 Q210 186 220 192" stroke="#160530" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- nose -->
+        <path d="M188 216 Q190 224 193 216" stroke="#b07050" stroke-width="1.5" fill="none"/>
+        <!-- smirk -->
+        <path d="M182 230 Q192 238 204 233" stroke="#904040" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- ears -->
+        <ellipse cx="250" cy="208" rx="8" ry="11" fill="#d4906a"/>
+        <ellipse cx="130" cy="208" rx="8" ry="11" fill="#d4906a"/>
+
+        <!-- ── LEFT ARM — guitar neck hand ── -->
+        <path d="M112 345 Q68 388 40 448" stroke="url(#gSk)" stroke-width="26" fill="none" stroke-linecap="round"/>
+        <path d="M112 345 Q68 388 40 448" stroke="#160830" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <path d="M75 412 Q56 432 40 448" stroke="url(#gSk)" stroke-width="20" fill="none" stroke-linecap="round"/>
+        <!-- hand on neck -->
+        <ellipse cx="38" cy="454" rx="13" ry="10" fill="url(#gSk)"/>
+        <line x1="29" y1="448" x2="21" y2="440" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="34" y1="446" x2="28" y2="435" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="40" y1="446" x2="36" y2="433" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="47" y1="448" x2="46" y2="434" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- ── RIGHT ARM — strumming arm ── -->
+        <path d="M268 345 Q315 392 300 460" stroke="url(#gSk)" stroke-width="26" fill="none" stroke-linecap="round"/>
+        <path d="M268 345 Q315 392 300 460" stroke="#160830" stroke-width="22" fill="none" stroke-linecap="round"/>
+        <path d="M298 425 Q302 443 300 460" stroke="url(#gSk)" stroke-width="20" fill="none" stroke-linecap="round"/>
+        <!-- strumming hand + pick -->
+        <ellipse cx="299" cy="466" rx="13" ry="10" fill="url(#gSk)"/>
+        <polygon points="292,472 298,484 304,472" fill="#ffe600" opacity=".95"/>
+
+        <!-- ══ ELECTRIC GUITAR — Les Paul inspired ══ -->
+        <g filter="url(#gNeon)">
+          <!-- body outline -->
+          <path d="M50 350 Q22 318 20 285 Q18 248 46 238 Q68 230 88 243 Q95 254 89 270
+                   Q82 290 86 308 L96 314 L90 330 Q108 318 122 330 Q136 342 130 360
+                   L295 462 Q318 474 324 496 Q334 528 314 550 Q294 572 268 568
+                   Q240 570 224 548 Q206 524 222 498 L225 492
+                   Q210 466 184 454 L50 350 Z"
+                fill="url(#gGt)" opacity=".93"/>
+          <!-- body highlight -->
+          <path d="M60 355 Q36 326 38 298 Q38 268 58 255" stroke="rgba(255,60,172,.65)" stroke-width="2" fill="none"/>
+          <!-- f-hole -->
+          <ellipse cx="180" cy="398" rx="7" ry="22" fill="rgba(0,0,0,.55)" transform="rotate(-33 180 398)"/>
+          <!-- pickups -->
+          <rect x="148" y="380" width="50" height="15" rx="3" fill="#0e0522" transform="rotate(-34 148 380)"/>
+          <rect x="172" y="412" width="50" height="15" rx="3" fill="#0e0522" transform="rotate(-34 172 412)"/>
+          <!-- pickup glow lines -->
+          <line x1="150" y1="383" x2="194" y2="372" stroke="#ff3cac" stroke-width=".7" opacity=".55"/>
+          <line x1="152" y1="388" x2="196" y2="377" stroke="#ff3cac" stroke-width=".5" opacity=".4"/>
+          <!-- strings body section -->
+          <line x1="116" y1="345" x2="272" y2="455" stroke="rgba(210,210,230,.45)" stroke-width=".9"/>
+          <line x1="114" y1="351" x2="270" y2="461" stroke="rgba(210,210,230,.38)" stroke-width=".75"/>
+          <line x1="112" y1="357" x2="268" y2="467" stroke="rgba(210,210,230,.32)" stroke-width=".65"/>
+          <line x1="110" y1="363" x2="266" y2="473" stroke="rgba(210,210,230,.26)" stroke-width=".55"/>
+          <line x1="108" y1="369" x2="264" y2="479" stroke="rgba(210,210,230,.2)" stroke-width=".5"/>
+          <line x1="106" y1="375" x2="262" y2="485" stroke="rgba(210,210,230,.14)" stroke-width=".5"/>
+          <!-- bridge -->
+          <rect x="242" y="455" width="36" height="8" rx="2" fill="#180535" transform="rotate(-34 242 455)"/>
+          <!-- volume knobs -->
+          <circle cx="278" cy="505" r="7" fill="#160430" stroke="rgba(255,60,172,.5)" stroke-width="1"/>
+          <circle cx="295" cy="525" r="6" fill="#160430" stroke="rgba(255,60,172,.4)" stroke-width="1"/>
+        </g>
+
+        <!-- ── GUITAR NECK ── angled top-left ── -->
+        <g transform="rotate(30 28 185)">
+          <rect x="22" y="185" width="20" height="252" rx="5" fill="#2a1205"/>
+          <rect x="25" y="188" width="14" height="252" rx="3" fill="#180a04"/>
+          <!-- frets -->
+          <g stroke="rgba(255,190,80,.3)" stroke-width=".9">
+            <line x1="25" y1="215" x2="39" y2="215"/>
+            <line x1="25" y1="234" x2="39" y2="234"/>
+            <line x1="25" y1="255" x2="39" y2="255"/>
+            <line x1="25" y1="276" x2="39" y2="276"/>
+            <line x1="25" y1="299" x2="39" y2="299"/>
+            <line x1="25" y1="323" x2="39" y2="323"/>
+            <line x1="25" y1="349" x2="39" y2="349"/>
+            <line x1="25" y1="377" x2="39" y2="377"/>
+            <line x1="25" y1="406" x2="39" y2="406"/>
+          </g>
+          <!-- dot inlays -->
+          <g fill="rgba(255,60,172,.55)">
+            <circle cx="32" cy="244" r="2"/>
+            <circle cx="32" cy="287" r="2"/>
+            <circle cx="32" cy="335" r="2"/>
+            <circle cx="30" cy="363" r="1.5"/>
+            <circle cx="34" cy="363" r="1.5"/>
+          </g>
+          <!-- headstock -->
+          <path d="M10 196 Q4 180 8 166 Q12 150 24 148 Q36 146 42 158 Q48 170 44 184 L34 184 Z" fill="#2a1205"/>
+          <!-- tuning pegs -->
+          <g fill="#888">
+            <circle cx="12" cy="158" r="3.5"/><circle cx="18" cy="152" r="3.5"/>
+            <circle cx="24" cy="148" r="3.5"/><circle cx="30" cy="148" r="3.5"/>
+            <circle cx="36" cy="152" r="3.5"/><circle cx="42" cy="158" r="3.5"/>
+          </g>
+        </g>
+
+        <!-- guitar glow halo -->
+        <ellipse cx="160" cy="385" rx="175" ry="78" fill="url(#gGl)" opacity=".45" transform="rotate(-34 160 385)"/>
+
+        <!-- motion lines — shredding -->
+        <g opacity=".45" filter="url(#gNeonS)">
+          <line x1="12" y1="442" x2="38" y2="434" stroke="#ff3cac" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8"  y1="458" x2="36" y2="451" stroke="#ff3cac" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="11" y1="474" x2="35" y2="469" stroke="#ff3cac" stroke-width="1" stroke-linecap="round"/>
+          <line x1="295" y1="458" x2="328" y2="454" stroke="#ff3cac" stroke-width="2" stroke-linecap="round"/>
+          <line x1="298" y1="473" x2="330" y2="471" stroke="#ff3cac" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+
+        <!-- pick spark -->
+        <g filter="url(#gNeon)" opacity=".7">
+          <line x1="299" y1="472" x2="312" y2="460" stroke="#ffe600" stroke-width="1.5"/>
+          <line x1="299" y1="472" x2="314" y2="478" stroke="#ffe600" stroke-width="1"/>
+          <line x1="299" y1="472" x2="288" y2="480" stroke="#ffe600" stroke-width="1"/>
+        </g>
+      </svg>
+    </div>
+    <!-- END GUITARIST CHARACTER -->
+
+    <!-- BIO CARD — GUITARIST -->
+    <div class="biocard" id="bcl">
+      <div class="brtag"   id="J_ll2">GUITARIST</div>
+      <div class="bname"   id="J_ln">ARJUN K.</div>
+      <div class="btitle"  id="J_lt">Frontend / Creative Developer</div>
+      <div class="bslabel">Stack</div>
+      <div class="bstack"  id="J_ls"></div>
+      <div class="bslabel">Builds</div>
+      <div class="bbio"    id="J_lb">Interactive experiences, visual interfaces and creative web projects.</div>
+      <div class="bslabel">Favorite riff</div>
+      <div class="briff"   id="J_lr">Comfortably Numb — Pink Floyd</div>
+      <div class="bigline">
+        <svg class="bigico" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="6" stroke="#ff3cac" stroke-width="1.5"/>
+          <circle cx="12" cy="12" r="4" stroke="#ff3cac" stroke-width="1.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="#ff3cac"/>
+        </svg>
+        <a href="https://instagram.com/your_guitarist_handle" target="_blank" id="J_lig">@arjun.codes</a>
+      </div>
+    </div>
+
+    <!-- IG STICKER — GUITARIST -->
+    <!-- EDIT: change href to real Instagram URL, change text to real handle -->
+    <a class="igstk" href="https://instagram.com/your_guitarist_handle" target="_blank" id="J_ls2" aria-label="Instagram">
+      <div class="stkinner">
+        <svg class="stkico" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="6" stroke="#ff3cac" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4" stroke="#ff3cac" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="#ff3cac"/>
+        </svg>
+        <span class="stktxt" id="J_lih">@arjun.codes</span>
+      </div>
+    </a>
+  </div>
+  <!-- END LEFT PANEL -->
+
+  <!-- ================================================================
+       CENTRAL DIVIDER — Lightning bolt / audio waveform energy line
+       ================================================================ -->
+  <div id="divider">
+    <svg id="divsvg" viewBox="0 0 56 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="dvG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#ff3cac" stop-opacity=".75"/>
+          <stop offset="48%"  stop-color="#ffe600" stop-opacity=".95"/>
+          <stop offset="100%" stop-color="#00f5d4" stop-opacity=".75"/>
+        </linearGradient>
+        <filter id="dvGlow" x="-200%" y="-20%" width="500%" height="140%">
+          <feGaussianBlur stdDeviation="5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="dvGlowW" x="-400%" y="-20%" width="900%" height="140%">
+          <feGaussianBlur stdDeviation="9" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- wide outer glow -->
+      <rect x="18" y="0" width="20" height="900" fill="url(#dvG)" opacity=".08" filter="url(#dvGlowW)"/>
+
+      <!-- diagonal slash -->
+      <polygon points="32,0 40,0 24,900 16,900" fill="url(#dvG)" opacity=".12"/>
+
+      <!-- animated waveform -->
+      <path id="dw1" d="" stroke="url(#dvG)" stroke-width="2.2" fill="none" filter="url(#dvGlow)" opacity=".95"/>
+      <path id="dw2" d="" stroke="url(#dvG)" stroke-width=".9"   fill="none" opacity=".45"/>
+
+      <!-- energy particles along divider -->
+      <g id="dp">
+        <circle cx="28" cy="80"  r="2.2" fill="#ffe600" opacity=".8" filter="url(#dvGlow)"/>
+        <circle cx="28" cy="200" r="1.5" fill="#ff3cac" opacity=".65"/>
+        <circle cx="28" cy="340" r="2.5" fill="#ffe600" opacity=".85" filter="url(#dvGlow)"/>
+        <circle cx="28" cy="460" r="1.5" fill="#00f5d4" opacity=".65"/>
+        <circle cx="28" cy="600" r="2"   fill="#ffe600" opacity=".75" filter="url(#dvGlow)"/>
+        <circle cx="28" cy="730" r="1.5" fill="#ff3cac" opacity=".55"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ================================================================
+       RIGHT PANEL — KEYBOARDIST
+       ================================================================ -->
+  <div class="panel" id="pr">
+    <div class="pbg"></div>
+    <div class="plabel" style="right:22px;left:auto" id="J_rl">KEYBOARDIST</div>
+    <div class="floor"></div>
+    <div class="msym" id="msr"></div>
+    <canvas class="wavsvg" id="wr" style="position:absolute;bottom:7%;right:0;width:58%;height:55px;z-index:7;"></canvas>
+    <div class="rings">
+      <div class="ring"></div><div class="ring"></div>
+      <div class="ring"></div><div class="ring"></div>
+    </div>
+    <div class="eqwrap" id="eqr"></div>
+    <div class="gpool"></div>
+
+    <!-- ============================================================
+         KEYBOARDIST CHARACTER — PLACEHOLDER SVG
+         REPLACE: swap this <svg id="keyboardist-art"> with your final
+         illustration, or use <img src="assets/characters/keyboardist.svg">
+         Target: face toward center (left), full body with synth setup
+         ============================================================ -->
+    <div class="charwrap" id="cwr">
+      <svg id="keyboardist-art" viewBox="0 0 380 760" xmlns="http://www.w3.org/2000/svg"
+           style="filter:drop-shadow(0 0 22px rgba(0,245,212,.5));transform:scaleX(-1)">
+        <defs>
+          <radialGradient id="kGl" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#00f5d4" stop-opacity=".4"/>
+            <stop offset="100%" stop-color="#00f5d4" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="kSk" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f5c9a8"/>
+            <stop offset="100%" stop-color="#d4906a"/>
+          </linearGradient>
+          <linearGradient id="kJk" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#091e1c"/>
+            <stop offset="100%" stop-color="#050e0e"/>
+          </linearGradient>
+          <filter id="kNeon" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="kNeonS" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="1.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- floor glow -->
+        <ellipse cx="190" cy="752" rx="130" ry="12" fill="rgba(0,245,212,.18)" filter="url(#kNeon)"/>
+
+        <!-- ══ SYNTH SETUP ══ -->
+        <!-- rear tier (upper keyboard) -->
+        <rect x="48" y="348" width="300" height="52" rx="6" fill="#081a18" stroke="rgba(0,245,212,.3)" stroke-width=".6"/>
+        <!-- upper keys white -->
+        <g fill="#e8e8e8" opacity=".88">
+          <rect x="55"  y="352" width="14" height="34" rx="2"/>
+          <rect x="72"  y="352" width="14" height="34" rx="2"/>
+          <rect x="89"  y="352" width="14" height="34" rx="2"/>
+          <rect x="106" y="352" width="14" height="34" rx="2"/>
+          <rect x="123" y="352" width="14" height="34" rx="2"/>
+          <rect x="140" y="352" width="14" height="34" rx="2"/>
+          <rect x="157" y="352" width="14" height="34" rx="2"/>
+          <rect x="174" y="352" width="14" height="34" rx="2"/>
+          <rect x="191" y="352" width="14" height="34" rx="2"/>
+          <rect x="208" y="352" width="14" height="34" rx="2"/>
+          <rect x="225" y="352" width="14" height="34" rx="2"/>
+          <rect x="242" y="352" width="14" height="34" rx="2"/>
+          <rect x="259" y="352" width="14" height="34" rx="2"/>
+          <rect x="276" y="352" width="14" height="34" rx="2"/>
+          <rect x="293" y="352" width="14" height="34" rx="2"/>
+          <rect x="310" y="352" width="14" height="34" rx="2"/>
+          <rect x="327" y="352" width="14" height="34" rx="2"/>
+        </g>
+        <!-- upper black keys -->
+        <g fill="#0a1414" opacity=".95">
+          <rect x="64"  y="352" width="9" height="21" rx="1"/>
+          <rect x="81"  y="352" width="9" height="21" rx="1"/>
+          <rect x="115" y="352" width="9" height="21" rx="1"/>
+          <rect x="132" y="352" width="9" height="21" rx="1"/>
+          <rect x="149" y="352" width="9" height="21" rx="1"/>
+          <rect x="183" y="352" width="9" height="21" rx="1"/>
+          <rect x="200" y="352" width="9" height="21" rx="1"/>
+          <rect x="234" y="352" width="9" height="21" rx="1"/>
+          <rect x="251" y="352" width="9" height="21" rx="1"/>
+          <rect x="268" y="352" width="9" height="21" rx="1"/>
+          <rect x="302" y="352" width="9" height="21" rx="1"/>
+          <rect x="319" y="352" width="9" height="21" rx="1"/>
+        </g>
+        <!-- glowing pressed upper keys -->
+        <rect x="98"  y="352" width="9" height="21" rx="1" fill="#00f5d4" filter="url(#kNeon)" opacity=".85"/>
+        <rect x="217" y="352" width="9" height="21" rx="1" fill="#00f5d4" filter="url(#kNeon)" opacity=".85"/>
+        <!-- synth knobs top -->
+        <g fill="#00f5d4" opacity=".55" filter="url(#kNeonS)">
+          <circle cx="64"  cy="344" r="4"/>
+          <circle cx="80"  cy="344" r="4"/>
+          <circle cx="96"  cy="344" r="4"/>
+          <circle cx="112" cy="344" r="4"/>
+        </g>
+        <!-- LCD display -->
+        <rect x="185" y="337" width="78" height="18" rx="3" fill="#001f12"/>
+        <text x="224" y="350" text-anchor="middle" font-family="monospace" font-size="6.5" fill="#00f5d4" opacity=".85">♩ 128 BPM ♪</text>
+
+        <!-- MAIN front keyboard -->
+        <rect x="44"  y="436" width="318" height="62" rx="8" fill="#091818"/>
+        <rect x="49"  y="441" width="308" height="52" rx="5" fill="#0c2222" stroke="rgba(0,245,212,.4)" stroke-width=".8"/>
+        <!-- front white keys -->
+        <g fill="#ebebeb" opacity=".92">
+          <rect x="54"  y="444" width="16" height="42" rx="2"/>
+          <rect x="73"  y="444" width="16" height="42" rx="2"/>
+          <rect x="92"  y="444" width="16" height="42" rx="2"/>
+          <rect x="111" y="444" width="16" height="42" rx="2"/>
+          <rect x="130" y="444" width="16" height="42" rx="2"/>
+          <rect x="149" y="444" width="16" height="42" rx="2"/>
+          <rect x="168" y="444" width="16" height="42" rx="2"/>
+          <rect x="187" y="444" width="16" height="42" rx="2"/>
+          <rect x="206" y="444" width="16" height="42" rx="2"/>
+          <rect x="225" y="444" width="16" height="42" rx="2"/>
+          <rect x="244" y="444" width="16" height="42" rx="2"/>
+          <rect x="263" y="444" width="16" height="42" rx="2"/>
+          <rect x="282" y="444" width="16" height="42" rx="2"/>
+          <rect x="301" y="444" width="16" height="42" rx="2"/>
+          <rect x="320" y="444" width="16" height="42" rx="2"/>
+          <rect x="339" y="444" width="16" height="42" rx="2"/>
+        </g>
+        <!-- front black keys -->
+        <g fill="#091212">
+          <rect x="64"  y="444" width="10" height="27" rx="1"/>
+          <rect x="83"  y="444" width="10" height="27" rx="1"/>
+          <rect x="121" y="444" width="10" height="27" rx="1"/>
+          <rect x="140" y="444" width="10" height="27" rx="1"/>
+          <rect x="159" y="444" width="10" height="27" rx="1"/>
+          <rect x="197" y="444" width="10" height="27" rx="1"/>
+          <rect x="216" y="444" width="10" height="27" rx="1"/>
+          <rect x="254" y="444" width="10" height="27" rx="1"/>
+          <rect x="273" y="444" width="10" height="27" rx="1"/>
+          <rect x="292" y="444" width="10" height="27" rx="1"/>
+          <rect x="330" y="444" width="10" height="27" rx="1"/>
+          <rect x="349" y="444" width="10" height="27" rx="1"/>
+        </g>
+        <!-- glowing pressed front keys -->
+        <rect x="130" y="444" width="10" height="27" rx="1" fill="#00f5d4" filter="url(#kNeon)" opacity=".9"/>
+        <rect x="254" y="444" width="10" height="27" rx="1" fill="#00f5d4" filter="url(#kNeon)" opacity=".85"/>
+        <rect x="330" y="444" width="10" height="27" rx="1" fill="#00f5d4" filter="url(#kNeon)" opacity=".8"/>
+        <!-- keyboard neon trim bottom -->
+        <line x1="44" y1="498" x2="362" y2="498" stroke="#00f5d4" stroke-width=".9" opacity=".3" filter="url(#kNeonS)"/>
+        <!-- keyboard glow halo -->
+        <ellipse cx="190" cy="470" rx="195" ry="28" fill="url(#kGl)" opacity=".55"/>
+
+        <!-- STAND LEGS -->
+        <rect x="88"  y="498" width="11" height="254" rx="4" fill="#071010"/>
+        <rect x="318" y="498" width="11" height="254" rx="4" fill="#071010"/>
+        <!-- floor bars -->
+        <rect x="60"  y="740" width="60" height="10" rx="3" fill="#071010"/>
+        <rect x="297" y="740" width="60" height="10" rx="3" fill="#071010"/>
+
+        <!-- ── LEGS / PANTS ── -->
+        <rect x="145" y="498" width="44" height="254" rx="7" fill="#061416"/>
+        <rect x="207" y="498" width="44" height="254" rx="7" fill="#061416"/>
+        <!-- neon stripe on pants -->
+        <line x1="154" y1="502" x2="154" y2="752" stroke="rgba(0,245,212,.28)" stroke-width="1.5"/>
+        <line x1="246" y1="502" x2="246" y2="752" stroke="rgba(0,245,212,.28)" stroke-width="1.5"/>
+
+        <!-- SHOES -->
+        <rect x="130" y="742" width="60" height="13" rx="6" fill="#060e0e"/>
+        <rect x="208" y="742" width="60" height="13" rx="6" fill="#060e0e"/>
+        <ellipse cx="160" cy="748" rx="32" ry="9" fill="#091414"/>
+        <ellipse cx="238" cy="748" rx="32" ry="9" fill="#091414"/>
+
+        <!-- ── TORSO / JACKET ── -->
+        <rect x="116" y="295" width="148" height="212" rx="18" fill="url(#kJk)"/>
+        <!-- neon edges -->
+        <path d="M116 310 Q108 396 116 507" stroke="#00f5d4" stroke-width="1.5" fill="none" opacity=".5" filter="url(#kNeonS)"/>
+        <path d="M264 310 Q272 396 264 507" stroke="#00f5d4" stroke-width="1.5" fill="none" opacity=".5" filter="url(#kNeonS)"/>
+        <!-- collar -->
+        <polygon points="190,307 162,366 190,342" fill="#0d1f1e"/>
+        <polygon points="190,307 218,366 190,342" fill="#091818"/>
+        <!-- jacket pocket detail -->
+        <rect x="122" y="376" width="18" height="58" rx="3" fill="rgba(0,245,212,.05)" stroke="rgba(0,245,212,.18)" stroke-width=".5"/>
+        <rect x="250" y="376" width="18" height="58" rx="3" fill="rgba(0,245,212,.05)" stroke="rgba(0,245,212,.18)" stroke-width=".5"/>
+        <text x="131" y="410" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(0,245,212,.4)">◈</text>
+        <text x="259" y="410" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(0,245,212,.4)">◈</text>
+        <!-- belt -->
+        <rect x="120" y="483" width="140" height="14" rx="4" fill="#071418"/>
+        <rect x="184" y="486" width="12" height="9" rx="2" fill="#00f5d4" opacity=".75"/>
+
+        <!-- ── NECK + HEAD ── -->
+        <rect x="178" y="233" width="24" height="68" rx="6" fill="url(#kSk)"/>
+        <ellipse cx="190" cy="207" rx="58" ry="64" fill="url(#kSk)"/>
+
+        <!-- HAIR — sleek dark, undercut style with teal streak -->
+        <ellipse cx="190" cy="153" rx="61" ry="36" fill="#061618"/>
+        <path d="M132 178 Q120 158 134 138 Q150 118 190 122 Q230 118 246 138 Q260 158 248 178" fill="#061618"/>
+        <!-- teal hair highlight -->
+        <path d="M170 136 Q184 128 200 132 Q208 134 200 140" stroke="#00f5d4" stroke-width="2.2" fill="none" opacity=".5" filter="url(#kNeonS)"/>
+        <!-- undercut side -->
+        <path d="M132 174 Q130 194 134 218" stroke="#061618" stroke-width="12" fill="none"/>
+
+        <!-- round glasses — cyber style -->
+        <line x1="132" y1="207" x2="162" y2="207" stroke="#00f5d4" stroke-width=".9" opacity=".7"/>
+        <line x1="218" y1="207" x2="248" y2="207" stroke="#00f5d4" stroke-width=".9" opacity=".7"/>
+        <line x1="196" y1="207" x2="184" y2="207" stroke="#00f5d4" stroke-width=".9" opacity=".7"/>
+        <circle cx="174" cy="207" r="13" stroke="#00f5d4" stroke-width="1.5" fill="rgba(0,245,212,.07)" filter="url(#kNeonS)"/>
+        <circle cx="208" cy="207" r="13" stroke="#00f5d4" stroke-width="1.5" fill="rgba(0,245,212,.07)" filter="url(#kNeonS)"/>
+        <!-- eyes behind glass -->
+        <ellipse cx="174" cy="207" rx="6.5" ry="6.5" fill="#0a1e1e"/>
+        <ellipse cx="208" cy="207" rx="6.5" ry="6.5" fill="#0a1e1e"/>
+        <ellipse cx="174" cy="207" rx="4"   ry="4"   fill="#00f5d4" opacity=".7" filter="url(#kNeonS)"/>
+        <ellipse cx="208" cy="207" rx="4"   ry="4"   fill="#00f5d4" opacity=".7" filter="url(#kNeonS)"/>
+        <ellipse cx="172" cy="205" rx="1.5" ry="1.5" fill="white" opacity=".9"/>
+        <ellipse cx="206" cy="205" rx="1.5" ry="1.5" fill="white" opacity=".9"/>
+        <!-- eyebrows -->
+        <path d="M164 192 Q174 186 184 190" stroke="#061618" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M196 190 Q206 186 216 192" stroke="#061618" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- nose / lips -->
+        <path d="M188 218 Q190 226 192 218" stroke="#a07050" stroke-width="1.4" fill="none"/>
+        <path d="M182 232 Q190 238 198 235" stroke="#885545" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+        <!-- ears -->
+        <ellipse cx="248" cy="208" rx="8" ry="11" fill="#d4906a"/>
+        <ellipse cx="132" cy="208" rx="8" ry="11" fill="#d4906a"/>
+
+        <!-- ── LEFT ARM — playing left end of keys ── -->
+        <path d="M116 344 Q72 376 52 430" stroke="url(#kSk)" stroke-width="25" fill="none" stroke-linecap="round"/>
+        <path d="M116 344 Q72 376 52 430" stroke="#0a1e1c" stroke-width="21" fill="none" stroke-linecap="round"/>
+        <path d="M75 400 Q62 416 52 430" stroke="url(#kSk)" stroke-width="19" fill="none" stroke-linecap="round"/>
+        <!-- hand -->
+        <ellipse cx="50" cy="436" rx="12" ry="9" fill="url(#kSk)"/>
+        <line x1="42" y1="432" x2="35" y2="444" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="47" y1="430" x2="42" y2="443" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="53" y1="430" x2="50" y2="443" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="59" y1="432" x2="58" y2="444" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- ── RIGHT ARM — playing right end of keys ── -->
+        <path d="M264 344 Q305 372 322 418" stroke="url(#kSk)" stroke-width="25" fill="none" stroke-linecap="round"/>
+        <path d="M264 344 Q305 372 322 418" stroke="#0a1e1c" stroke-width="21" fill="none" stroke-linecap="round"/>
+        <path d="M305 390 Q316 404 322 418" stroke="url(#kSk)" stroke-width="19" fill="none" stroke-linecap="round"/>
+        <!-- hand -->
+        <ellipse cx="324" cy="424" rx="12" ry="9" fill="url(#kSk)"/>
+        <line x1="316" y1="420" x2="310" y2="432" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="321" y1="418" x2="317" y2="431" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="327" y1="418" x2="325" y2="431" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="333" y1="420" x2="333" y2="432" stroke="#d4906a" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- playing motion lines -->
+        <g opacity=".45" filter="url(#kNeonS)">
+          <line x1="32" y1="434" x2="52"  y2="432" stroke="#00f5d4" stroke-width="2"   stroke-linecap="round"/>
+          <line x1="28" y1="448" x2="50"  y2="446" stroke="#00f5d4" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="318" y1="430" x2="338" y2="428" stroke="#00f5d4" stroke-width="2"   stroke-linecap="round"/>
+          <line x1="322" y1="444" x2="342" y2="442" stroke="#00f5d4" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <!-- END KEYBOARDIST CHARACTER -->
+
+    <!-- BIO CARD — KEYBOARDIST -->
+    <div class="biocard" id="bcr">
+      <div class="brtag"   id="J_rl2">KEYBOARDIST</div>
+      <div class="bname"   id="J_rn">RIYA S.</div>
+      <div class="btitle"  id="J_rt">Full-Stack / Systems Developer</div>
+      <div class="bslabel">Stack</div>
+      <div class="bstack"  id="J_rs"></div>
+      <div class="bslabel">Builds</div>
+      <div class="bbio"    id="J_rb">Crafts scalable systems, data pipelines and seamless backend architectures.</div>
+      <div class="bslabel">Favorite riff</div>
+      <div class="briff"   id="J_rr">Midnight City — M83</div>
+      <div class="bigline">
+        <svg class="bigico" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="6" stroke="#00f5d4" stroke-width="1.5"/>
+          <circle cx="12" cy="12" r="4" stroke="#00f5d4" stroke-width="1.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="#00f5d4"/>
+        </svg>
+        <a href="https://instagram.com/your_keyboardist_handle" target="_blank" id="J_rig">@riya.dev</a>
+      </div>
+    </div>
+
+    <!-- IG STICKER — KEYBOARDIST -->
+    <!-- EDIT: change href to real Instagram URL, change text to real handle -->
+    <a class="igstk" href="https://instagram.com/your_keyboardist_handle" target="_blank" id="J_rs2" aria-label="Instagram">
+      <div class="stkinner">
+        <svg class="stkico" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="6" stroke="#00f5d4" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4" stroke="#00f5d4" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="#00f5d4"/>
+        </svg>
+        <span class="stktxt" id="J_rih">@riya.dev</span>
+      </div>
+    </a>
+  </div>
+  <!-- END RIGHT PANEL -->
+
+</div><!-- END STAGE -->
+<script>
+/* ================================================================
+   OCTAVES.IN — CONCEPT 1 JAVASCRIPT
+   Sections: Config | DOM hydration | Interactions | Animations
+   ================================================================ */
+
+/* ── 1. LOAD CONFIG ─────────────────────────────────────────── */
+const CFG = JSON.parse(document.getElementById('CFG').textContent);
+
+/* ── 2. HYDRATE DOM FROM CONFIG ──────────────────────────────── */
+(function hydrate(){
+  const {site:S, left:L, right:R} = CFG;
+
+  // site
+  set('J_title', S.title); set('J_sub', S.subtitle);
+
+  // LEFT
+  set('J_ll',  L.label); set('J_ll2', L.label);
+  set('J_ln',  L.name);  set('J_lt',  L.role);
+  set('J_lb',  L.bio);   set('J_lr',  L.riff);
+  setHref('J_lig', L.ig_url); setTxt('J_lig', L.ig_handle);
+  setHref('J_ls2', L.ig_url); set('J_lih', L.ig_handle);
+  pills('J_ls', L.stack, 'pl');
+
+  // RIGHT
+  set('J_rl',  R.label); set('J_rl2', R.label);
+  set('J_rn',  R.name);  set('J_rt',  R.role);
+  set('J_rb',  R.bio);   set('J_rr',  R.riff);
+  setHref('J_rig', R.ig_url); setTxt('J_rig', R.ig_handle);
+  setHref('J_rs2', R.ig_url); set('J_rih', R.ig_handle);
+  pills('J_rs', R.stack, 'pr');
+
+  function set(id, val){ const el=document.getElementById(id); if(el) el.textContent=val; }
+  function setTxt(id, val){ const el=document.getElementById(id); if(el) el.textContent=val; }
+  function setHref(id, url){ const el=document.getElementById(id); if(el) el.href=url; }
+  function pills(containerId, arr, panelId){
+    const el=document.getElementById(containerId);
+    if(!el) return;
+    el.innerHTML = arr.map(s=>
+      `<span class="bpill">${s}</span>`
+    ).join('');
+  }
+})();
+
+/* ── 3. PANEL HOVER INTERACTION ──────────────────────────────── */
+const stage = document.getElementById('stage');
+const pl    = document.getElementById('pl');
+const pr    = document.getElementById('pr');
+
+function enter(cls){ stage.classList.add(cls); }
+function leave(cls){ stage.classList.remove(cls); }
+
+pl.addEventListener('mouseenter', ()=> enter('hl'));
+pl.addEventListener('mouseleave', ()=> leave('hl'));
+pr.addEventListener('mouseenter', ()=> enter('hr'));
+pr.addEventListener('mouseleave', ()=> leave('hr'));
+
+// Mobile — tap to toggle
+pl.addEventListener('click', e=>{
+  if(window.innerWidth > 768) return;
+  e.stopPropagation();
+  stage.classList.toggle('hl');
+  stage.classList.remove('hr');
+});
+pr.addEventListener('click', e=>{
+  if(window.innerWidth > 768) return;
+  e.stopPropagation();
+  stage.classList.toggle('hr');
+  stage.classList.remove('hl');
+});
+
+/* ── 4. CENTRAL DIVIDER — ANIMATED WAVEFORM ─────────────────── */
+(function animDiv(){
+  const dw1 = document.getElementById('dw1');
+  const dw2 = document.getElementById('dw2');
+  const dps  = document.querySelectorAll('#dp circle');
+  const H = 900, cx = 28;
+  let t = 0;
+
+  function path(offset, amp){
+    const steps = 64;
+    let d = `M ${cx} 0 `;
+    for(let i=1;i<=steps;i++){
+      const y = (i/steps)*H;
+      const x = cx
+        + Math.sin((i/steps)*Math.PI*9 + offset) * amp
+        + Math.sin((i/steps)*Math.PI*3.2 + offset*0.6) * (amp*0.45);
+      d += `L ${x.toFixed(2)} ${y.toFixed(2)} `;
+    }
+    return d;
+  }
+
+  function tick(){
+    t += 0.028;
+    dw1.setAttribute('d', path(t, 9));
+    dw2.setAttribute('d', path(t + Math.PI*0.35, 5.5));
+    dps.forEach((p,i)=>{
+      const by = [80,200,340,460,600,730][i];
+      const cy = by + Math.sin(t*1.4 + i*1.1)*5;
+      const bcx = cx + Math.sin(t*0.9 + i*0.8)*7;
+      p.setAttribute('cy', cy.toFixed(2));
+      p.setAttribute('cx', bcx.toFixed(2));
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ── 5. WAVEFORMS — LEFT & RIGHT AMBIENT ────────────────────── */
+(function ambientWaves(){
+  const wl  = document.getElementById('wl');
+  const wr  = document.getElementById('wr');
+  const cl  = '#ff3cac';
+  const cr  = '#00f5d4';
+
+  function resizeCanvas(c){
+    c.width  = c.offsetWidth  * window.devicePixelRatio;
+    c.height = c.offsetHeight * window.devicePixelRatio;
+  }
+  resizeCanvas(wl); resizeCanvas(wr);
+  window.addEventListener('resize',()=>{ resizeCanvas(wl); resizeCanvas(wr); });
+
+  let t = 0;
+  function drawWave(canvas, color, offset){
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0,0,W,H);
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth   = 2 * window.devicePixelRatio;
+    ctx.shadowColor = color;
+    ctx.shadowBlur  = 8;
+    ctx.lineCap     = 'round';
+    for(let i=0;i<=W;i++){
+      const x = i;
+      const y = H/2
+        + Math.sin((i/W)*Math.PI*5 + offset) * (H*0.35)
+        + Math.sin((i/W)*Math.PI*11 + offset*1.4) * (H*0.12);
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 0.35;
+    ctx.beginPath();
+    ctx.lineWidth = 1 * window.devicePixelRatio;
+    for(let i=0;i<=W;i++){
+      const x = i;
+      const y = H/2
+        + Math.sin((i/W)*Math.PI*8 + offset + Math.PI) * (H*0.22)
+        + Math.sin((i/W)*Math.PI*4  + offset*0.8) * (H*0.1);
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  function tick(){
+    t += 0.022;
+    drawWave(wl, cl, t);
+    drawWave(wr, cr, t + Math.PI);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ── 6. EQ BARS ──────────────────────────────────────────────── */
+function makeEQ(id, count){
+  const el = document.getElementById(id);
+  for(let i=0;i<count;i++){
+    const b = document.createElement('div');
+    b.className = 'eqbar';
+    const from = .12 + Math.random()*.35;
+    const to   = .5  + Math.random()*.8;
+    const dur  = (.4 + Math.random()*.55) + 's';
+    const delay= (Math.random()*.65) + 's';
+    b.style.cssText = `height:70px;--a:${from};--b:${to};--dur:${dur};animation-delay:${delay};transform-origin:bottom`;
+    el.appendChild(b);
+  }
+}
+makeEQ('eql', 20);
+makeEQ('eqr', 20);
+
+/* ── 7. MUSIC SYMBOLS ────────────────────────────────────────── */
+function spawnSymbols(id, color){
+  const el   = document.getElementById(id);
+  const syms = ['♩','♪','♫','♬','♭','♮','♯','𝄞','◈','⬡'];
+  for(let i=0;i<12;i++){
+    const s   = document.createElement('span');
+    s.textContent = syms[Math.floor(Math.random()*syms.length)];
+    const left = 4 + Math.random()*92;
+    const dur  = 9 + Math.random()*16;
+    const delay= -Math.random()*dur;
+    const sz   = .55 + Math.random()*.85;
+    s.style.cssText = `left:${left}%;bottom:-8%;font-size:${sz}rem;color:${color};animation-duration:${dur}s;animation-delay:${delay}s`;
+    el.appendChild(s);
+  }
+}
+spawnSymbols('msl', CFG.left.accent);
+spawnSymbols('msr', CFG.right.accent);
+
+/* ── 8. PARTICLE CANVAS ──────────────────────────────────────── */
+(function particles(){
+  const cv  = document.getElementById('pcanvas');
+  const ctx = cv.getContext('2d');
+  let W, H, pts;
+
+  function resize(){
+    W = cv.width  = window.innerWidth;
+    H = cv.height = window.innerHeight;
+  }
+
+  class Pt {
+    constructor(){ this.reset(true); }
+    reset(init){
+      this.x  = Math.random() * W;
+      this.y  = init ? Math.random() * H : H + 8;
+      this.vx = (Math.random()-.5) * .25;
+      this.vy = -(0.18 + Math.random()*.55);
+      this.r  = .4 + Math.random()*1.4;
+      this.lf = 0;
+      this.ml = 180 + Math.random()*300;
+      this.lc = Math.random() < .5 ? 'rgba(255,60,172,' : 'rgba(0,245,212,';
+    }
+    tick(){
+      this.x += this.vx + Math.sin(this.lf*.018)*.12;
+      this.y += this.vy;
+      this.lf++;
+      if(this.y < -8 || this.lf > this.ml) this.reset(false);
+    }
+    draw(){
+      const a = Math.sin((this.lf/this.ml)*Math.PI) * .5;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+      ctx.fillStyle = this.lc + a + ')';
+      ctx.fill();
+    }
+  }
+
+  resize();
+  pts = Array.from({length:75}, ()=>new Pt());
+  window.addEventListener('resize', resize);
+
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{ p.tick(); p.draw(); });
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ── 9. PARALLAX — mouse movement ────────────────────────────── */
+(function parallax(){
+  let mx=0, my=0, cx=0, cy=0;
+  const cwl = document.getElementById('cwl');
+  const cwr = document.getElementById('cwr');
+
+  document.addEventListener('mousemove', e=>{
+    mx = (e.clientX/window.innerWidth  - .5) * 2;
+    my = (e.clientY/window.innerHeight - .5) * 2;
+  });
+
+  function tick(){
+    cx += (mx-cx)*.038;
+    cy += (my-cy)*.038;
+    if(cwl) cwl.style.transform = `translateX(${cx*7}px) translateY(${cy*3}px)`;
+    if(cwr) cwr.style.transform = `translateX(${-cx*7}px) translateY(${cy*3}px)`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ── 10. IDLE SWAY ANIMATION ─────────────────────────────────── */
+(function idleSway(){
+  const gs = document.getElementById('guitarist-art');
+  const ks = document.getElementById('keyboardist-art');
+  let t = 0;
+
+  function tick(){
+    t += 0.01;
+    const sg = Math.sin(t) * 1.6;
+    const sk = Math.sin(t + 1.2) * 1.1;
+    if(gs) gs.style.transform = `rotate(${sg}deg) translateY(${Math.sin(t*1.4)*2.5}px)`;
+    if(ks) ks.style.transform = `scaleX(-1) rotate(${-sk}deg) translateY(${Math.sin(t*1.4+.6)*2.5}px)`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body>
+</html>

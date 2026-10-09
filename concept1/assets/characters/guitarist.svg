@@ -1,0 +1,16 @@
+﻿<!-- ================================================================
+     GUITARIST CHARACTER PLACEHOLDER
+     REPLACE THIS FILE with your final guitarist illustration.
+     
+     Requirements:
+     - Face toward the right (toward center stage)
+     - Full body with electric/acoustic guitar
+     - Flat/cel-shaded style preferred
+     - Recommended viewBox: 0 0 380 760
+     - Use scaleX(-1) on the keyboardist to mirror toward center
+     ================================================================ -->
+<svg viewBox="0 0 380 760" xmlns="http://www.w3.org/2000/svg">
+  <rect width="380" height="760" fill="rgba(255,60,172,0.05)" rx="8"/>
+  <text x="190" y="360" text-anchor="middle" font-family="monospace" font-size="14" fill="rgba(255,60,172,0.5)">GUITARIST</text>
+  <text x="190" y="390" text-anchor="middle" font-family="monospace" font-size="10" fill="rgba(255,255,255,0.3)">REPLACE WITH FINAL ART</text>
+</svg>

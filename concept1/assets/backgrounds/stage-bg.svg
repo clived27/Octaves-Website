@@ -1,0 +1,17 @@
+﻿<!-- ================================================================
+     STAGE BACKGROUND PLACEHOLDER
+     Currently the background is pure CSS gradients in index.html.
+     To use a custom background image:
+     1. Drop your image here (PNG/JPG/SVG)
+     2. In index.html, add to .pbg CSS:
+        background-image: url('../assets/backgrounds/stage-bg.png');
+        background-size: cover;
+        background-position: center bottom;
+     ================================================================ -->
+<svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="b"><stop offset="0%" stop-color="#1a0535"/><stop offset="100%" stop-color="#07080f"/></radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#b)"/>
+  <text x="960" y="540" text-anchor="middle" font-family="monospace" font-size="24" fill="rgba(255,255,255,0.1)">STAGE BACKGROUND — REPLACE WITH FINAL ART</text>
+</svg>
