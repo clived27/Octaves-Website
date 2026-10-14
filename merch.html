@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="/octaves.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
     * {
@@ -20,22 +20,56 @@
     }
 
     html, body {
+      height: 100%;
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
       background: #0a0a08;
-      min-height: 100vh;
       color: #f0ebe0;
+      font-family: var(--ff-sans);
     }
 
-    /* ── Fixed top header wrapper ── */
+    /* ── Fullscreen Video Backdrop ── */
+    .merch-backdrop-wrap {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .merch-backdrop-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.35; /* 30-40% opacity backdrop */
+      filter: brightness(0.95) contrast(1.15);
+    }
+
+    .merch-backdrop-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(10, 10, 8, 0.35) 0%, rgba(10, 10, 8, 0.85) 100%),
+        linear-gradient(to bottom, rgba(10, 10, 8, 0.6) 0%, rgba(10, 10, 8, 0.25) 45%, rgba(10, 10, 8, 0.75) 100%);
+      pointer-events: none;
+    }
+
+    /* ── Top Header Wrapper ── */
     .merch-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.9rem clamp(1.25rem, 5vw, 2.5rem);
-      background: rgba(10, 10, 8, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: background 0.35s, border-color 0.35s;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 0.65rem clamp(1.25rem, 5vw, 2.5rem);
+      background: rgba(10, 10, 8, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .merch-nav-logo {
@@ -50,132 +84,234 @@
     .merch-nav-logo:hover { opacity: 0.75; }
 
     .merch-nav-logo img {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .merch-nav-logo span {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 500;
       letter-spacing: 0.15em;
     }
 
-    /* ── Merch content layout ── */
-    .merch-body {
-      padding-top: 100px;
-      min-height: 100vh;
+    /* ── Main Single-Page Viewport Container (No Scroll) ── */
+    .merch-stage {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      padding-bottom: 5rem;
+      padding-top: 86px; /* accommodates top marquee + nav */
+      padding-bottom: clamp(0.75rem, 2vh, 1.4rem);
+      padding-inline: clamp(1rem, 4vw, 2.5rem);
+      box-sizing: border-box;
     }
 
-    /* ── Video showcase ── */
-    .merch-video-wrap {
+    /* ── Top Typography ── */
+    .merch-header-block {
+      text-align: center;
+      margin-top: clamp(0.2rem, 1vh, 0.6rem);
+      margin-bottom: clamp(0.25rem, 1vh, 0.6rem);
+    }
+
+    .merch-eyebrow {
+      font-family: var(--ff-sans);
+      font-size: clamp(0.62rem, 1.2vw, 0.75rem);
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #e50914;
+      text-shadow: 0 0 12px rgba(229, 9, 20, 0.55);
+      margin-bottom: 0.2rem;
+    }
+
+    .merch-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.6rem, 3.8vw, 2.7rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+      margin: 0;
+    }
+
+    .merch-title em {
+      font-style: italic;
+      color: #ff3b47;
+    }
+
+    .merch-subtitle {
+      font-size: clamp(0.72rem, 1.3vw, 0.85rem);
+      color: rgba(240, 235, 224, 0.75);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* ── Side-by-Side Images in Smaller Size ── */
+    .merch-duo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.75rem, 2.5vw, 1.8rem);
       width: 100%;
       max-width: 900px;
-      margin: 0 auto clamp(1.5rem, 3.5vw, 2.5rem);
-      padding: 0 clamp(1rem, 5vw, 2rem);
+      flex: 1;
+      min-height: 0; /* allows flex children to scale down */
+      padding: clamp(0.2rem, 1vh, 0.8rem) 0;
+    }
+
+    .merch-card {
+      flex: 1;
+      max-width: 380px;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
-    }
-
-    .merch-video-card {
-      width: 100%;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(168, 85, 247, 0.35);
-      box-shadow: 0 16px 50px rgba(0,0,0,0.8), 0 0 35px rgba(168, 85, 247, 0.2);
-      background: #000;
-    }
-
-    .merch-video {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-height: 78vh;
-      object-fit: contain;
-      background: #000;
-    }
-
-    /* ── Buy CTA button ── */
-    .merch-actions-row {
-      display: flex;
       justify-content: center;
-      width: 100%;
+      position: relative;
+      border-radius: 12px;
+      background: rgba(14, 12, 16, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(229, 9, 20, 0.25);
+      padding: clamp(0.4rem, 1.2vh, 0.8rem);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(229, 9, 20, 0.12);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
     }
 
-    .merch-buy-btn {
+    .merch-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(229, 9, 20, 0.6);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.85), 0 0 26px rgba(229, 9, 20, 0.28);
+    }
+
+    .merch-card img {
+      width: 100%;
+      height: 100%;
+      max-height: clamp(170px, 44vh, 390px);
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.65));
+      border-radius: 8px;
+    }
+
+    /* ── Buy CTA Block (Matching Merch Red) ── */
+    .merch-bottom-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: clamp(0.2rem, 1vh, 0.5rem);
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .merch-red-buy-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
-      padding: 1rem 2.5rem;
+      width: auto;
+      min-width: min(100%, 360px);
+      padding: clamp(0.68rem, 1.4vh, 0.9rem) clamp(1.4rem, 3.5vw, 2.2rem);
       border-radius: 6px;
-      background: linear-gradient(135deg, #9333ea 0%, #6366f1 50%, #3b82f6 100%);
+      background: linear-gradient(135deg, #e50914 0%, #b80d16 50%, #800005 100%);
+      border: 1px solid rgba(255, 75, 75, 0.5);
       color: #ffffff;
       font-family: var(--ff-sans);
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: clamp(0.82rem, 1.5vw, 0.94rem);
+      font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       text-decoration: none;
-      box-shadow: 0 6px 28px rgba(147, 51, 234, 0.45);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      box-shadow: 0 4px 22px rgba(229, 9, 20, 0.55), 0 0 12px rgba(229, 9, 20, 0.35);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+      cursor: pointer;
     }
 
-    .merch-buy-btn:hover {
+    .merch-red-buy-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 36px rgba(147, 51, 234, 0.7);
-      background: linear-gradient(135deg, #a855f7 0%, #818cf8 50%, #60a5fa 100%);
+      background: linear-gradient(135deg, #ff1a24 0%, #d6111b 50%, #9e030a 100%);
+      box-shadow: 0 6px 30px rgba(229, 9, 20, 0.8), 0 0 18px rgba(229, 9, 20, 0.5);
       color: #ffffff;
     }
 
-    /* ── Poster image ── */
-    .merch-image-wrap {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 clamp(1rem, 5vw, 2rem);
+    .merch-red-buy-btn svg {
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
     }
 
-    .merch-image-wrap img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 16px 50px rgba(0,0,0,0.7);
+    .merch-red-buy-btn:hover svg {
+      transform: translateX(3px);
     }
 
+    .merch-price-pill {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .merch-disclaimer {
+      font-size: clamp(0.62rem, 1vw, 0.72rem);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(240, 235, 224, 0.55);
+      text-align: center;
+    }
+
+    /* ── Mobile Viewport Tuning ── */
     @media (max-width: 600px) {
-      .merch-body {
-        padding-top: 92px;
+      .merch-stage {
+        padding-top: 78px;
+        padding-bottom: 0.8rem;
+        padding-inline: 0.65rem;
       }
-      .merch-video-wrap,
-      .merch-image-wrap {
-        padding: 0 0.75rem;
+      .merch-duo-container {
+        gap: 0.5rem;
+        padding: 0.2rem 0;
       }
-      .merch-video-card,
-      .merch-image-wrap img {
+      .merch-card {
+        padding: 0.35rem;
         border-radius: 8px;
       }
-      .merch-buy-btn {
+      .merch-card img {
+        max-height: clamp(150px, 38vh, 250px);
+      }
+      .merch-red-buy-btn {
         width: 100%;
-        padding: 0.95rem 1.25rem;
-        font-size: 0.82rem;
+        min-width: 0;
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+        gap: 0.45rem;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- Fullscreen Video Backdrop with 30-40% Opacity -->
+  <div class="merch-backdrop-wrap" aria-hidden="true">
+    <video class="merch-backdrop-video" autoplay muted loop playsinline poster="Merch Image.png">
+      <source src="sonora merc2.mov" type="video/quicktime" />
+      <source src="sonora merc2.mov" type="video/mp4" />
+      <source src="sonor merc2.mov" type="video/quicktime" />
+      <source src="sonor merc2.mov" type="video/mp4" />
+    </video>
+    <div class="merch-backdrop-overlay"></div>
+  </div>
 
   <!-- Top Announcement Marquee + Fixed Nav -->
   <header class="page-top-header" id="merch-header-wrap">
@@ -229,31 +365,34 @@
     </nav>
   </aside>
 
-  <!-- Merch Body Content -->
-  <main class="merch-body">
+  <!-- Single-Page Main Stage (No Scrolling) -->
+  <main class="merch-stage">
 
-    <!-- Merch Video Showcase -->
-    <div class="merch-video-wrap">
-      <div class="merch-video-card">
-        <video class="merch-video" autoplay muted loop playsinline controls poster="Merch Image.png">
-          <source src="sonora merc2.mov" type="video/quicktime" />
-          <source src="sonora merc2.mov" type="video/mp4" />
-          <source src="sonor merc2.mov" type="video/quicktime" />
-          <source src="sonor merc2.mov" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+    <!-- Header Block -->
+    <div class="merch-header-block">
+      <p class="merch-eyebrow">Born Loud. Stay Loud.</p>
+      <h1 class="merch-title">Octaves <em>Merch '26</em></h1>
+      <p class="merch-subtitle">2 Designs &middot; 1 Octaves &middot; Limited Edition</p>
+    </div>
+
+    <!-- Side-by-Side Smaller Images -->
+    <div class="merch-duo-container">
+      <div class="merch-card">
+        <img src="merch1.webp" alt="Octaves Merch 26 Design 1" />
       </div>
-      <div class="merch-actions-row">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScvLRctGAHlEwO6noaM_oc3AEpRT7edhAxPmbMqt0yxPuJftw/viewform?usp=header&utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="merch-buy-btn">
-          <span>BUY OCTAVES MERCH NOW</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+      <div class="merch-card">
+        <img src="merch2.webp" alt="Octaves Merch 26 Design 2" />
       </div>
     </div>
 
-    <!-- Merch Poster Image -->
-    <div class="merch-image-wrap">
-      <img src="Merch Image.png" alt="Octaves Merch '26 - 2 Designs. 1 Octaves." />
+    <!-- Red Buy CTA Block -->
+    <div class="merch-bottom-block">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScvLRctGAHlEwO6noaM_oc3AEpRT7edhAxPmbMqt0yxPuJftw/viewform?usp=header&utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener noreferrer" class="merch-red-buy-btn" id="merch-buy-btn">
+        <span>GRAB YOURS NOW</span>
+        <span class="merch-price-pill">&#8377;399/-</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <p class="merch-disclaimer">Scan the QR or fill out the official order form</p>
     </div>
 
   </main>
