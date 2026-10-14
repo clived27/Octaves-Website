@@ -172,7 +172,8 @@
     .merch-card {
       flex: 1;
       max-width: 380px;
-      height: 100%;
+      height: auto;
+      max-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -183,7 +184,7 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(229, 9, 20, 0.25);
-      padding: clamp(0.4rem, 1.2vh, 0.8rem);
+      padding: clamp(0.5rem, 1.2vh, 0.9rem);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(229, 9, 20, 0.12);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
     }
@@ -195,9 +196,11 @@
     }
 
     .merch-card img {
-      width: 100%;
-      height: 100%;
-      max-height: clamp(170px, 44vh, 390px);
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: clamp(190px, 46vh, 420px);
+      aspect-ratio: auto;
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 8px 16px rgba(0,0,0,0.65));
@@ -272,30 +275,68 @@
       text-align: center;
     }
 
-    /* ── Mobile Viewport Tuning ── */
-    @media (max-width: 600px) {
+    /* ── Phone / Mobile Viewport: Stacked Photos then Buy Button ── */
+    @media (max-width: 768px) {
+      html, body {
+        height: auto !important;
+        max-height: none !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+      }
+
       .merch-stage {
-        padding-top: 96px;
-        padding-bottom: 0.8rem;
-        padding-inline: 0.65rem;
+        height: auto !important;
+        min-height: 100vh;
+        justify-content: flex-start;
+        padding-top: 104px;
+        padding-bottom: 3rem;
+        padding-inline: 1rem;
+        gap: 1.5rem;
       }
+
+      .merch-header-block {
+        margin-top: 0.5rem;
+        margin-bottom: 0.2rem;
+      }
+
       .merch-duo-container {
-        gap: 0.5rem;
-        padding: 0.2rem 0;
+        flex-direction: column; /* stacked one below the other on phone */
+        width: 100%;
+        max-width: 420px;
+        gap: 1.4rem;
+        flex: none;
+        padding: 0;
       }
+
       .merch-card {
-        padding: 0.35rem;
-        border-radius: 8px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 0.75rem;
+        border-radius: 12px;
       }
+
       .merch-card img {
-        max-height: clamp(150px, 38vh, 250px);
+        width: 100%;
+        height: auto;
+        max-height: none;
+        aspect-ratio: auto;
+        object-fit: contain;
+        display: block;
       }
+
+      .merch-bottom-block {
+        margin-top: 0.6rem;
+        width: 100%;
+        max-width: 420px;
+      }
+
       .merch-red-buy-btn {
         width: 100%;
         min-width: 0;
-        padding: 0.75rem 1rem;
-        font-size: 0.8rem;
-        gap: 0.45rem;
+        padding: 0.95rem 1.4rem;
+        font-size: 0.88rem;
+        gap: 0.6rem;
       }
     }
   </style>
