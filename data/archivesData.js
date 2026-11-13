@@ -13,7 +13,7 @@ var ARCHIVES_EVENTS = [
     name: "Euphoria",
     type: "single",
     dataKey: "euphoria_2026",
-    thumbnail: "images/card_gigvault.jpg",
+    thumbnail: "images/euphoria_thumb.jpg",
     year: "2026",
     description: "The annual flagship concert"
   },
@@ -32,7 +32,7 @@ var ARCHIVES_EVENTS = [
     id: "cultnite",
     name: "Cultnite",
     type: "multi",
-    thumbnail: "images/card_gallery.jpg",
+    thumbnail: "images/cultnite_thumb.jpg",
     description: "Cultural night extravaganza",
     years: [
       { label: "2025", dataKey: "cultnite_2025", comingSoon: false },
@@ -44,7 +44,7 @@ var ARCHIVES_EVENTS = [
     name: "Independence Day",
     type: "single",
     dataKey: "independence_day_2026",
-    thumbnail: "images/on-air.jpg",
+    thumbnail: "images/independece_thumb.jpg",
     year: "2026",
     description: "Goonj-e-Azadi — Patriotic musical tribute"
   },
@@ -62,7 +62,7 @@ var ARCHIVES_EVENTS = [
     name: "Republic Day",
     type: "single",
     dataKey: "republic_day_2026",
-    thumbnail: "images/vinyl.jpg",
+    thumbnail: "images/republic_thumb.jpg",
     year: "2026",
     description: "Patriotic celebration & live performances"
   }
