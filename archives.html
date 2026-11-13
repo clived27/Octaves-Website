@@ -95,20 +95,18 @@
       padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 7rem);
     }
 
-    /* Responsive grid: 1 → 2 → 3 → 4 columns */
+    /* Responsive grid: 2-col on desktop → 1-col on mobile */
     .arc-event-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.1rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
     }
-    @media (max-width: 1100px) { .arc-event-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 720px)  { .arc-event-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 440px)  { .arc-event-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .arc-event-grid { grid-template-columns: 1fr; } }
 
-    /* ── Event Card ── */
+    /* ── Event Card — wide horizontal rectangle ── */
     .arc-event-card {
       position: relative;
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 16 / 7;
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.08);
@@ -120,12 +118,12 @@
         box-shadow   0.38s ease;
     }
     .arc-event-card:hover {
-      transform: translateY(-7px);
+      transform: translateY(-6px);
       border-color: rgba(201,169,110,0.5);
       box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 28px rgba(201,169,110,0.1);
     }
-    @media (max-width: 720px) {
-      .arc-event-card { aspect-ratio: 4 / 3; }
+    @media (max-width: 600px) {
+      .arc-event-card { aspect-ratio: 16 / 9; }
     }
 
     /* Background image */
