@@ -21,7 +21,7 @@ var ARCHIVES_EVENTS = [
     id: "freshers",
     name: "Freshers",
     type: "multi",
-    thumbnail: "images/card_roster.png",
+    thumbnail: "images/freshers_thumb.jpg",
     description: "Welcome performances for the new batch",
     years: [
       { label: "2025", dataKey: "freshers_2025", comingSoon: false },
